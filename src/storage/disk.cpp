@@ -56,6 +56,7 @@ void Disk::RemoveFile(const std::string &path) { std::filesystem::remove(path); 
 void Disk::OpenFile(const std::string &path) {
   hashmap_[path] = std::fstream(path, std::fstream::in | std::fstream::out);
   if (!hashmap_[path]) {
+    std::cout << "文件不存在" << std::endl;
     throw DbException("file " + path + " does not exist");
   }
 }
@@ -63,11 +64,13 @@ void Disk::OpenFile(const std::string &path) {
 void Disk::CloseFile(const std::string &path) { hashmap_.erase(path); }
 
 void Disk::ReadPage(const std::string &path, pageid_t page_id, char *data) {
+  printf("读取文件");
   if (GetOid(path).first != SYSTEM_DATABASE_OID) {
     access_count_++;
   }
   if (hashmap_.count(path) == 0) {
     OpenFile(path);
+
   }
   auto &fs = hashmap_[path];
   fs.seekg(page_id * DB_PAGE_SIZE);

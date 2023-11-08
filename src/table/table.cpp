@@ -1,7 +1,7 @@
 #include "table/table.h"
 
 #include "table/table_page.h"
-
+#include "iostream"
 namespace huadb {
 
 Table::Table(BufferPool &buffer_pool, LogManager &log_manager, oid_t oid, oid_t db_oid, ColumnList column_list,
@@ -21,13 +21,16 @@ Table::Table(BufferPool &buffer_pool, LogManager &log_manager, oid_t oid, oid_t 
     }
   }
   first_page_id_ = 0;
+  current_page_id_ = 0;
 }
 
 Rid Table::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid, bool write_log) {
+  
   if (record->GetSize() > MAX_RECORD_SIZE) {
+    printf("异常");
     throw DbException("Record size too large: " + std::to_string(record->GetSize()));
   }
-
+  printf("table的插入\n");
   // 当 write_log 参数为 true 时开启写日志功能
   // 在插入记录时增加写 InsertLog 过程
   // 在创建新的页面时增加写 NewPageLog 过程
@@ -40,6 +43,25 @@ Rid Table::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid, bo
   // 创建新页面时需设置当前页面的 next_page_id，并将新页面初始化
   // 找到空间足够的页面后，通过 TablePage 插入记录
   // LAB 1 BEGIN
+  auto next_page_id = first_page_id_;
+  auto target_page = std::make_unique<TablePage>(buffer_pool_.GetPage(GetDbOid(), GetOid(), first_page_id_));
+  std::cout << "1111" << std::endl;
+  while (target_page->GetFreeSpaceSize() == 0 && next_page_id != NULL_PAGE_ID) {
+    printf("页没空位\n");
+    next_page_id = target_page->GetNextPageId();
+    if (next_page_id != NULL_PAGE_ID) {
+      target_page = std::make_unique<TablePage>(buffer_pool_.GetPage(GetDbOid(), GetOid(), next_page_id));
+    }
+  }
+  // std::cout << "ea1111" << std::endl;
+  // 如果找不到空位，需要创建新的page
+  if (target_page->GetFreeSpaceSize() == 0) {
+    printf("创建新页\n");
+    target_page = std::make_unique<TablePage>(buffer_pool_.NewPage(db_oid_, oid_, ++current_page_id_));
+    target_page->Init();
+  }
+  std::cout << "ea1111" << std::endl;
+  target_page->InsertRecord(record, xid, cid);
   return {0, 0};
 }
 

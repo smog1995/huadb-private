@@ -1,5 +1,5 @@
 #include "storage/buffer_pool.h"
-
+#include "iostream"
 #include "common/constants.h"
 #include "common/exceptions.h"
 #include "log/log_manager.h"
@@ -19,6 +19,7 @@ std::shared_ptr<Page> BufferPool::GetPage(oid_t db_oid, oid_t table_oid, pageid_
   auto entry = hashmap.find({table_oid, page_id});
   if (entry == hashmap.end()) {
     auto page = std::make_shared<Page>();
+    std::cout << Disk::GetFilePath(db_oid, table_oid) << "读取文件" << std::endl;
     disk_.ReadPage(Disk::GetFilePath(db_oid, table_oid), page_id, page->GetData());
     AddToBuffer(db_oid, table_oid, page_id, page);
     return page;

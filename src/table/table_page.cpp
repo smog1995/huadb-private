@@ -1,5 +1,6 @@
 #include "table/table_page.h"
-
+#include "cstring"
+#include "iostream"
 namespace huadb {
 
 TablePage::TablePage(std::shared_ptr<Page> page) : page_(page) {
@@ -26,6 +27,7 @@ void TablePage::Init() {
 }
 
 slotid_t TablePage::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid) {
+  std::cout << "tablepageinsert" << std::endl;
   // 在记录头添加事务信息（xid 和 cid）
   // LAB 3 BEGIN
 
@@ -34,6 +36,16 @@ slotid_t TablePage::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_
   // 将 record 写入 page data
   // 将 page 标记为 dirty
   // LAB 1 BEGIN
+  page_->SetDirty();
+  
+  db_size_t record_size = record->SerializeTo((char*)( *upper_ - record->GetSize())); //  写入record
+  std::cout << "record->serial" << std::endl;
+  *upper_ -= record->GetSize();
+  memcpy(reinterpret_cast<char*>(*lower_), upper_, sizeof(db_size_t));  // 将记录偏移量写入
+  // printf("test:%s",lower_);
+  memcpy(reinterpret_cast<char*>(*lower_ + 2), &record_size, sizeof(db_size_t));  //  将记录大小写入
+
+  *lower_ += 4; //  slot大小
   return 0;
 }
 
