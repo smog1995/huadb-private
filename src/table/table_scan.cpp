@@ -9,6 +9,7 @@ namespace huadb {
 TableScan::TableScan(BufferPool &buffer_pool, std::shared_ptr<Table> table, Rid rid)
     : buffer_pool_(buffer_pool), table_(std::move(table)), rid_(rid) {
       current_table_page_ = std::make_unique<TablePage>(buffer_pool_.GetPage(table_->GetDbOid(), table_->GetOid(), table_->GetFirstPageId()));
+      current_table_page_id_ = table_->GetFirstPageId();
     }
 
 std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isolation_level, cid_t cid,
@@ -21,32 +22,37 @@ std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isola
   // 扫描结束时，返回空指针
   // LAB 1 BEGIN
 
-  //  空表或者读到最后一个记录时
   if (current_table_page_->GetRecordCount() == 0 || rid_.slot_id_ >= current_table_page_->GetRecordCount()) {  
-    
     if (current_table_page_->GetNextPageId() != NULL_PAGE_ID) {
-      current_table_page_ = std::make_unique<TablePage>(buffer_pool_.GetPage(table_->GetDbOid(), table_->GetOid(), current_table_page_->GetNextPageId()));
+      rid_.page_id_ = current_table_page_->GetNextPageId();
       rid_.slot_id_ = 0;
+      current_table_page_ = std::make_unique<TablePage>(buffer_pool_.GetPage(table_->GetDbOid(), table_->GetOid(), rid_.page_id_));
     } else {  //  读取结束
-      std::cout << "读取结束" << std::endl;
       return nullptr;
     }
   }
-  bool is_deleted = current_table_page_->GetRecord(rid_.slot_id_, table_->GetColumnList())->IsDeleted();
+  auto current_record = current_table_page_->GetRecord(rid_.slot_id_, table_->GetColumnList());
+  bool is_deleted = current_record->IsDeleted();
   while (is_deleted) {
     rid_.slot_id_++;
     if (rid_.slot_id_ >= current_table_page_->GetRecordCount()) {
       if (current_table_page_->GetNextPageId() != NULL_PAGE_ID) {
-        current_table_page_ = std::make_unique<TablePage>(buffer_pool_.GetPage(table_->GetDbOid(), table_->GetOid(), current_table_page_->GetNextPageId()));
+        rid_.page_id_ = current_table_page_->GetNextPageId();
+        current_table_page_ = std::make_unique<TablePage>(buffer_pool_.GetPage(table_->GetDbOid(), table_->GetOid(), rid_.page_id_));
         rid_.slot_id_ = 0;
       } else {  //  读取结束
-        std::cout << "读取结束" << std::endl;
         return nullptr;
       }
     }
-    is_deleted = current_table_page_->GetRecord(rid_.slot_id_, table_->GetColumnList())->IsDeleted();
+    current_record = current_table_page_->GetRecord(rid_.slot_id_, table_->GetColumnList());
+    is_deleted = current_record->IsDeleted();
   }
-  Record record(current_table_page_->GetRecord(rid_.slot_id_++, table_->GetColumnList())->GetValues());
+  if (is_deleted) {
+    return nullptr;
+  }
+  Record record(*current_record);
+  record.SetRid(rid_);
+  rid_.slot_id_++;
   return std::make_shared<Record>(record);
 }
 

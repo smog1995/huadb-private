@@ -25,6 +25,7 @@ class TableScan {
   std::shared_ptr<Table> table_;
   Rid rid_;  // 当前扫描到的记录的 rid
   std::unique_ptr<TablePage> current_table_page_;
+  pageid_t current_table_page_id_;
 
 };
 

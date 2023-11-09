@@ -54,7 +54,6 @@ class TablePage {
   void SetNextPageId(pageid_t page_id);
   // Lab 2: 设置 page lsn
   void SetPageLSN(lsn_t page_lsn);
- void SetPageId(pageid_t page_id);
  private:
   std::shared_ptr<Page> page_;
   char *page_data_;
@@ -63,7 +62,7 @@ class TablePage {
   db_size_t *lower_;        // 页面 lower 指针
   db_size_t *upper_;        // 页面 upper 指针
   Slot *slots_;             // 槽位数组
-  pageid_t page_id_;  //   连pageid都没就太离谱了
+  // pageid_t page_id_;  //   连pageid都没就太离谱了
 };
 
 }  // namespace huadb

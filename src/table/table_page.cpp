@@ -26,9 +26,7 @@ void TablePage::Init() {
   *upper_ = DB_PAGE_SIZE;
   page_->SetDirty();
 }
-void TablePage::SetPageId(pageid_t page_id) {
-  page_id_ = page_id;
-}
+
 
 slotid_t TablePage::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid) {
   // std::cout << "tablepageinsert" << std::endl;
@@ -40,8 +38,7 @@ slotid_t TablePage::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_
   // 将 record 写入 page data
   // 将 page 标记为 dirty
   // LAB 1 BEGIN
-  page_->SetDirty();
-  record->SetRid({page_id_, GetRecordCount()});  
+  page_->SetDirty(); 
   db_size_t record_size = record->SerializeTo(page_data_ + *upper_ - record->GetSize()); //  写入record
   *upper_ -= record->GetSize();
   memcpy(page_data_ + *lower_, upper_, sizeof(db_size_t));  // 将记录偏移量写入
@@ -59,7 +56,6 @@ void TablePage::DeleteRecord(slotid_t slot_id, xid_t xid) {
   // LAB 1 BEGIN
   page_->SetDirty();
   Slot slot = slots_[slot_id]; 
-  std::cout << "slot:" << slot_id << " " << slot.offset_<<std::endl;
   bool deleted = true;
   memcpy(page_data_ + slot.offset_, &deleted, sizeof(bool));
 }
@@ -67,7 +63,6 @@ void TablePage::DeleteRecord(slotid_t slot_id, xid_t xid) {
 std::unique_ptr<Record> TablePage::GetRecord(slotid_t slot_id, const ColumnList &column_list) {
   // 根据 slot_id 获取 record
   // LAB 1 BEGIN
-  
   Slot slot = slots_[slot_id];
   Record record;
   record.DeserializeFrom(page_data_ + slot.offset_, column_list);
