@@ -1,11 +1,15 @@
 #include "table/table_scan.h"
-
+#include <memory>
+#include "iostream"
+#include "common/constants.h"
 #include "table/table_page.h"
 
 namespace huadb {
 
 TableScan::TableScan(BufferPool &buffer_pool, std::shared_ptr<Table> table, Rid rid)
-    : buffer_pool_(buffer_pool), table_(std::move(table)), rid_(rid) {}
+    : buffer_pool_(buffer_pool), table_(std::move(table)), rid_(rid) {
+      current_table_page_ = std::make_unique<TablePage>(buffer_pool_.GetPage(table_->GetDbOid(), table_->GetOid(), table_->GetFirstPageId()));
+    }
 
 std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isolation_level, cid_t cid,
                                                  const std::unordered_set<xid_t> &active_xids) {
@@ -16,7 +20,34 @@ std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isola
   // 读取时更新 rid_ 变量，避免重复读取
   // 扫描结束时，返回空指针
   // LAB 1 BEGIN
-  return nullptr;
+
+  //  空表或者读到最后一个记录时
+  if (current_table_page_->GetRecordCount() == 0 || rid_.slot_id_ >= current_table_page_->GetRecordCount()) {  
+    
+    if (current_table_page_->GetNextPageId() != NULL_PAGE_ID) {
+      current_table_page_ = std::make_unique<TablePage>(buffer_pool_.GetPage(table_->GetDbOid(), table_->GetOid(), current_table_page_->GetNextPageId()));
+      rid_.slot_id_ = 0;
+    } else {  //  读取结束
+      std::cout << "读取结束" << std::endl;
+      return nullptr;
+    }
+  }
+  bool is_deleted = current_table_page_->GetRecord(rid_.slot_id_, table_->GetColumnList())->IsDeleted();
+  while (is_deleted) {
+    rid_.slot_id_++;
+    if (rid_.slot_id_ >= current_table_page_->GetRecordCount()) {
+      if (current_table_page_->GetNextPageId() != NULL_PAGE_ID) {
+        current_table_page_ = std::make_unique<TablePage>(buffer_pool_.GetPage(table_->GetDbOid(), table_->GetOid(), current_table_page_->GetNextPageId()));
+        rid_.slot_id_ = 0;
+      } else {  //  读取结束
+        std::cout << "读取结束" << std::endl;
+        return nullptr;
+      }
+    }
+    is_deleted = current_table_page_->GetRecord(rid_.slot_id_, table_->GetColumnList())->IsDeleted();
+  }
+  Record record(current_table_page_->GetRecord(rid_.slot_id_++, table_->GetColumnList())->GetValues());
+  return std::make_shared<Record>(record);
 }
 
 }  // namespace huadb
