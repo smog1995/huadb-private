@@ -2,6 +2,7 @@
 
 #include <memory>
 
+#include "common/typedefs.h"
 #include "cstring"
 #include "iostream"
 namespace huadb {
@@ -42,10 +43,13 @@ slotid_t TablePage::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_
   page_->SetDirty();
   db_size_t record_size = record->SerializeTo(page_data_ + *upper_ - record->GetSize());  //  写入record
   *upper_ -= record->GetSize();
+  //  写入slot，slot包含记录偏移量和大小
   memcpy(page_data_ + *lower_, upper_, sizeof(db_size_t));            // 将记录偏移量写入
   memcpy(page_data_ + *lower_ + 2, &record_size, sizeof(db_size_t));  //  将记录大小写入
   *lower_ += 4;                                                       //  slot大小
-  return 0;
+  // slots(当前slot的位置[lower] - slots数组地址) / 4 即为当前slot下标
+  slotid_t slot_id = (*lower_ - sizeof(page_lsn_) + sizeof(next_page_id_) + sizeof(lower_) + sizeof(upper_)) / sizeof(Slot) - 1;
+  return slot_id;
 }
 
 void TablePage::DeleteRecord(slotid_t slot_id, xid_t xid) {
@@ -73,9 +77,14 @@ std::unique_ptr<Record> TablePage::GetRecord(slotid_t slot_id, const ColumnList 
 void TablePage::UndoDeleteRecord(slotid_t slot_id) {
   // 修改 undo delete 的逻辑
   // LAB 3 BEGIN
-
+  
   // 清除记录的删除标记
   // LAB 2 BEGIN
+  page_->SetDirty();
+  Slot slot = slots_[slot_id];
+  bool deleted = false;
+  memcpy(page_data_ + slot.offset_, &deleted, sizeof(bool));
+
 }
 
 void TablePage::RedoInsertRecord(slotid_t slot_id, char *raw_record, db_size_t page_offset, db_size_t record_size) {

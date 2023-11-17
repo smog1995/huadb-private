@@ -1,7 +1,10 @@
 #include "log/log_manager.h"
+#include <memory>
 
 #include "common/exceptions.h"
+#include "common/typedefs.h"
 #include "log/log_records/log_records.h"
+#include "storage/buffer_pool.h"
 
 namespace huadb {
 
@@ -61,7 +64,7 @@ lsn_t LogManager::AppendNewPageLog(xid_t xid, oid_t oid, pageid_t prev_page_id, 
   if (xid != DDL_XID && att_.find(xid) == att_.end()) {
     throw DbException(std::to_string(xid) + " does not exist in att (in AppendNewPageLog)");
   }
-  std::shared_ptr<NewPageLog> log;
+  std::shared_ptr<NewPageLog> log; 
   if (xid == DDL_XID) {
     log = std::make_shared<NewPageLog>(xid, NULL_LSN, oid, prev_page_id, page_id);
   } else {
@@ -105,6 +108,7 @@ lsn_t LogManager::AppendCommitLog(xid_t xid) {
   next_lsn_ += log->GetSize();
   log->SetLSN(lsn);
   log_buffer_.push_back(std::move(log));
+  //  提交需要刷磁盘
   Flush(lsn);
   att_.erase(xid);
   return lsn;
@@ -136,7 +140,7 @@ lsn_t LogManager::Checkpoint(bool async) {
   next_lsn_ += end_checkpoint_log->GetSize();
   end_checkpoint_log->SetLSN(end_lsn);
   log_buffer_.push_back(std::move(end_checkpoint_log));
-  Flush(end_lsn);
+  Flush(end_lsn);  
   std::ofstream out(MASTER_RECORD_NAME);
   out << begin_lsn;
   out.close();
@@ -156,6 +160,20 @@ void LogManager::Rollback(xid_t xid) {
   // 若日志在磁盘中，通过 disk_ 读取日志
   // 调用日志的 Undo 函数
   // LAB 2 BEGIN
+  lsn_t lsn = att_[xid];
+  auto iterator = log_buffer_.begin();
+  LogRecord *log_record;
+  size_t log_record_size = log_buffer_[0]->GetSize(); // 随便获取一个log的size（每个log大小固定）
+  char* log = new char[log_record_size];
+  if (lsn > flushed_lsn_) { // 不在缓冲区中
+    disk_.ReadLog(lsn, log_record_size, log);  //  从磁盘读取，写入log字符数组
+    
+  }
+  LogRecord::DeserializeFrom(log)->Undo(*buffer_pool_, *catalog_, *this, lsn, next_lsn_);
+  
+  for (; iterator != log_buffer_.end(); iterator++) {
+    if (lsn >)
+  }
 }
 
 void LogManager::Recover() {
@@ -167,6 +185,9 @@ void LogManager::Recover() {
 void LogManager::IncrementRedoCount() { redo_count_++; }
 
 uint32_t LogManager::GetRedoCount() const { return redo_count_; }
+
+
+//  将所有在lsn前的且仍在日志缓冲区的记录全部写入磁盘
 
 void LogManager::Flush(lsn_t lsn) {
   size_t last_log_size = 0;

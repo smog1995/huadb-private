@@ -1,5 +1,5 @@
 #include "log/log_records/delete_log.h"
-
+#include "table/table_page.h"
 namespace huadb {
 
 DeleteLog::DeleteLog(xid_t xid, lsn_t prev_lsn, oid_t oid, pageid_t page_id, slotid_t slot_id)
@@ -42,11 +42,19 @@ std::shared_ptr<DeleteLog> DeleteLog::DeserializeFrom(const char *data) {
 void DeleteLog::Undo(BufferPool &buffer_pool, Catalog &catalog, LogManager &log_manager, lsn_t lsn,
                      lsn_t undo_next_lsn) {
   // LAB 2 BEGIN
+  //  找到该数据行所在页,删除标记
+  auto target_page = std::make_unique<TablePage>(buffer_pool.GetPage(catalog.GetDatabaseOid(oid_), oid_, page_id_));
+  target_page->UndoDeleteRecord(slot_id_);
+  
 }
 
 void DeleteLog::Redo(BufferPool &buffer_pool, Catalog &catalog, LogManager &log_manager, lsn_t lsn) {
   // 如果 oid_ 不存在，表示该表已经被删除，无需 redo
   // LAB 2 BEGIN
+  if (oid_ == INVALID_OID) {
+    return ;
+  }
+
 }
 
 oid_t DeleteLog::GetOid() const { return oid_; }

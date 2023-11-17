@@ -1,4 +1,7 @@
 #include "log/log_records/insert_log.h"
+#include "common/constants.h"
+#include "common/typedefs.h"
+#include "table/table.h"
 
 namespace huadb {
 
@@ -68,11 +71,20 @@ void InsertLog::Undo(BufferPool &buffer_pool, Catalog &catalog, LogManager &log_
                      lsn_t undo_next_lsn) {
   // 将插入的记录删除
   // LAB 2 BEGIN
+  auto table = catalog.GetTable(oid_);
+  table->DeleteRecord({page_id_, slot_id_}, xid_);  //  这里暂时没设置写日志
 }
 
 void InsertLog::Redo(BufferPool &buffer_pool, Catalog &catalog, LogManager &log_manager, lsn_t lsn) {
   // 如果 oid_ 不存在，表示该表已经被删除，无需 redo
   // LAB 2 BEGIN
+  if (oid_ == INVALID_OID) {
+    return;
+  }
+  auto table = catalog.GetTable(oid_);
+  Record record;
+  record.DeserializeFrom(record_, table->GetColumnList());
+  
 }
 
 oid_t InsertLog::GetOid() const { return oid_; }
