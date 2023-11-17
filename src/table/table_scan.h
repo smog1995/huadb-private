@@ -1,12 +1,13 @@
 #pragma once
 
+#include <memory>
 #include <unordered_map>
 
 #include "common/typedefs.h"
 #include "storage/buffer_pool.h"
 #include "table/record.h"
 #include "table/table.h"
-
+#include "table/table_page.h"
 namespace huadb {
 
 class TableScan {
@@ -24,6 +25,8 @@ class TableScan {
   BufferPool &buffer_pool_;
   std::shared_ptr<Table> table_;
   Rid rid_;  // 当前扫描到的记录的 rid
+  std::unique_ptr<TablePage> current_table_page_;
+  pageid_t current_table_page_id_;
 };
 
 }  // namespace huadb

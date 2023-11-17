@@ -1,7 +1,9 @@
 #include "table/table.h"
 
-#include "table/table_page.h"
+#include <memory>
 
+#include "iostream"
+#include "table/table_page.h"
 namespace huadb {
 
 Table::Table(BufferPool &buffer_pool, LogManager &log_manager, oid_t oid, oid_t db_oid, ColumnList column_list,
@@ -21,13 +23,13 @@ Table::Table(BufferPool &buffer_pool, LogManager &log_manager, oid_t oid, oid_t 
     }
   }
   first_page_id_ = 0;
+  current_page_id_ = 0;
 }
 
 Rid Table::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid, bool write_log) {
   if (record->GetSize() > MAX_RECORD_SIZE) {
     throw DbException("Record size too large: " + std::to_string(record->GetSize()));
   }
-
   // 当 write_log 参数为 true 时开启写日志功能
   // 在插入记录时增加写 InsertLog 过程
   // 在创建新的页面时增加写 NewPageLog 过程
@@ -40,6 +42,13 @@ Rid Table::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid, bo
   // 创建新页面时需设置当前页面的 next_page_id，并将新页面初始化
   // 找到空间足够的页面后，通过 TablePage 插入记录
   // LAB 1 BEGIN
+  auto target_page = std::make_unique<TablePage>(buffer_pool_.GetPage(GetDbOid(), GetOid(), current_page_id_));
+  if (record->GetSize() > target_page->GetFreeSpaceSize()) {
+    target_page->SetNextPageId(++current_page_id_);
+    target_page = std::make_unique<TablePage>(buffer_pool_.NewPage(db_oid_, oid_, current_page_id_));
+    target_page->Init();
+  }
+  target_page->InsertRecord(record, xid, cid);
   return {0, 0};
 }
 
@@ -50,6 +59,8 @@ void Table::DeleteRecord(const Rid &rid, xid_t xid, bool write_log) {
 
   // 使用 TablePage 结构体操作记录页面
   // LAB 1 BEGIN
+  auto target_page = std::make_unique<TablePage>(buffer_pool_.GetPage(db_oid_, oid_, rid.page_id_));
+  target_page->DeleteRecord(rid.slot_id_, xid);
 }
 
 Rid Table::UpdateRecord(const Rid &rid, xid_t xid, cid_t cid, std::shared_ptr<Record> record, bool write_log) {

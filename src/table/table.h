@@ -35,6 +35,8 @@ class Table {
   oid_t db_oid_;
   pageid_t first_page_id_;  // 第一个页面的页面号
   ColumnList column_list_;  // 表的 schema 信息
+
+  pageid_t current_page_id_;  //  ps:不在原本框架内
 };
 
 }  // namespace huadb

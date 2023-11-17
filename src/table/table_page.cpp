@@ -1,5 +1,9 @@
 #include "table/table_page.h"
 
+#include <memory>
+
+#include "cstring"
+#include "iostream"
 namespace huadb {
 
 TablePage::TablePage(std::shared_ptr<Page> page) : page_(page) {
@@ -26,6 +30,7 @@ void TablePage::Init() {
 }
 
 slotid_t TablePage::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid) {
+  // std::cout << "tablepageinsert" << std::endl;
   // 在记录头添加事务信息（xid 和 cid）
   // LAB 3 BEGIN
 
@@ -34,6 +39,12 @@ slotid_t TablePage::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_
   // 将 record 写入 page data
   // 将 page 标记为 dirty
   // LAB 1 BEGIN
+  page_->SetDirty();
+  db_size_t record_size = record->SerializeTo(page_data_ + *upper_ - record->GetSize());  //  写入record
+  *upper_ -= record->GetSize();
+  memcpy(page_data_ + *lower_, upper_, sizeof(db_size_t));            // 将记录偏移量写入
+  memcpy(page_data_ + *lower_ + 2, &record_size, sizeof(db_size_t));  //  将记录大小写入
+  *lower_ += 4;                                                       //  slot大小
   return 0;
 }
 
@@ -44,12 +55,19 @@ void TablePage::DeleteRecord(slotid_t slot_id, xid_t xid) {
   // 将 slot_id 对应的 record 标记为删除
   // 将 page 标记为 dirty
   // LAB 1 BEGIN
+  page_->SetDirty();
+  Slot slot = slots_[slot_id];
+  bool deleted = true;
+  memcpy(page_data_ + slot.offset_, &deleted, sizeof(bool));
 }
 
 std::unique_ptr<Record> TablePage::GetRecord(slotid_t slot_id, const ColumnList &column_list) {
   // 根据 slot_id 获取 record
   // LAB 1 BEGIN
-  return nullptr;
+  Slot slot = slots_[slot_id];
+  Record record;
+  record.DeserializeFrom(page_data_ + slot.offset_, column_list);
+  return std::make_unique<Record>(record);
 }
 
 void TablePage::UndoDeleteRecord(slotid_t slot_id) {
