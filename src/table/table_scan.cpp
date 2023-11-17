@@ -1,16 +1,19 @@
 #include "table/table_scan.h"
+
 #include <memory>
-#include "iostream"
+
 #include "common/constants.h"
+#include "iostream"
 #include "table/table_page.h"
 
 namespace huadb {
 
 TableScan::TableScan(BufferPool &buffer_pool, std::shared_ptr<Table> table, Rid rid)
     : buffer_pool_(buffer_pool), table_(std::move(table)), rid_(rid) {
-      current_table_page_ = std::make_unique<TablePage>(buffer_pool_.GetPage(table_->GetDbOid(), table_->GetOid(), table_->GetFirstPageId()));
-      current_table_page_id_ = table_->GetFirstPageId();
-    }
+  current_table_page_ =
+      std::make_unique<TablePage>(buffer_pool_.GetPage(table_->GetDbOid(), table_->GetOid(), table_->GetFirstPageId()));
+  current_table_page_id_ = table_->GetFirstPageId();
+}
 
 std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isolation_level, cid_t cid,
                                                  const std::unordered_set<xid_t> &active_xids) {
@@ -22,11 +25,12 @@ std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isola
   // 扫描结束时，返回空指针
   // LAB 1 BEGIN
 
-  if (current_table_page_->GetRecordCount() == 0 || rid_.slot_id_ >= current_table_page_->GetRecordCount()) {  
+  if (current_table_page_->GetRecordCount() == 0 || rid_.slot_id_ >= current_table_page_->GetRecordCount()) {
     if (current_table_page_->GetNextPageId() != NULL_PAGE_ID) {
       rid_.page_id_ = current_table_page_->GetNextPageId();
       rid_.slot_id_ = 0;
-      current_table_page_ = std::make_unique<TablePage>(buffer_pool_.GetPage(table_->GetDbOid(), table_->GetOid(), rid_.page_id_));
+      current_table_page_ =
+          std::make_unique<TablePage>(buffer_pool_.GetPage(table_->GetDbOid(), table_->GetOid(), rid_.page_id_));
     } else {  //  读取结束
       return nullptr;
     }
@@ -38,7 +42,8 @@ std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isola
     if (rid_.slot_id_ >= current_table_page_->GetRecordCount()) {
       if (current_table_page_->GetNextPageId() != NULL_PAGE_ID) {
         rid_.page_id_ = current_table_page_->GetNextPageId();
-        current_table_page_ = std::make_unique<TablePage>(buffer_pool_.GetPage(table_->GetDbOid(), table_->GetOid(), rid_.page_id_));
+        current_table_page_ =
+            std::make_unique<TablePage>(buffer_pool_.GetPage(table_->GetDbOid(), table_->GetOid(), rid_.page_id_));
         rid_.slot_id_ = 0;
       } else {  //  读取结束
         return nullptr;

@@ -54,6 +54,7 @@ class TablePage {
   void SetNextPageId(pageid_t page_id);
   // Lab 2: 设置 page lsn
   void SetPageLSN(lsn_t page_lsn);
+
  private:
   std::shared_ptr<Page> page_;
   char *page_data_;

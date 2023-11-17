@@ -68,7 +68,6 @@ void Disk::ReadPage(const std::string &path, pageid_t page_id, char *data) {
   }
   if (hashmap_.count(path) == 0) {
     OpenFile(path);
-
   }
   auto &fs = hashmap_[path];
   fs.seekg(page_id * DB_PAGE_SIZE);

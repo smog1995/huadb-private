@@ -1,7 +1,8 @@
 #include "storage/buffer_pool.h"
-#include "iostream"
+
 #include "common/constants.h"
 #include "common/exceptions.h"
+#include "iostream"
 #include "log/log_manager.h"
 #include "table/table_page.h"
 

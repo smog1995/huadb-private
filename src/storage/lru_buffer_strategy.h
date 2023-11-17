@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstddef>
+
 #include "storage/buffer_strategy.h"
 #include "unordered_map"
 namespace huadb {
@@ -14,8 +15,7 @@ class LRUBufferStrategy : public BufferStrategy {
     size_t frame_id_;
     size_t accesses_;
     bool evictable_;
-    explicit Node(size_t fid)
-        : pre_(nullptr), next_(nullptr), frame_id_(fid), accesses_(0), evictable_(false) {}
+    explicit Node(size_t fid) : pre_(nullptr), next_(nullptr), frame_id_(fid), accesses_(0), evictable_(false) {}
   };
   class DoubleList {
    public:
@@ -26,13 +26,15 @@ class LRUBufferStrategy : public BufferStrategy {
     auto Dequeue() -> size_t;
     inline auto Size() const -> size_t;
     ~DoubleList();
+
    private:
     Node *head_, *tail_;
     size_t size_;
   };
-  private:
-   std::unordered_map<size_t, Node *> map_;
-   DoubleList double_list_;
+
+ private:
+  std::unordered_map<size_t, Node *> map_;
+  DoubleList double_list_;
 };
 
 }  // namespace huadb

@@ -1,8 +1,9 @@
 #include "table/table.h"
+
 #include <memory>
 
-#include "table/table_page.h"
 #include "iostream"
+#include "table/table_page.h"
 namespace huadb {
 
 Table::Table(BufferPool &buffer_pool, LogManager &log_manager, oid_t oid, oid_t db_oid, ColumnList column_list,
@@ -26,7 +27,6 @@ Table::Table(BufferPool &buffer_pool, LogManager &log_manager, oid_t oid, oid_t 
 }
 
 Rid Table::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid, bool write_log) {
-  
   if (record->GetSize() > MAX_RECORD_SIZE) {
     throw DbException("Record size too large: " + std::to_string(record->GetSize()));
   }

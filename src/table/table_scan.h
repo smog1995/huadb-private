@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <unordered_map>
+
 #include "common/typedefs.h"
 #include "storage/buffer_pool.h"
 #include "table/record.h"
@@ -26,7 +27,6 @@ class TableScan {
   Rid rid_;  // 当前扫描到的记录的 rid
   std::unique_ptr<TablePage> current_table_page_;
   pageid_t current_table_page_id_;
-
 };
 
 }  // namespace huadb
