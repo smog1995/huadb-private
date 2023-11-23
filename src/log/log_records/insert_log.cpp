@@ -72,7 +72,9 @@ void InsertLog::Undo(BufferPool &buffer_pool, Catalog &catalog, LogManager &log_
   // 将插入的记录删除
   // LAB 2 BEGIN
   auto table = catalog.GetTable(oid_);
-  table->DeleteRecord({page_id_, slot_id_}, xid_);  //  这里暂时没设置写日志
+  table->DeleteRecord({page_id_, slot_id_}, xid_, false);  //  这里暂时没设置写日志
+  
+
 }
 
 void InsertLog::Redo(BufferPool &buffer_pool, Catalog &catalog, LogManager &log_manager, lsn_t lsn) {

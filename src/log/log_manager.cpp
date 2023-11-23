@@ -64,7 +64,7 @@ lsn_t LogManager::AppendNewPageLog(xid_t xid, oid_t oid, pageid_t prev_page_id, 
   if (xid != DDL_XID && att_.find(xid) == att_.end()) {
     throw DbException(std::to_string(xid) + " does not exist in att (in AppendNewPageLog)");
   }
-  std::shared_ptr<NewPageLog> log; 
+  std::shared_ptr<NewPageLog> log;
   if (xid == DDL_XID) {
     log = std::make_shared<NewPageLog>(xid, NULL_LSN, oid, prev_page_id, page_id);
   } else {
@@ -108,7 +108,7 @@ lsn_t LogManager::AppendCommitLog(xid_t xid) {
   next_lsn_ += log->GetSize();
   log->SetLSN(lsn);
   log_buffer_.push_back(std::move(log));
-  //  提交需要刷磁盘
+  //  提交需要刷磁盘 (事务只有将提交记录的日志落盘才算成功提交，WAL机制)
   Flush(lsn);
   att_.erase(xid);
   return lsn;
@@ -163,16 +163,39 @@ void LogManager::Rollback(xid_t xid) {
   lsn_t lsn = att_[xid];
   auto iterator = log_buffer_.begin();
   LogRecord *log_record;
-  size_t log_record_size = log_buffer_[0]->GetSize(); // 随便获取一个log的size（每个log大小固定）
+  size_t log_record_size = sizeof(LogType) + sizeof(xid_t) + sizeof(lsn_t);  //  分别对
   char* log = new char[log_record_size];
-  if (lsn > flushed_lsn_) { // 不在缓冲区中
-    disk_.ReadLog(lsn, log_record_size, log);  //  从磁盘读取，写入log字符数组
-    
+  if (lsn > flushed_lsn_) { // 不在日志缓冲区中
+    disk_.ReadLog(lsn, log_record_size, log);  //  从磁盘读取，写入log字符数组，此时只是基类日志记录大小
+     //  第一遍读取磁盘后获取其前一条的lsn位置
+    lsn_t prev_lsn = LogRecord::DeserializeFrom(log)->GetPrevLSN();
+    size_t truly_log_record_size = lsn - prev_lsn;  //  
+    delete[] log;
+    log = new char[truly_log_record_size];
+    disk_.ReadLog(lsn, truly_log_record_size, log);
+    LogRecord::DeserializeFrom(log)->Undo(*buffer_pool_, *catalog_, *this, lsn, prev_lsn); 
+  } else {
+      auto iterator = log_buffer_.cbegin();
+      for (; iterator != log_buffer_.cend(); iterator++) {
+      const auto &log_record = *iterator;
+      if ((*iterator)->GetLSN() == lsn) {
+        last_log_size = (*iterator)->GetSize();
+        
+      }
+      
+      char *log = new char[last_log_size];
+      log_record->SerializeTo(log);  //  serializeTo并不会把日志的lsn成员变量也序列化，所以写入磁盘的也是不带有lsn的
+      disk_.WriteLog(log_record->GetLSN(), last_log_size, log);
+      delete[] log;
+      last_log_lsn = log_record->GetLSN();
+    }
   }
-  LogRecord::DeserializeFrom(log)->Undo(*buffer_pool_, *catalog_, *this, lsn, next_lsn_);
+  
+  
+  
   
   for (; iterator != log_buffer_.end(); iterator++) {
-    if (lsn >)
+    if (lsn > )
   }
 }
 
@@ -200,7 +223,7 @@ void LogManager::Flush(lsn_t lsn) {
     }
     last_log_size = log_record->GetSize();
     char *log = new char[last_log_size];
-    log_record->SerializeTo(log);
+    log_record->SerializeTo(log);  //  serializeTo并不会把日志的lsn成员变量也序列化，所以写入磁盘的也是不带有lsn的
     disk_.WriteLog(log_record->GetLSN(), last_log_size, log);
     delete[] log;
     last_log_lsn = log_record->GetLSN();
