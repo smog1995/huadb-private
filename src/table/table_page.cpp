@@ -49,7 +49,7 @@ slotid_t TablePage::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_
   *lower_ += 4;                                                       //  slot大小
   // slots(当前slot的位置[lower] - slots数组地址) / 4 即为当前slot下标
   slotid_t slot_id = (*lower_ - sizeof(page_lsn_) + sizeof(next_page_id_) + sizeof(lower_) + sizeof(upper_)) / sizeof(Slot) - 1;
-  return slot_id;
+  return 0;
 }
 
 void TablePage::DeleteRecord(slotid_t slot_id, xid_t xid) {
