@@ -3,6 +3,7 @@
 
 #include "common/exceptions.h"
 #include "common/typedefs.h"
+#include "log/log_record.h"
 #include "log/log_records/log_records.h"
 #include "storage/buffer_pool.h"
 
@@ -161,42 +162,46 @@ void LogManager::Rollback(xid_t xid) {
   // 调用日志的 Undo 函数
   // LAB 2 BEGIN
   lsn_t lsn = att_[xid];
-  auto iterator = log_buffer_.begin();
-  LogRecord *log_record;
-  size_t log_record_size = sizeof(LogType) + sizeof(xid_t) + sizeof(lsn_t);  //  分别对
-  char* log = new char[log_record_size];
-  if (lsn > flushed_lsn_) { // 不在日志缓冲区中
-    disk_.ReadLog(lsn, log_record_size, log);  //  从磁盘读取，写入log字符数组，此时只是基类日志记录大小
-     //  第一遍读取磁盘后获取其前一条的lsn位置
-    lsn_t prev_lsn = LogRecord::DeserializeFrom(log)->GetPrevLSN();
-    size_t truly_log_record_size = lsn - prev_lsn;  //  
-    delete[] log;
-    log = new char[truly_log_record_size];
-    disk_.ReadLog(lsn, truly_log_record_size, log);
-    LogRecord::DeserializeFrom(log)->Undo(*buffer_pool_, *catalog_, *this, lsn, prev_lsn); 
-  } else {
+  lsn_t prev_lsn;
+  std::shared_ptr<LogRecord> log_record;
+  for (; log_record->GetType() != LogType::BEGIN;) {
+    if (lsn > flushed_lsn_) { // 不在日志缓冲区中
+      size_t baselog_record_size = sizeof(LogType) + sizeof(xid_t) + sizeof(lsn_t);  //  log_record大小
+      char* log = new char[baselog_record_size];
+      lsn = prev_lsn;
+      disk_.ReadLog(lsn, baselog_record_size, log);  //  从磁盘读取，写入log字符数组，此时只是基类日志记录大小
+      //  第一遍读取磁盘用来获取该日志的前一条的lsn位置
+      prev_lsn = LogRecord::DeserializeFrom(log)->GetPrevLSN();
+      size_t truly_log_record_size = lsn - prev_lsn;  //  
+      delete[] log;
+      log = new char[truly_log_record_size];
+      //  第二遍读取磁盘才是用来获取该日志
+      disk_.ReadLog(lsn, truly_log_record_size, log);
+      log_record = LogRecord::DeserializeFrom(log);
+      if (log_record->GetType() == LogType::INSERT || log_record->GetType() == LogType::DELETE) {
+        log_record->Undo(*buffer_pool_, *catalog_, *this, lsn, prev_lsn);
+      }
+       
+    } else {
       auto iterator = log_buffer_.cbegin();
       for (; iterator != log_buffer_.cend(); iterator++) {
-      const auto &log_record = *iterator;
-      if ((*iterator)->GetLSN() == lsn) {
-        last_log_size = (*iterator)->GetSize();
-        
+        log_record = *iterator;
+        if (log_record->GetLSN() == lsn) {
+          prev_lsn = log_record->GetPrevLSN();
+          if (log_record->GetType() == LogType::INSERT || log_record->GetType() == LogType::DELETE) {
+            log_record->Undo(*buffer_pool_, *catalog_, *this, lsn, prev_lsn);
+          }
+        }
       }
-      
-      char *log = new char[last_log_size];
-      log_record->SerializeTo(log);  //  serializeTo并不会把日志的lsn成员变量也序列化，所以写入磁盘的也是不带有lsn的
-      disk_.WriteLog(log_record->GetLSN(), last_log_size, log);
-      delete[] log;
-      last_log_lsn = log_record->GetLSN();
     }
   }
   
   
+
   
   
-  for (; iterator != log_buffer_.end(); iterator++) {
-    if (lsn > )
-  }
+  
+  
 }
 
 void LogManager::Recover() {
