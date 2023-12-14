@@ -46,17 +46,19 @@ Rid Table::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid, bo
   // LAB 1 BEGIN
   auto target_page = std::make_unique<TablePage>(buffer_pool_.GetPage(db_oid_, oid_, current_page_id_));
   if (record->GetSize() > target_page->GetFreeSpaceSize()) {
+    std::cout<<"add new Page" <<std::endl;
     target_page->SetNextPageId(++current_page_id_);
     target_page = std::make_unique<TablePage>(buffer_pool_.NewPage(db_oid_, oid_, current_page_id_));
     // lab2: 新添加页的操作记录到日志
     if (write_log) {
-      lsn_t new_page_lsn = log_manager_.AppendNewPageLog(xid, oid_, current_page_id_ - 1, current_page_id_);  //  lab2 ，添加新page log
+      lsn_t new_page_lsn = log_manager_.
+                AppendNewPageLog(xid, oid_, current_page_id_ - 1, current_page_id_);  //  lab2 ，添加新page log
     }
     target_page->Init();
   }
   //  将记录插入对应page中
   slotid_t slot_id = target_page->InsertRecord(record, xid, cid);
-  
+  // std::cout<<"table SlotId"<< slot_id <<  "page:" <<  current_page_id_ << std::endl;
   //   InsertLog(xid_t xid, lsn_t prev_lsn, oid_t oid, pageid_t page_id, slotid_t slot_id, db_size_t page_offset,
   //       db_size_t record_size, char *record);
   // lab2: 添加插入的日志记录
@@ -67,7 +69,7 @@ Rid Table::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid, bo
     //  将删除记录写入日志
     lsn_t new_record_lsn = log_manager_.AppendInsertLog(xid, oid_, current_page_id_, slot_id, current_page_id_ * DB_PAGE_SIZE, record->GetSize(), record_data);
   }
-  return {0, 0};
+  return {current_page_id_, slot_id};
 }
 
 void Table::DeleteRecord(const Rid &rid, xid_t xid, bool write_log) {

@@ -1,5 +1,7 @@
 #include "log/log_records/new_page_log.h"
-
+#include <pthread.h>
+#include "common/constants.h"
+#include "table/table_page.h"
 namespace huadb {
 
 NewPageLog::NewPageLog(xid_t xid, lsn_t prev_lsn, oid_t oid, pageid_t prev_page_id, pageid_t page_id)
@@ -41,11 +43,18 @@ std::shared_ptr<NewPageLog> NewPageLog::DeserializeFrom(const char *data) {
 void NewPageLog::Undo(BufferPool &buffer_pool, Catalog &catalog, LogManager &log_manager, lsn_t lsn,
                       lsn_t undo_next_lsn) {
   // LAB 2 BEGIN
+  
 }
 
 void NewPageLog::Redo(BufferPool &buffer_pool, Catalog &catalog, LogManager &log_manager, lsn_t lsn) {
   // 如果 oid_ 不存在，表示该表已经被删除，无需 redo
   // LAB 2 BEGIN
+  if (oid_ == INVALID_OID) {
+    return ;
+  }
+  auto table_page = buffer_pool.NewPage(catalog.GetDatabaseOid(oid_), oid_, page_id_);
+  auto prev_table_page = std::make_unique<TablePage>(buffer_pool.GetPage(catalog.GetDatabaseOid(oid_), oid_, prev_page_id_));
+  prev_table_page->SetNextPageId(page_id_);
 }
 
 oid_t NewPageLog::GetOid() const { return oid_; }

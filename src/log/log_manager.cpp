@@ -169,15 +169,17 @@ void LogManager::Rollback(xid_t xid) {
   bool rollback_finish = false;
   // for (; log_record == nullptr || log_record->GetType() != LogType::BEGIN;) {
   while (!rollback_finish) {
-    if (lsn > flushed_lsn_) { // 不在日志缓冲区中
+    std::cout <<flushed_lsn_<<std::endl;
+    if (lsn <= flushed_lsn_) { // 不在日志缓冲区中
       std::cout << "日志不在内存" << std::endl;
       size_t baselog_record_size = sizeof(LogType) + sizeof(xid_t) + sizeof(lsn_t);  //  log_record大小
       char* log = new char[baselog_record_size];
       disk_.ReadLog(lsn, baselog_record_size, log);  //  从磁盘读取，写入log字符数组，此时只是基类日志记录大小
       //  第一遍读取磁盘用来获取该日志的前一条的lsn位置
+      std::cout << strlen(log) << log << std::endl;
       log_record = LogRecord::DeserializeFrom(log);
       prev_lsn = log_record->GetPrevLSN();
-      std::cout << log << std::endl;
+      
       std::cout << lsn << " " << prev_lsn << " ";
       size_t truly_log_record_size = lsn - prev_lsn;  //  
       delete[] log;
@@ -190,7 +192,6 @@ void LogManager::Rollback(xid_t xid) {
       } else if (log_record->GetType() == LogType::BEGIN) {
         rollback_finish = true;
       }
-       
     } else {
       std::cout << "日志在内存中" << std::endl;
       auto iterator = log_buffer_.cbegin();
@@ -200,13 +201,14 @@ void LogManager::Rollback(xid_t xid) {
         if (log_record->GetLSN() == lsn) {
           prev_lsn = log_record->GetPrevLSN();
           if (log_record->GetType() == LogType::INSERT || log_record->GetType() == LogType::DELETE) {
-            
             log_record->Undo(*buffer_pool_, *catalog_, *this, lsn, prev_lsn);
+            std::cout <<"undo" <<std::endl;
           } else if (log_record->GetType() == LogType::BEGIN) {
             rollback_finish = true;
-            break;
           }
+          break;
         }
+        
       }
     }
     lsn = prev_lsn;

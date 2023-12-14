@@ -1,8 +1,10 @@
 #include "log/log_records/insert_log.h"
+#include <memory>
 #include "common/constants.h"
 #include "common/typedefs.h"
+#include "table/record.h"
 #include "table/table.h"
-
+#include "iostream"
 namespace huadb {
 
 InsertLog::InsertLog(xid_t xid, lsn_t prev_lsn, oid_t oid, pageid_t page_id, slotid_t slot_id, db_size_t page_offset,
@@ -72,6 +74,7 @@ void InsertLog::Undo(BufferPool &buffer_pool, Catalog &catalog, LogManager &log_
   // 将插入的记录删除
   // LAB 2 BEGIN
   auto table = catalog.GetTable(oid_);
+  std::cout <<"page_id" << page_id_ << " slotid " << slot_id_ <<std::endl;
   table->DeleteRecord({page_id_, slot_id_}, xid_, false);  //  这里暂时没设置写日志
   
 
@@ -83,10 +86,11 @@ void InsertLog::Redo(BufferPool &buffer_pool, Catalog &catalog, LogManager &log_
   if (oid_ == INVALID_OID) {
     return;
   }
+  std::cout << "重做插入" << std::endl;
   auto table = catalog.GetTable(oid_);
-  Record record;
+  std::shared_ptr<Record> record;
   record.DeserializeFrom(record_, table->GetColumnList());
-  
+  table->InsertRecord(record, xid_, table->GetColumnList(), false);
 }
 
 oid_t InsertLog::GetOid() const { return oid_; }

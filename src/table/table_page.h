@@ -63,7 +63,6 @@ class TablePage {
   db_size_t *lower_;        // 页面 lower 指针
   db_size_t *upper_;        // 页面 upper 指针
   Slot *slots_;             // 槽位数组
-  // pageid_t page_id_;  //   连pageid都没就太离谱了
 };
 
 }  // namespace huadb
