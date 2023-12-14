@@ -5,6 +5,7 @@
 #include "table/record.h"
 #include "table/table.h"
 #include "iostream"
+#include "table/table_page.h"
 namespace huadb {
 
 InsertLog::InsertLog(xid_t xid, lsn_t prev_lsn, oid_t oid, pageid_t page_id, slotid_t slot_id, db_size_t page_offset,
@@ -75,7 +76,7 @@ void InsertLog::Undo(BufferPool &buffer_pool, Catalog &catalog, LogManager &log_
   // LAB 2 BEGIN
   auto table = catalog.GetTable(oid_);
   std::cout <<"page_id" << page_id_ << " slotid " << slot_id_ <<std::endl;
-  table->DeleteRecord({page_id_, slot_id_}, xid_, false);  //  这里暂时没设置写日志
+  table->DeleteRecord({page_id_, slot_id_}, xid_, false);  //  这里暂时没设置写日志,或者做补偿日志
   
 
 }
@@ -88,9 +89,8 @@ void InsertLog::Redo(BufferPool &buffer_pool, Catalog &catalog, LogManager &log_
   }
   std::cout << "重做插入" << std::endl;
   auto table = catalog.GetTable(oid_);
-  std::shared_ptr<Record> record;
-  record.DeserializeFrom(record_, table->GetColumnList());
-  table->InsertRecord(record, xid_, table->GetColumnList(), false);
+  auto table_page = std::make_unique<TablePage>(buffer_pool.GetPage(catalog.GetDatabaseOid(oid_), oid_, page_id_));
+  table_page->RedoInsertRecord(slot_id_, record_, page_offset_, record_size_);
 }
 
 oid_t InsertLog::GetOid() const { return oid_; }

@@ -95,19 +95,18 @@ void TablePage::RedoInsertRecord(slotid_t slot_id, char *raw_record, db_size_t p
   // 注意维护 lower 和 upper 指针，以及 slots 数组
   // 将页面设为 dirty
   // LAB 2 BEGIN
-  page_->SetDirty();
+  
   // db_size_t record_size = record->SerializeTo(page_data_ + *upper_ - record->GetSize());  //  写入record
   memcpy(page_data_ + page_offset, raw_record, record_size); 
-  // 满足幂等性，可能已经重做过几次，那upper指针可能并不在此位置
-  if (*upper_ == page_offset) { 
+  // 需要满足幂等性，只有此刻表确实没成功插入时，upper需要移动（其他情况则是upper不位于此处）
+  if (*upper_ == page_offset + record_size) { 
     *upper_ -= record_size;
+    *lower_ += 4; 
   }
-  
   //  写入slot，slot包含记录偏移量和大小
-  memcpy(page_data_ + *lower_, upper_, sizeof(db_size_t));            // 将记录偏移量写入
-  memcpy(page_data_ + *lower_ + 2, &record_size, sizeof(db_size_t));  //  将记录大小写入
-  *lower_ += 4;  
-  
+  memcpy(&slots_[slot_id], &page_offset, sizeof(db_size_t));            // 将记录偏移量写入
+  memcpy(&slots_[slot_id] + sizeof(db_size_t), &record_size, sizeof(db_size_t));  //  将记录大小写入
+  page_->SetDirty();
 }
 
 db_size_t TablePage::GetRecordCount() const { return (*lower_ - PAGE_HEADER_SIZE) / sizeof(Slot); }
