@@ -239,20 +239,25 @@ void LogManager::Flush(lsn_t lsn) {
   auto iterator = log_buffer_.cbegin();
   for (; iterator != log_buffer_.cend(); iterator++) {
     const auto &log_record = *iterator;
+    
     if (lsn != NULL_LSN && log_record->GetLSN() > lsn) {
       break;
     }
     last_log_size = log_record->GetSize();
     char *log = new char[last_log_size];
-    log_record->SerializeTo(log);  //  serializeTo并不会把日志的lsn成员变量也序列化，所以写入磁盘的也是不带有lsn的
+
+  //  serializeTo并不会把日志的lsn成员变量也序列化，所以写入磁盘的也是不带有lsn的
+    log_record->SerializeTo(log);  
     disk_.WriteLog(log_record->GetLSN(), last_log_size, log);
     delete[] log;
     last_log_lsn = log_record->GetLSN();
   }
   log_buffer_.erase(log_buffer_.begin(), iterator);
   std::ofstream out(NEXT_LSN_NAME);
+  //  STEAL 允许事务未提交就已经将部分操作日志落盘
   if (lsn == NULL_LSN && last_log_lsn > flushed_lsn_) {
     flushed_lsn_ = last_log_lsn;
+  //  事务提交时flush
   } else if (lsn > flushed_lsn_) {
     flushed_lsn_ = lsn;
   }
@@ -283,14 +288,15 @@ void LogManager::Analyze() {
   char* log = new char[baselog_record_size];
   disk_.ReadLog(checkpoint_lsn, baselog_record_size, log);  //  从磁盘读取，写入log字符数组，此时只是基类日志记录大小
   //  第一遍读取磁盘用来获取该日志的前一条的lsn位置
-  log_record = LogRecord::DeserializeFrom(log);
+  auto log_record = LogRecord::DeserializeFrom(log);
   size_t prev_lsn = log_record->GetPrevLSN();
-  size_t truly_log_record_size = lsn - prev_lsn;  //  
+  size_t truly_log_record_size = checkpoint_lsn - prev_lsn; 
   delete[] log;
   log = new char[truly_log_record_size];
   //  第二遍读取磁盘才是用来获取该日志
-  disk_.ReadLog(lsn, truly_log_record_size, log);
+  disk_.ReadLog(checkpoint_lsn, truly_log_record_size, log);
   log_record = LogRecord::DeserializeFrom(log);
+  
   if (log_record->GetType() == LogType::INSERT || log_record->GetType() == LogType::DELETE) {
     log_record->Undo(*buffer_pool_, *catalog_, *this, lsn, prev_lsn);
   } else if (log_record->GetType() == LogType::BEGIN) {
