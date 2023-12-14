@@ -24,7 +24,7 @@ std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isola
   // 读取时更新 rid_ 变量，避免重复读取
   // 扫描结束时，返回空指针
   // LAB 1 BEGIN
-  std::cout<< "scan";
+  // std::cout<< "scan";
   if (current_table_page_->GetRecordCount() == 0 || rid_.slot_id_ >= current_table_page_->GetRecordCount()) {
     if (current_table_page_->GetNextPageId() != NULL_PAGE_ID) {
       rid_.page_id_ = current_table_page_->GetNextPageId();

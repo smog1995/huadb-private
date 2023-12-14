@@ -31,7 +31,7 @@ void TablePage::Init() {
 }
 
 slotid_t TablePage::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid) {
-  std::cout << "tablepageinsert" << std::endl;
+  // std::cout << "tablepageinsert" << std::endl;
   // 在记录头添加事务信息（xid 和 cid）
   // LAB 3 BEGIN
 
@@ -47,10 +47,10 @@ slotid_t TablePage::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_
   memcpy(page_data_ + *lower_, upper_, sizeof(db_size_t));            // 将记录偏移量写入
   memcpy(page_data_ + *lower_ + 2, &record_size, sizeof(db_size_t));  //  将记录大小写入
   *lower_ += 4;  
-  std::cout <<"aa";                                                     //  slot大小
+  // std::cout <<"aa";                                                     //  slot大小
   // slots(当前slot的位置[lower] - slots数组地址) / 4 即为当前slot下标
-  // slotid_t slot_id = (*lower_ - sizeof(page_lsn_) + sizeof(next_page_id_) + sizeof(lower_) + sizeof(upper_)) / sizeof(Slot) - 1;
-  return 0;
+  slotid_t slot_id = (*lower_ - sizeof(page_lsn_) + sizeof(next_page_id_) + sizeof(lower_) + sizeof(upper_)) / sizeof(Slot) - 1;
+  return slot_id;
 }
 
 void TablePage::DeleteRecord(slotid_t slot_id, xid_t xid) {
@@ -60,6 +60,7 @@ void TablePage::DeleteRecord(slotid_t slot_id, xid_t xid) {
   // 将 slot_id 对应的 record 标记为删除
   // 将 page 标记为 dirty
   // LAB 1 BEGIN
+  std::cout << "deleteTag" << std::endl;
   page_->SetDirty();
   Slot slot = slots_[slot_id];
   bool deleted = true;

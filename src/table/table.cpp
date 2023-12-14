@@ -46,13 +46,12 @@ Rid Table::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid, bo
   // LAB 1 BEGIN
   auto target_page = std::make_unique<TablePage>(buffer_pool_.GetPage(db_oid_, oid_, current_page_id_));
   if (record->GetSize() > target_page->GetFreeSpaceSize()) {
-    std::cout <<"添加新野";
     target_page->SetNextPageId(++current_page_id_);
     target_page = std::make_unique<TablePage>(buffer_pool_.NewPage(db_oid_, oid_, current_page_id_));
-    //  新添加页的操作记录到日志
-    // if (write_log) {
-    //   lsn_t new_page_lsn = log_manager_.AppendNewPageLog(xid, oid_, current_page_id_ - 1, current_page_id_);  //  lab2 ，添加新page log
-    // }
+    // lab2: 新添加页的操作记录到日志
+    if (write_log) {
+      lsn_t new_page_lsn = log_manager_.AppendNewPageLog(xid, oid_, current_page_id_ - 1, current_page_id_);  //  lab2 ，添加新page log
+    }
     target_page->Init();
   }
   //  将记录插入对应page中
@@ -60,13 +59,14 @@ Rid Table::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid, bo
   
   //   InsertLog(xid_t xid, lsn_t prev_lsn, oid_t oid, pageid_t page_id, slotid_t slot_id, db_size_t page_offset,
   //       db_size_t record_size, char *record);
+  // lab2: 添加插入的日志记录
   //  appendInsertLog(事务id，对象id，当前页id，插入页的插槽id，当前页的偏移大小，记录的数据大小，记录的地址)
-  // if (write_log) {
-  //   char* record_data = new char[record->GetSize()];  //  因为通过delete[]删除，所以得分配到堆区
-  //   record->SerializeTo(record_data);
-  //   //  将删除记录写入日志
-  //   lsn_t new_record_lsn = log_manager_.AppendInsertLog(xid, oid_, current_page_id_, slot_id, current_page_id_ * DB_PAGE_SIZE, record->GetSize(), record_data);
-  // }
+  if (write_log) {
+    char* record_data = new char[record->GetSize()];  //  因为通过delete[]删除，所以得分配到堆区
+    record->SerializeTo(record_data);
+    //  将删除记录写入日志
+    lsn_t new_record_lsn = log_manager_.AppendInsertLog(xid, oid_, current_page_id_, slot_id, current_page_id_ * DB_PAGE_SIZE, record->GetSize(), record_data);
+  }
   return {0, 0};
 }
 
@@ -79,10 +79,9 @@ void Table::DeleteRecord(const Rid &rid, xid_t xid, bool write_log) {
   // LAB 1 BEGIN
   auto target_page = std::make_unique<TablePage>(buffer_pool_.GetPage(db_oid_, oid_, rid.page_id_));
   target_page->DeleteRecord(rid.slot_id_, xid);
-  // if (write_log) {
-  //   lsn_t delete_lsn = log_manager_.AppendDeleteLog(xid, oid_, rid.page_id_, rid.slot_id_);
-
-  // }
+  if (write_log) {
+    lsn_t delete_lsn = log_manager_.AppendDeleteLog(xid, oid_, rid.page_id_, rid.slot_id_);
+  }
 }
 
 Rid Table::UpdateRecord(const Rid &rid, xid_t xid, cid_t cid, std::shared_ptr<Record> record, bool write_log) {

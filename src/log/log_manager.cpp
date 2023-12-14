@@ -1,6 +1,7 @@
 #include "log/log_manager.h"
 #include <memory>
-
+#include "common/constants.h"
+#include "iostream"
 #include "common/exceptions.h"
 #include "common/typedefs.h"
 #include "log/log_record.h"
@@ -161,17 +162,23 @@ void LogManager::Rollback(xid_t xid) {
   // 若日志在磁盘中，通过 disk_ 读取日志
   // 调用日志的 Undo 函数
   // LAB 2 BEGIN
+  std::cout << "调用回滚" << std::endl;
   lsn_t lsn = att_[xid];
-  lsn_t prev_lsn;
+  lsn_t prev_lsn = lsn;
   std::shared_ptr<LogRecord> log_record;
-  for (; log_record->GetType() != LogType::BEGIN;) {
+  bool rollback_finish = false;
+  // for (; log_record == nullptr || log_record->GetType() != LogType::BEGIN;) {
+  while (!rollback_finish) {
     if (lsn > flushed_lsn_) { // 不在日志缓冲区中
+      std::cout << "日志不在内存" << std::endl;
       size_t baselog_record_size = sizeof(LogType) + sizeof(xid_t) + sizeof(lsn_t);  //  log_record大小
       char* log = new char[baselog_record_size];
-      lsn = prev_lsn;
       disk_.ReadLog(lsn, baselog_record_size, log);  //  从磁盘读取，写入log字符数组，此时只是基类日志记录大小
       //  第一遍读取磁盘用来获取该日志的前一条的lsn位置
-      prev_lsn = LogRecord::DeserializeFrom(log)->GetPrevLSN();
+      log_record = LogRecord::DeserializeFrom(log);
+      prev_lsn = log_record->GetPrevLSN();
+      std::cout << log << std::endl;
+      std::cout << lsn << " " << prev_lsn << " ";
       size_t truly_log_record_size = lsn - prev_lsn;  //  
       delete[] log;
       log = new char[truly_log_record_size];
@@ -180,20 +187,29 @@ void LogManager::Rollback(xid_t xid) {
       log_record = LogRecord::DeserializeFrom(log);
       if (log_record->GetType() == LogType::INSERT || log_record->GetType() == LogType::DELETE) {
         log_record->Undo(*buffer_pool_, *catalog_, *this, lsn, prev_lsn);
+      } else if (log_record->GetType() == LogType::BEGIN) {
+        rollback_finish = true;
       }
        
     } else {
+      std::cout << "日志在内存中" << std::endl;
       auto iterator = log_buffer_.cbegin();
       for (; iterator != log_buffer_.cend(); iterator++) {
         log_record = *iterator;
+
         if (log_record->GetLSN() == lsn) {
           prev_lsn = log_record->GetPrevLSN();
           if (log_record->GetType() == LogType::INSERT || log_record->GetType() == LogType::DELETE) {
+            
             log_record->Undo(*buffer_pool_, *catalog_, *this, lsn, prev_lsn);
+          } else if (log_record->GetType() == LogType::BEGIN) {
+            rollback_finish = true;
+            break;
           }
         }
       }
     }
+    lsn = prev_lsn;
   }
   
   
