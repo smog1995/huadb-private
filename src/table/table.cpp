@@ -46,6 +46,7 @@ Rid Table::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid, bo
   // LAB 1 BEGIN
   auto target_page = std::make_unique<TablePage>(buffer_pool_.GetPage(db_oid_, oid_, current_page_id_));
   if (record->GetSize() > target_page->GetFreeSpaceSize()) {
+    std::cout <<"添加新野";
     target_page->SetNextPageId(++current_page_id_);
     target_page = std::make_unique<TablePage>(buffer_pool_.NewPage(db_oid_, oid_, current_page_id_));
     //  新添加页的操作记录到日志
@@ -78,10 +79,10 @@ void Table::DeleteRecord(const Rid &rid, xid_t xid, bool write_log) {
   // LAB 1 BEGIN
   auto target_page = std::make_unique<TablePage>(buffer_pool_.GetPage(db_oid_, oid_, rid.page_id_));
   target_page->DeleteRecord(rid.slot_id_, xid);
-  if (write_log) {
-    lsn_t delete_lsn = log_manager_.AppendDeleteLog(xid, oid_, rid.page_id_, rid.slot_id_);
+  // if (write_log) {
+  //   lsn_t delete_lsn = log_manager_.AppendDeleteLog(xid, oid_, rid.page_id_, rid.slot_id_);
 
-  }
+  // }
 }
 
 Rid Table::UpdateRecord(const Rid &rid, xid_t xid, cid_t cid, std::shared_ptr<Record> record, bool write_log) {
