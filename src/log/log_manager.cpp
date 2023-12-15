@@ -288,6 +288,7 @@ void LogManager::Analyze() {
   }
   // 根据 Checkpoint 日志恢复脏页表、活跃事务表等元信息
   // LAB 2 BEGIN
+  bool analyze_flag = false;
   size_t baselog_record_size = sizeof(LogType) + sizeof(xid_t) + sizeof(lsn_t);  //  log_record大小
   char* log = new char[baselog_record_size];
   disk_.ReadLog(checkpoint_lsn, baselog_record_size, log);  //  从磁盘读取，写入log字符数组，此时只是基类日志记录大小
@@ -300,11 +301,25 @@ void LogManager::Analyze() {
   //  第二遍读取磁盘才是用来获取该日志
   disk_.ReadLog(checkpoint_lsn, truly_log_record_size, log);
   log_record = LogRecord::DeserializeFrom(log);
-  
-  if (log_record->GetType() == LogType::INSERT || log_record->GetType() == LogType::DELETE) {
-    log_record->Undo(*buffer_pool_, *catalog_, *this, lsn, prev_lsn);
-  } else if (log_record->GetType() == LogType::BEGIN) {
-    rollback_finish = true;
+  while (!analyze_flag) {
+    size_t baselog_record_size = sizeof(LogType) + sizeof(xid_t) + sizeof(lsn_t);  //  log_record大小
+    char* log = new char[baselog_record_size];
+    disk_.ReadLog(checkpoint_lsn, baselog_record_size, log);  //  从磁盘读取，写入log字符数组，此时只是基类日志记录大小
+    //  第一遍读取磁盘用来获取该日志的前一条的lsn位置
+    auto log_record = LogRecord::DeserializeFrom(log);
+    size_t prev_lsn = log_record->GetPrevLSN();                                                                                                                                                                                                             N();
+    size_t truly_log_record_size = checkpoint_lsn - prev_lsn; 
+    delete[] log;
+    log = new char[truly_log_record_size];
+    //  第二遍读取磁盘才是用来获取该日志
+    disk_.ReadLog(checkpoint_lsn, truly_log_record_size, log);
+    log_record = LogRecord::DeserializeFrom(log);
+    
+    if (log_record->GetType() == LogType::INSERT || log_record->GetType() == LogType::DELETE) {
+      log_record->Undo(*buffer_pool_, *catalog_, *this, lsn, prev_lsn);
+    } else if (log_record->GetType() == LogType::BEGIN) {
+      analyze_flag = true;
+    }
   }
 }
 
