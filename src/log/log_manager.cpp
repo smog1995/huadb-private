@@ -1,9 +1,6 @@
 #include "log/log_manager.h"
 #include <memory>
-<<<<<<< HEAD
-=======
 #include "common/constants.h"
->>>>>>> 2482d84fbe83071c3a5fe79bb75b9c813564c1fd
 #include "iostream"
 #include "common/exceptions.h"
 #include "common/typedefs.h"
@@ -171,26 +168,24 @@ void LogManager::Rollback(xid_t xid) {
   lsn_t prev_lsn = lsn;
   std::shared_ptr<LogRecord> log_record;
   bool rollback_finish = false;
-  // for (; log_record == nullptr || log_record->GetType() != LogType::BEGIN;) {
   while (!rollback_finish) {
     std::cout <<flushed_lsn_<<std::endl;
-    if (lsn <= flushed_lsn_) { // 不在日志缓冲区中
+    if (prev_lsn <= flushed_lsn_) { // 不在日志缓冲区中
       std::cout << "日志不在内存" << std::endl;
-      size_t baselog_record_size = sizeof(LogType) + sizeof(xid_t) + sizeof(lsn_t);  //  log_record大小
-      char* log = new char[baselog_record_size];
-      disk_.ReadLog(lsn, baselog_record_size, log);  //  从磁盘读取，写入log字符数组，此时只是基类日志记录大小
+      // size_t record_size = sizeof(LogType) + sizeof(xid_t) + sizeof(lsn_t);  //  log_record大小
+      size_t record_size = lsn - prev_lsn;
+      char* log = new char[record_size];
+      disk_.ReadLog(lsn, record_size, log);  //  从磁盘读取，写入log字符数组，此时只是基类日志记录大小
       //  第一遍读取磁盘用来获取该日志的前一条的lsn位置
-      // std::cout << strlen(log) << log << std::endl;
       log_record = LogRecord::DeserializeFrom(log);
       prev_lsn = log_record->GetPrevLSN();
-      
       // std::cout << lsn << " " << prev_lsn << " ";
-      size_t truly_log_record_size = lsn - prev_lsn;  //  
+      // size_t truly_log_record_size = log_record->GetSize();  //  
       delete[] log;
-      log = new char[truly_log_record_size];
+      // log = new char[truly_log_record_size];
       //  第二遍读取磁盘才是用来获取该日志
-      disk_.ReadLog(lsn, truly_log_record_size, log);
-      log_record = LogRecord::DeserializeFrom(log);
+      // disk_.ReadLog(lsn, truly_log_record_size, log);
+      // log_record = LogRecord::DeserializeFrom(log);
       if (log_record->GetType() == LogType::INSERT || log_record->GetType() == LogType::DELETE) {
         log_record->Undo(*buffer_pool_, *catalog_, *this, lsn, prev_lsn);
       } else if (log_record->GetType() == LogType::BEGIN) {
@@ -199,9 +194,9 @@ void LogManager::Rollback(xid_t xid) {
     } else {
       std::cout << "日志在内存中" << std::endl;
       auto iterator = log_buffer_.cbegin();
+      lsn = prev_lsn;
       for (; iterator != log_buffer_.cend(); iterator++) {
         log_record = *iterator;
-
         if (log_record->GetLSN() == lsn) {
           prev_lsn = log_record->GetPrevLSN();
           std::cout << " prevlsn:" << prev_lsn <<std::endl;
@@ -210,16 +205,16 @@ void LogManager::Rollback(xid_t xid) {
             std::cout <<"undo" <<std::endl;
           } else if (log_record->GetType() == LogType::BEGIN) {
             rollback_finish = true;
+            std::cout << "回滚结束" << std::endl;
           }
           break;
         }
-        
       }
     }
-    lsn = prev_lsn;
+    // lsn = prev_lsn;
   }
   //  回滚完从活跃事务表中移除
-  att_.erase(xid);
+  // att_.erase(xid);
   
 }
 
@@ -286,18 +281,25 @@ void LogManager::Analyze() {
     in >> checkpoint_lsn;
     in.close();
   }
-  // 根据 Checkpoint 日志恢复脏页表、活跃事务表等元信息
-  // LAB 2 BEGIN
+  //  根据 Checkpoint 日志恢复脏页表、活跃事务表等元信息
+  //  LAB 2 BEGIN
   bool analyze_flag = false;
-  size_t baselog_record_size = sizeof(LogType) + sizeof(xid_t) + sizeof(lsn_t);  //  log_record大小
-  char* log = new char[baselog_record_size];
-  disk_.ReadLog(checkpoint_lsn, baselog_record_size, log);  //  从磁盘读取，写入log字符数组，此时只是基类日志记录大小
-  //  第一遍读取磁盘用来获取该日志的前一条的lsn位置
-  auto log_record = LogRecord::DeserializeFrom(log);
-  size_t prev_lsn = log_record->GetPrevLSN();
-  size_t truly_log_record_size = checkpoint_lsn - prev_lsn; 
-  delete[] log;
-  log = new char[truly_log_record_size];
+  //第一步，将所有日志写到日志缓冲区
+  lsn_t current_lsn = 
+  while (!analyze_flag) {
+    size_t all_log_record_size = flushed_lsn_ - checkpoint_lsn;
+  //  开一个很大的内存空间（偷懒）
+    char* log_data = new char[flushed_lsn_ - checkpoint_lsn];
+    size_t log_data_offset = 0;
+    disk_.ReadLog(checkpoint_lsn + log_data_offset, all_log_record_size, log_data);
+    auto log_record = LogRecord::DeserializeFrom(log_data + log_data_offset);
+    log_data_offset += log_record->GetSize();
+  }
+  
+
+  
+  
+
   //  第二遍读取磁盘才是用来获取该日志
   disk_.ReadLog(checkpoint_lsn, truly_log_record_size, log);
   log_record = LogRecord::DeserializeFrom(log);
@@ -307,7 +309,7 @@ void LogManager::Analyze() {
     disk_.ReadLog(checkpoint_lsn, baselog_record_size, log);  //  从磁盘读取，写入log字符数组，此时只是基类日志记录大小
     //  第一遍读取磁盘用来获取该日志的前一条的lsn位置
     auto log_record = LogRecord::DeserializeFrom(log);
-    size_t prev_lsn = log_record->GetPrevLSN();                                                                                                                                                                                                             N();
+    size_t prev_lsn = log_record->GetPrevLSN();
     size_t truly_log_record_size = checkpoint_lsn - prev_lsn; 
     delete[] log;
     log = new char[truly_log_record_size];
