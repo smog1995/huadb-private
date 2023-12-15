@@ -1,5 +1,9 @@
 #include "log/log_manager.h"
 #include <memory>
+<<<<<<< HEAD
+=======
+#include "common/constants.h"
+>>>>>>> 2482d84fbe83071c3a5fe79bb75b9c813564c1fd
 #include "iostream"
 #include "common/exceptions.h"
 #include "common/typedefs.h"
@@ -129,6 +133,7 @@ lsn_t LogManager::AppendRollbackLog(xid_t xid) {
   return lsn;
 }
 
+//  检查点恢复，因为是在线状态进行检查点保存，所以当时正在进行的事务也被保存了
 lsn_t LogManager::Checkpoint(bool async) {
   auto log = std::make_shared<BeginCheckpointLog>(NULL_XID, NULL_LSN);
   lsn_t begin_lsn = next_lsn_;
@@ -141,7 +146,7 @@ lsn_t LogManager::Checkpoint(bool async) {
   next_lsn_ += end_checkpoint_log->GetSize();
   end_checkpoint_log->SetLSN(end_lsn);
   log_buffer_.push_back(std::move(end_checkpoint_log));
-  Flush(end_lsn);  
+  Flush(end_lsn); // 此刻活跃事务所做的操作日志也一同被刷到磁盘 
   std::ofstream out(MASTER_RECORD_NAME);
   out << begin_lsn;
   out.close();
@@ -161,19 +166,25 @@ void LogManager::Rollback(xid_t xid) {
   // 若日志在磁盘中，通过 disk_ 读取日志
   // 调用日志的 Undo 函数
   // LAB 2 BEGIN
-  std::cout << "rollback 1" <<std::endl;
+  std::cout << "调用回滚" << std::endl;
   lsn_t lsn = att_[xid];
-  lsn_t prev_lsn;
+  lsn_t prev_lsn = lsn;
   std::shared_ptr<LogRecord> log_record;
-  for (; log_record == nullptr || log_record->GetType() != LogType::BEGIN;) {
-    std::cout << "lsn:" << lsn;
-    if (lsn > flushed_lsn_) { // 不在日志缓冲区中
+  bool rollback_finish = false;
+  // for (; log_record == nullptr || log_record->GetType() != LogType::BEGIN;) {
+  while (!rollback_finish) {
+    std::cout <<flushed_lsn_<<std::endl;
+    if (lsn <= flushed_lsn_) { // 不在日志缓冲区中
+      std::cout << "日志不在内存" << std::endl;
       size_t baselog_record_size = sizeof(LogType) + sizeof(xid_t) + sizeof(lsn_t);  //  log_record大小
       char* log = new char[baselog_record_size];
       disk_.ReadLog(lsn, baselog_record_size, log);  //  从磁盘读取，写入log字符数组，此时只是基类日志记录大小
       //  第一遍读取磁盘用来获取该日志的前一条的lsn位置
-      memcpy(log + sizeof(LogType) + sizeof(xid_t), &prev_lsn, sizeof(lsn_t));
-      std::cout << " prevlsn:" << prev_lsn << std::endl;
+      // std::cout << strlen(log) << log << std::endl;
+      log_record = LogRecord::DeserializeFrom(log);
+      prev_lsn = log_record->GetPrevLSN();
+      
+      // std::cout << lsn << " " << prev_lsn << " ";
       size_t truly_log_record_size = lsn - prev_lsn;  //  
       delete[] log;
       log = new char[truly_log_record_size];
@@ -182,33 +193,38 @@ void LogManager::Rollback(xid_t xid) {
       log_record = LogRecord::DeserializeFrom(log);
       if (log_record->GetType() == LogType::INSERT || log_record->GetType() == LogType::DELETE) {
         log_record->Undo(*buffer_pool_, *catalog_, *this, lsn, prev_lsn);
+      } else if (log_record->GetType() == LogType::BEGIN) {
+        rollback_finish = true;
       }
-       
     } else {
+      std::cout << "日志在内存中" << std::endl;
       auto iterator = log_buffer_.cbegin();
       for (; iterator != log_buffer_.cend(); iterator++) {
         log_record = *iterator;
+
         if (log_record->GetLSN() == lsn) {
           prev_lsn = log_record->GetPrevLSN();
           std::cout << " prevlsn:" << prev_lsn <<std::endl;
           if (log_record->GetType() == LogType::INSERT || log_record->GetType() == LogType::DELETE) {
             log_record->Undo(*buffer_pool_, *catalog_, *this, lsn, prev_lsn);
+            std::cout <<"undo" <<std::endl;
+          } else if (log_record->GetType() == LogType::BEGIN) {
+            rollback_finish = true;
           }
+          break;
         }
+        
       }
     }
     lsn = prev_lsn;
   }
-  
-  
-
-  
-  
-  
+  //  回滚完从活跃事务表中移除
+  att_.erase(xid);
   
 }
 
 void LogManager::Recover() {
+  std::cout <<"ARIES回复" << std::endl;
   Analyze();
   Redo();
   Undo();
@@ -227,20 +243,25 @@ void LogManager::Flush(lsn_t lsn) {
   auto iterator = log_buffer_.cbegin();
   for (; iterator != log_buffer_.cend(); iterator++) {
     const auto &log_record = *iterator;
+    
     if (lsn != NULL_LSN && log_record->GetLSN() > lsn) {
       break;
     }
     last_log_size = log_record->GetSize();
     char *log = new char[last_log_size];
-    log_record->SerializeTo(log);  //  serializeTo并不会把日志的lsn成员变量也序列化，所以写入磁盘的也是不带有lsn的
+
+  //  serializeTo并不会把日志的lsn成员变量也序列化，所以写入磁盘的也是不带有lsn的
+    log_record->SerializeTo(log);  
     disk_.WriteLog(log_record->GetLSN(), last_log_size, log);
     delete[] log;
     last_log_lsn = log_record->GetLSN();
   }
   log_buffer_.erase(log_buffer_.begin(), iterator);
   std::ofstream out(NEXT_LSN_NAME);
+  //  STEAL 允许事务未提交就已经将部分操作日志落盘
   if (lsn == NULL_LSN && last_log_lsn > flushed_lsn_) {
     flushed_lsn_ = last_log_lsn;
+  //  事务提交时flush
   } else if (lsn > flushed_lsn_) {
     flushed_lsn_ = lsn;
   }
@@ -267,16 +288,37 @@ void LogManager::Analyze() {
   }
   // 根据 Checkpoint 日志恢复脏页表、活跃事务表等元信息
   // LAB 2 BEGIN
+  size_t baselog_record_size = sizeof(LogType) + sizeof(xid_t) + sizeof(lsn_t);  //  log_record大小
+  char* log = new char[baselog_record_size];
+  disk_.ReadLog(checkpoint_lsn, baselog_record_size, log);  //  从磁盘读取，写入log字符数组，此时只是基类日志记录大小
+  //  第一遍读取磁盘用来获取该日志的前一条的lsn位置
+  auto log_record = LogRecord::DeserializeFrom(log);
+  size_t prev_lsn = log_record->GetPrevLSN();
+  size_t truly_log_record_size = checkpoint_lsn - prev_lsn; 
+  delete[] log;
+  log = new char[truly_log_record_size];
+  //  第二遍读取磁盘才是用来获取该日志
+  disk_.ReadLog(checkpoint_lsn, truly_log_record_size, log);
+  log_record = LogRecord::DeserializeFrom(log);
+  
+  if (log_record->GetType() == LogType::INSERT || log_record->GetType() == LogType::DELETE) {
+    log_record->Undo(*buffer_pool_, *catalog_, *this, lsn, prev_lsn);
+  } else if (log_record->GetType() == LogType::BEGIN) {
+    rollback_finish = true;
+  }
 }
 
 void LogManager::Redo() {
   // 正序读取日志，调用日志记录的 Redo 函数
   // LAB 2 BEGIN
+
+  
 }
 
 void LogManager::Undo() {
   // 根据活跃事务表，将所有活跃事务回滚
   // LAB 2 BEGIN
+
 }
 
 }  // namespace huadb

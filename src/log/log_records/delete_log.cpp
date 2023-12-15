@@ -1,4 +1,5 @@
 #include "log/log_records/delete_log.h"
+#include <memory>
 #include "table/table_page.h"
 namespace huadb {
 
@@ -54,6 +55,10 @@ void DeleteLog::Redo(BufferPool &buffer_pool, Catalog &catalog, LogManager &log_
   if (oid_ == INVALID_OID) {
     return ;
   }
+  auto table_page = std::make_unique<TablePage>(buffer_pool.GetPage(catalog.GetDatabaseOid(oid_), oid_, page_id_));
+  table_page->DeleteRecord(slot_id_, xid_);
+
+  
 
 }
 
