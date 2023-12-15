@@ -31,7 +31,6 @@ void TablePage::Init() {
 }
 
 slotid_t TablePage::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid) {
-  // std::cout << "tablepageinsert" << std::endl;
   // 在记录头添加事务信息（xid 和 cid）
   // LAB 3 BEGIN
 
@@ -48,7 +47,7 @@ slotid_t TablePage::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_
   memcpy(page_data_ + *lower_ + 2, &record_size, sizeof(db_size_t));  //  将记录大小写入
   *lower_ += 4;                                                       //  slot大小
   // slots(当前slot的位置[lower] - slots数组地址) / 4 即为当前slot下标
-  slotid_t slot_id = (*lower_ - sizeof(page_lsn_) + sizeof(next_page_id_) + sizeof(lower_) + sizeof(upper_)) / sizeof(Slot) - 1;
+  slotid_t slot_id = (*lower_ - (sizeof(lsn_t) + sizeof(pageid_t) + sizeof(db_size_t) + sizeof(db_size_t))) / sizeof(Slot) ;
   return slot_id;
 }
 
