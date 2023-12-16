@@ -1,5 +1,5 @@
 #include "log/log_records/end_checkpoint_log.h"
-
+#include "iostream"
 namespace huadb {
 
 EndCheckpointLog::EndCheckpointLog(xid_t xid, lsn_t prev_lsn, const std::unordered_map<xid_t, lsn_t> &att,
@@ -29,6 +29,7 @@ size_t EndCheckpointLog::SerializeTo(char *data) const {
     memcpy(data + offset, &entry.second, sizeof(lsn_t));
     offset += sizeof(lsn_t);
   }
+  // std::cout << "end检查点日志写入的dpt_,att_大小为：" << dpt_size << " " <<att_size << std::endl;
   assert(offset == size_);
   return offset;
 }

@@ -46,7 +46,7 @@ Rid Table::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid, bo
   // LAB 1 BEGIN
   auto target_page = std::make_unique<TablePage>(buffer_pool_.GetPage(db_oid_, oid_, current_page_id_));
   if (record->GetSize() > target_page->GetFreeSpaceSize()) {
-    std::cout<<"add new Page" <<std::endl;
+    // std::cout<<"add new Page" <<std::endl;
     target_page->SetNextPageId(++current_page_id_);
     target_page = std::make_unique<TablePage>(buffer_pool_.NewPage(db_oid_, oid_, current_page_id_));
     // lab2: 新添加页的操作记录到日志

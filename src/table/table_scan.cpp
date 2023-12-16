@@ -31,6 +31,7 @@ std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isola
       rid_.slot_id_ = 0;
       current_table_page_ =
           std::make_unique<TablePage>(buffer_pool_.GetPage(table_->GetDbOid(), table_->GetOid(), rid_.page_id_));
+          // std::cout << " pageId" << current_table_page_->GetNextPageId() << std::endl;
     } else {  //  读取结束
       return nullptr;
     }

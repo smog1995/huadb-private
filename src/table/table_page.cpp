@@ -46,7 +46,6 @@ slotid_t TablePage::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_
   memcpy(page_data_ + *lower_, upper_, sizeof(db_size_t));            // 将记录偏移量写入
   memcpy(page_data_ + *lower_ + 2, &record_size, sizeof(db_size_t));  //  将记录大小写入
   *lower_ += 4;  
-  // std::cout <<"aa";                                                     //  slot大小
   // slots(当前slot的位置[lower] - slots数组地址) / 4 即为当前slot下标
   slotid_t slot_id = ((*lower_ - sizeof(page_lsn_) - sizeof(pageid_t) - sizeof(db_size_t) - sizeof(db_size_t)) / sizeof(Slot)) - 1;
   // std::cout <<"insert :slot_id" <<slot_id <<std::endl;
@@ -60,7 +59,7 @@ void TablePage::DeleteRecord(slotid_t slot_id, xid_t xid) {
   // 将 slot_id 对应的 record 标记为删除
   // 将 page 标记为 dirty
   // LAB 1 BEGIN
-  std::cout << "deleteTag" << "slot_id:"<< slot_id << std::endl;
+  // std::cout << "deleteTag" << "slot_id:"<< slot_id << std::endl;
   page_->SetDirty();
   Slot slot = slots_[slot_id];
   // std::cout << slot.offset_ << " " << slot.size_ <<std::endl;
@@ -95,8 +94,6 @@ void TablePage::RedoInsertRecord(slotid_t slot_id, char *raw_record, db_size_t p
   // 注意维护 lower 和 upper 指针，以及 slots 数组
   // 将页面设为 dirty
   // LAB 2 BEGIN
-  
-  // db_size_t record_size = record->SerializeTo(page_data_ + *upper_ - record->GetSize());  //  写入record
   memcpy(page_data_ + page_offset, raw_record, record_size); 
   // 需要满足幂等性，只有此刻表确实没成功插入时，upper需要移动（其他情况则是upper不位于此处）
   if (*upper_ == page_offset + record_size) { 
