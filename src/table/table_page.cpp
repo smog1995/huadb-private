@@ -2,6 +2,7 @@
 
 #include <memory>
 
+#include "common/constants.h"
 #include "common/typedefs.h"
 #include "cstring"
 #include "iostream"
@@ -40,15 +41,22 @@ slotid_t TablePage::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_
   // 将 page 标记为 dirty
   // LAB 1 BEGIN
   page_->SetDirty();
-  db_size_t record_size = record->SerializeTo(page_data_ + *upper_ - record->GetSize());  //  写入record
   *upper_ -= record->GetSize();
-  //  写入slot，slot包含记录偏移量和大小
+  db_size_t record_size = record->SerializeTo(page_data_ + *upper_);  //  写入record
+  
+  char* recordheader_data = new char[RECORD_HEADER_SIZE];
+  record->SetXmin(xid);
+  record->SetCid(cid);
+  record->SerializeHeaderTo(recordheader_data);
+  *upper_ -= RECORD_HEADER_SIZE;
+  memcpy(page_data_ + *upper_, recordheader_data, RECORD_HEADER_SIZE);
+  record_size += RECORD_HEADER_SIZE;  //  现在需要
+  // 写入slot，slot包含记录偏移量和大小
   memcpy(page_data_ + *lower_, upper_, sizeof(db_size_t));            // 将记录偏移量写入
   memcpy(page_data_ + *lower_ + 2, &record_size, sizeof(db_size_t));  //  将记录大小写入
   *lower_ += 4;  
-  // slots(当前slot的位置[lower] - slots数组地址) / 4 即为当前slot下标
+  //  slots(当前slot的位置[lower] - slots数组地址) / 4 即为当前slot下标
   slotid_t slot_id = ((*lower_ - sizeof(page_lsn_) - sizeof(pageid_t) - sizeof(db_size_t) - sizeof(db_size_t)) / sizeof(Slot)) - 1;
-  // std::cout <<"insert :slot_id" <<slot_id <<std::endl;
   return slot_id;
 }
 
@@ -59,12 +67,18 @@ void TablePage::DeleteRecord(slotid_t slot_id, xid_t xid) {
   // 将 slot_id 对应的 record 标记为删除
   // 将 page 标记为 dirty
   // LAB 1 BEGIN
-  // std::cout << "deleteTag" << "slot_id:"<< slot_id << std::endl;
-  page_->SetDirty();
+  
   Slot slot = slots_[slot_id];
   // std::cout << slot.offset_ << " " << slot.size_ <<std::endl;
   bool deleted = true;
+  // recordHeader成员顺序：deleted_,xmin_,xmax_,cid_ ,需修改deleted_和xmax_
+  size_t offset = slot.offset_;
+  memcpy(page_data_ + offset, &deleted, sizeof(bool));
+  offset += sizeof(bool) + sizeof(xid_t);
+  memcpy(page_data_ + offset, &xid, sizeof(xid_t));
+  offset += sizeof(xid_t) + sizeof(cid_t);
   memcpy(page_data_ + slot.offset_, &deleted, sizeof(bool));
+  page_->SetDirty();
 }
 
 std::unique_ptr<Record> TablePage::GetRecord(slotid_t slot_id, const ColumnList &column_list) {
@@ -82,11 +96,18 @@ void TablePage::UndoDeleteRecord(slotid_t slot_id) {
   
   // 清除记录的删除标记
   // LAB 2 BEGIN
-  page_->SetDirty();
+  
+  
   Slot slot = slots_[slot_id];
+  size_t offset = slot.offset_;
+  // recordHeader成员顺序：deleted_,xmin_,xmax_,cid_ ,需修改deleted_为false和xmax_改为最大事务大小
   bool deleted = false;
-  memcpy(page_data_ + slot.offset_, &deleted, sizeof(bool));
-
+  memcpy(page_data_ + offset, &deleted, sizeof(bool));
+  offset += sizeof(bool) + sizeof(xid_t);
+  memcpy(page_data_ + offset, &NULL_XID, sizeof(xid_t));
+  offset += sizeof(xid_t) + sizeof(cid_t);
+  memcpy(page_data_ + offset, &deleted, sizeof(bool));
+  page_->SetDirty();
 }
 
 void TablePage::RedoInsertRecord(slotid_t slot_id, char *raw_record, db_size_t page_offset, db_size_t record_size) {

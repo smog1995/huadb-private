@@ -40,6 +40,9 @@ std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isola
   bool is_deleted = current_record->IsDeleted();
   while (is_deleted) {
     rid_.slot_id_++;
+    if (current_record->GetXmax() == xid && current_record->GetCid() == cid) {
+      rid_.slot_id_++;
+    }
     if (rid_.slot_id_ >= current_table_page_->GetRecordCount()) {
       if (current_table_page_->GetNextPageId() != NULL_PAGE_ID) {
         rid_.page_id_ = current_table_page_->GetNextPageId();
