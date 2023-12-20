@@ -29,7 +29,7 @@ size_t EndCheckpointLog::SerializeTo(char *data) const {
     memcpy(data + offset, &entry.second, sizeof(lsn_t));
     offset += sizeof(lsn_t);
   }
-  // std::cout << "end检查点日志写入的dpt_,att_大小为：" << dpt_size << " " <<att_size << std::endl;
+  std::cout << "end检查点日志写入的dpt_,att_大小为：" << dpt_size << " " <<att_size << std::endl;
   assert(offset == size_);
   return offset;
 }

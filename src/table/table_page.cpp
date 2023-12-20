@@ -41,30 +41,17 @@ slotid_t TablePage::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_
   // 将 record 写入 page data
   // 将 page 标记为 dirty
   // LAB 1 BEGIN
-<<<<<<< HEAD
   *upper_ -= record->GetSize();
-  db_size_t record_size = record->SerializeTo(page_data_ + *upper_);  //  写入record
-=======
-  page_->SetDirty();
-  std::cout << "upper:" << *upper_;
-  *upper_ -= record->GetSize();
-  db_size_t record_size = record->SerializeTo(page_data_ + *upper_);  //  写入record
-  std::cout << " 插入记录数据后upper:" << *upper_;
->>>>>>> e4a8946 (discard)
+  db_size_t record_size = record->GetSize();
+  record->SerializeTo(page_data_ + *upper_);  //  写入record
   char* recordheader_data = new char[RECORD_HEADER_SIZE];
   record->SetXmin(xid);
   record->SetCid(cid);
   record->SerializeHeaderTo(recordheader_data);
   *upper_ -= RECORD_HEADER_SIZE;
   memcpy(page_data_ + *upper_, recordheader_data, RECORD_HEADER_SIZE);
-<<<<<<< HEAD
   delete[] recordheader_data;
   record_size += RECORD_HEADER_SIZE;
-=======
-  std::cout << " 插入记录头后upper:" << *upper_;
-  delete[] recordheader_data;
-  record_size += RECORD_HEADER_SIZE; 
->>>>>>> e4a8946 (discard)
   // 写入slot，slot包含记录偏移量和大小
   memcpy(page_data_ + *lower_, upper_, sizeof(db_size_t));            // 将记录偏移量写入
   memcpy(page_data_ + *lower_ + 2, &record_size, sizeof(db_size_t));  //  将记录大小写入
@@ -78,11 +65,9 @@ slotid_t TablePage::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_
 void TablePage::DeleteRecord(slotid_t slot_id, xid_t xid) {
   // 更改实验1的实现，改为通过 xid 标记删除
   // LAB 3 BEGIN
-
   // 将 slot_id 对应的 record 标记为删除
   // 将 page 标记为 dirty
   // LAB 1 BEGIN
-  
   Slot slot = slots_[slot_id];
   // std::cout << slot.offset_ << " " << slot.size_ <<std::endl;
   bool deleted = true;
@@ -112,11 +97,8 @@ std::unique_ptr<Record> TablePage::GetRecord(slotid_t slot_id, const ColumnList 
 void TablePage::UndoDeleteRecord(slotid_t slot_id) {
   // 修改 undo delete 的逻辑
   // LAB 3 BEGIN
-  
   // 清除记录的删除标记
   // LAB 2 BEGIN
-  
-  
   Slot slot = slots_[slot_id];
   size_t offset = slot.offset_;
   // recordHeader成员顺序：deleted_,xmin_,xmax_,cid_ ,需修改deleted_为false和xmax_改为最大事务大小
@@ -136,7 +118,7 @@ void TablePage::RedoInsertRecord(slotid_t slot_id, char *raw_record, db_size_t p
   // LAB 2 BEGIN
   memcpy(page_data_ + page_offset, raw_record, record_size); 
   // 需要满足幂等性，只有此刻表确实没成功插入时，upper需要移动（其他情况则是upper不位于此处）
-  if (*upper_ == page_offset + record_size) { 
+  if (*upper_ == page_offset + record_size) {
     *upper_ -= record_size;
     *lower_ += 4; 
   }

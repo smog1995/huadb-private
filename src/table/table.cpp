@@ -30,6 +30,7 @@ Table::Table(BufferPool &buffer_pool, LogManager &log_manager, oid_t oid, oid_t 
 }
 
 Rid Table::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid, bool write_log) {
+  size_t record_size = record->GetSize() + RECORD_HEADER_SIZE;
   if (record->GetSize() > MAX_RECORD_SIZE) {
     throw DbException("Record size too large: " + std::to_string(record->GetSize()));
   }
@@ -47,11 +48,7 @@ Rid Table::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid, bo
   // 找到空间足够的页面后，通过 TablePage 插入记录
   // LAB 1 BEGIN
   auto target_page = std::make_unique<TablePage>(buffer_pool_.GetPage(db_oid_, oid_, current_page_id_));
-<<<<<<< HEAD
-  if (record->GetSize() > target_page->GetFreeSpaceSize()) {
-=======
-  if (record->GetSize() + RECORD_HEADER_SIZE > target_page->GetFreeSpaceSize()) {
->>>>>>> e4a8946 (discard)
+  if (record_size > target_page->GetFreeSpaceSize()) {
     std::cout<<"add new Page" <<std::endl;
     target_page->SetNextPageId(++current_page_id_);
     target_page = std::make_unique<TablePage>(buffer_pool_.NewPage(db_oid_, oid_, current_page_id_));
@@ -70,13 +67,13 @@ Rid Table::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid, bo
   // lab2: 添加插入的日志记录
   //  appendInsertLog(事务id，对象id，当前页id，插入页的插槽id，页偏移，记录的数据大小，记录的地址)
   if (write_log) {
-    char* record_data = new char[record->GetSize() + RECORD_HEADER_SIZE];  //  因为通过delete[]删除，所以得分配到堆区
+    char* record_data = new char[record_size];  //  因为通过delete[]删除，所以得分配到堆区
     record->SetXmin(xid);
     record->SetCid(cid);
     record->SerializeHeaderTo(record_data);
     record->SerializeTo(record_data + RECORD_HEADER_SIZE);
     //  将删除记录写入日志
-    lsn_t new_record_lsn = log_manager_.AppendInsertLog(xid, oid_, current_page_id_, slot_id, target_page->GetUpper(), record->GetSize(), record_data);
+    lsn_t new_record_lsn = log_manager_.AppendInsertLog(xid, oid_, current_page_id_, slot_id, target_page->GetUpper(), record_size, record_data);
   }
   return {current_page_id_, slot_id};
 }
@@ -97,9 +94,9 @@ void Table::DeleteRecord(const Rid &rid, xid_t xid, bool write_log) {
 
 Rid Table::UpdateRecord(const Rid &rid, xid_t xid, cid_t cid, std::shared_ptr<Record> record, bool write_log) {
   
-  std::cout << " 本条update语句的事务和sqlid为：" << xid << " " <<cid << std::endl;
+  // std::cout << " 本条update语句的事务和sqlid为：" << xid << " " <<cid << std::endl;
   DeleteRecord(rid, xid, write_log);
-  return InsertRecord(record, xid, cid, write_log);
+  return InsertRecord(std::move(record), xid, cid, write_log);
 }
 
 pageid_t Table::GetFirstPageId() const { return first_page_id_; }
