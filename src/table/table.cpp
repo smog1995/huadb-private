@@ -31,7 +31,7 @@ Table::Table(BufferPool &buffer_pool, LogManager &log_manager, oid_t oid, oid_t 
 
 Rid Table::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid, bool write_log) {
   size_t record_size = record->GetSize() + RECORD_HEADER_SIZE;
-  if (record->GetSize() > MAX_RECORD_SIZE) {
+  if (record_size > MAX_RECORD_SIZE) {
     throw DbException("Record size too large: " + std::to_string(record->GetSize()));
   }
   // std::cout << "insert" << std::endl;

@@ -15,7 +15,9 @@ TableScan::TableScan(BufferPool &buffer_pool, std::shared_ptr<Table> table, Rid 
       std::make_unique<TablePage>(buffer_pool_.GetPage(table_->GetDbOid(), table_->GetOid(), table_->GetFirstPageId()));
   current_table_page_id_ = table_->GetFirstPageId();
 }
+// auto TableScan::MvccShowOrNot() {
 
+// }
 std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isolation_level, cid_t cid,
                                                  const std::unordered_set<xid_t> &active_xids) {
   // 根据事务隔离级别及活跃事务集合，判断记录是否可见
@@ -28,9 +30,9 @@ std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isola
   // std::cout<< "scan";
   // std::cout <<"该scan语句的事务和sqlid为:"  << xid << " " << cid << std::endl;
   if (current_table_page_->GetRecordCount() == 0 || rid_.slot_id_ >= current_table_page_->GetRecordCount()) {
-    std::cout << "尝试获取下一页：" << std::endl;
+    // std::cout << "尝试获取下一页：" << std::endl;
     if (current_table_page_->GetNextPageId() != NULL_PAGE_ID) {
-      std::cout << "下一页" << std::endl;
+      // std::cout << "下一页" << std::endl;
       rid_.page_id_ = current_table_page_->GetNextPageId();
       rid_.slot_id_ = 0;
       current_table_page_ =
@@ -47,10 +49,9 @@ std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isola
   xid_t record_xid = current_record->GetXmin();
   cid_t record_cid = current_record->GetCid();
   while (is_deleted || (record_xid == xid && record_cid == cid && cid != NULL_CID)) {
-    if (is_deleted) {
-      // std::cout << "是被删除的记录" << " ";
-    }
     if (record_xid == xid && record_cid == cid && cid != NULL_CID) {
+      std::cout << "当前xid,cid:" << xid << " " <<cid << std::endl;
+      std::cout << "该记录xid,cid:" << record_xid << " " << record_cid <<std::endl;
       std::cout << "万圣节问题";
       break;
     }

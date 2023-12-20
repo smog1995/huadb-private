@@ -3,12 +3,14 @@
 namespace huadb {
 
 SeqScanExecutor::SeqScanExecutor(ExecutorContext &context, std::shared_ptr<const SeqScanOperator> plan)
-    : Executor(context, {}), plan_(std::move(plan)) {}
+    : Executor(context, {}), plan_(std::move(plan)), 
+    active_xids_(context.GetTransactionManager().GetActiveTransactions()){}
 
 void SeqScanExecutor::Init() {
-  // std::cout << "init%%%";
   auto table = context_.GetCatalog().GetTable(plan_->GetTableOid());
   scan_ = std::make_unique<TableScan>(context_.GetBufferPool(), table, Rid{table->GetFirstPageId(), 0});
+  active_xids_.clear();
+  active_xids_ = context_.GetTransactionManager().GetActiveTransactions();
 }
 
 std::shared_ptr<Record> SeqScanExecutor::Next() {
