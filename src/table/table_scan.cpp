@@ -25,6 +25,7 @@ std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isola
   // 扫描结束时，返回空指针
   // LAB 1 BEGIN
   // std::cout<< "scan";
+  std::cout <<"该scan语句的事务和sqlid为："  << xid << " " << cid << std::endl;
   if (current_table_page_->GetRecordCount() == 0 || rid_.slot_id_ >= current_table_page_->GetRecordCount()) {
     if (current_table_page_->GetNextPageId() != NULL_PAGE_ID) {
       rid_.page_id_ = current_table_page_->GetNextPageId();
@@ -37,12 +38,13 @@ std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isola
     }
   }
   auto current_record = current_table_page_->GetRecord(rid_.slot_id_, table_->GetColumnList());
+  // std::cout << current_record->GetXmin() << "XMIN" << std::endl;
   bool is_deleted = current_record->IsDeleted();
-  while (is_deleted) {
+  xid_t record_xid = current_record->GetXmin();
+  cid_t record_cid = current_record->GetCid();
+  while (is_deleted || (record_xid == xid && record_cid == cid && cid != NULL_CID)) {
+    std::cout << "而本条记录的xid和cid为：" << record_xid << " " << cid << std::endl;
     rid_.slot_id_++;
-    if (current_record->GetXmax() == xid && current_record->GetCid() == cid) {
-      rid_.slot_id_++;
-    }
     if (rid_.slot_id_ >= current_table_page_->GetRecordCount()) {
       if (current_table_page_->GetNextPageId() != NULL_PAGE_ID) {
         rid_.page_id_ = current_table_page_->GetNextPageId();
@@ -55,8 +57,10 @@ std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isola
     }
     current_record = current_table_page_->GetRecord(rid_.slot_id_, table_->GetColumnList());
     is_deleted = current_record->IsDeleted();
+    record_xid = current_record->GetXmin();
+    record_cid = current_record->GetCid();
   }
-  if (is_deleted) {
+  if (is_deleted || (record_xid == xid && record_cid == cid && cid != NULL_CID)) {
     return nullptr;
   }
   Record record(*current_record);

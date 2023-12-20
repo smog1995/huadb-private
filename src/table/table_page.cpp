@@ -6,6 +6,7 @@
 #include "common/typedefs.h"
 #include "cstring"
 #include "iostream"
+#include "table/record_header.h"
 namespace huadb {
 
 TablePage::TablePage(std::shared_ptr<Page> page) : page_(page) {
@@ -40,23 +41,23 @@ slotid_t TablePage::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_
   // 将 record 写入 page data
   // 将 page 标记为 dirty
   // LAB 1 BEGIN
-  page_->SetDirty();
   *upper_ -= record->GetSize();
   db_size_t record_size = record->SerializeTo(page_data_ + *upper_);  //  写入record
-  
   char* recordheader_data = new char[RECORD_HEADER_SIZE];
   record->SetXmin(xid);
   record->SetCid(cid);
   record->SerializeHeaderTo(recordheader_data);
   *upper_ -= RECORD_HEADER_SIZE;
   memcpy(page_data_ + *upper_, recordheader_data, RECORD_HEADER_SIZE);
-  record_size += RECORD_HEADER_SIZE;  //  现在需要
+  delete[] recordheader_data;
+  record_size += RECORD_HEADER_SIZE;
   // 写入slot，slot包含记录偏移量和大小
   memcpy(page_data_ + *lower_, upper_, sizeof(db_size_t));            // 将记录偏移量写入
   memcpy(page_data_ + *lower_ + 2, &record_size, sizeof(db_size_t));  //  将记录大小写入
-  *lower_ += 4;  
+  *lower_ += 4;
   //  slots(当前slot的位置[lower] - slots数组地址) / 4 即为当前slot下标
   slotid_t slot_id = ((*lower_ - sizeof(page_lsn_) - sizeof(pageid_t) - sizeof(db_size_t) - sizeof(db_size_t)) / sizeof(Slot)) - 1;
+  page_->SetDirty();
   return slot_id;
 }
 
@@ -77,7 +78,7 @@ void TablePage::DeleteRecord(slotid_t slot_id, xid_t xid) {
   offset += sizeof(bool) + sizeof(xid_t);
   memcpy(page_data_ + offset, &xid, sizeof(xid_t));
   offset += sizeof(xid_t) + sizeof(cid_t);
-  memcpy(page_data_ + slot.offset_, &deleted, sizeof(bool));
+  memcpy(page_data_ + offset, &deleted, sizeof(bool));
   page_->SetDirty();
 }
 
@@ -86,8 +87,12 @@ std::unique_ptr<Record> TablePage::GetRecord(slotid_t slot_id, const ColumnList 
   // LAB 1 BEGIN
   Slot slot = slots_[slot_id];
   Record record;
-  record.DeserializeFrom(page_data_ + slot.offset_, column_list);
-  return std::make_unique<Record>(record);
+  record.DeserializeFrom(page_data_ + slot.offset_ + RECORD_HEADER_SIZE, column_list);
+  std::unique_ptr<Record> rec_ptr;
+  rec_ptr = std::make_unique<Record>(record);
+  rec_ptr->DeserializeHeaderFrom(page_data_ + slot.offset_);
+  // std::cout << rec_ptr->GetXmin() <<std::endl;
+  return rec_ptr;
 }
 
 void TablePage::UndoDeleteRecord(slotid_t slot_id) {

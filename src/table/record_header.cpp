@@ -1,5 +1,5 @@
 #include "table/record_header.h"
-
+#include "iostream"
 #include <cassert>
 #include <cstring>
 
@@ -8,8 +8,10 @@ namespace huadb {
 db_size_t RecordHeader::SerializeTo(char *data) const {
   db_size_t offset = 0;
   memcpy(data + offset, &deleted_, sizeof(deleted_));
+  // std::cout << "记录头： " << deleted_ << " ";
   offset += sizeof(deleted_);
   memcpy(data + offset, &xmin_, sizeof(xmin_));
+  // std::cout << xmin_ << " " << cid_<< std::endl; 
   offset += sizeof(xmin_);
   memcpy(data + offset, &xmax_, sizeof(xmax_));
   offset += sizeof(xmax_);
