@@ -1,5 +1,5 @@
 #include "executors/insert_executor.h"
-
+#include "iostream"
 namespace huadb {
 
 InsertExecutor::InsertExecutor(ExecutorContext &context, std::shared_ptr<const InsertOperator> plan,
@@ -16,6 +16,7 @@ std::shared_ptr<Record> InsertExecutor::Next() {
   if (finished_) {
     return nullptr;
   }
+  std::cout << "insert executor" ;
   uint32_t count = 0;
   while (auto record = children_[0]->Next()) {
     std::vector<Value> values(column_list_.Length());

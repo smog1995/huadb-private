@@ -41,16 +41,19 @@ slotid_t TablePage::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_
   // 将 page 标记为 dirty
   // LAB 1 BEGIN
   page_->SetDirty();
+  std::cout << "upper:" << *upper_;
   *upper_ -= record->GetSize();
   db_size_t record_size = record->SerializeTo(page_data_ + *upper_);  //  写入record
-  
+  std::cout << " 插入记录数据后upper:" << *upper_;
   char* recordheader_data = new char[RECORD_HEADER_SIZE];
   record->SetXmin(xid);
   record->SetCid(cid);
   record->SerializeHeaderTo(recordheader_data);
   *upper_ -= RECORD_HEADER_SIZE;
   memcpy(page_data_ + *upper_, recordheader_data, RECORD_HEADER_SIZE);
-  record_size += RECORD_HEADER_SIZE;  //  现在需要
+  std::cout << " 插入记录头后upper:" << *upper_;
+  delete[] recordheader_data;
+  record_size += RECORD_HEADER_SIZE; 
   // 写入slot，slot包含记录偏移量和大小
   memcpy(page_data_ + *lower_, upper_, sizeof(db_size_t));            // 将记录偏移量写入
   memcpy(page_data_ + *lower_ + 2, &record_size, sizeof(db_size_t));  //  将记录大小写入

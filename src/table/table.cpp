@@ -32,6 +32,7 @@ Rid Table::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid, bo
   if (record->GetSize() > MAX_RECORD_SIZE) {
     throw DbException("Record size too large: " + std::to_string(record->GetSize()));
   }
+  // std::cout << "insert" << std::endl;
   // 当 write_log 参数为 true 时开启写日志功能
   // 在插入记录时增加写 InsertLog 过程
   // 在创建新的页面时增加写 NewPageLog 过程
@@ -45,8 +46,8 @@ Rid Table::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid, bo
   // 找到空间足够的页面后，通过 TablePage 插入记录
   // LAB 1 BEGIN
   auto target_page = std::make_unique<TablePage>(buffer_pool_.GetPage(db_oid_, oid_, current_page_id_));
-  if (record->GetSize() > target_page->GetFreeSpaceSize()) {
-    // std::cout<<"add new Page" <<std::endl;
+  if (record->GetSize() + RECORD_HEADER_SIZE > target_page->GetFreeSpaceSize()) {
+    std::cout<<"add new Page" <<std::endl;
     target_page->SetNextPageId(++current_page_id_);
     target_page = std::make_unique<TablePage>(buffer_pool_.NewPage(db_oid_, oid_, current_page_id_));
     // lab2: 新添加页的操作记录到日志
@@ -58,7 +59,7 @@ Rid Table::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_t cid, bo
   }
   //  将记录插入对应page中
   slotid_t slot_id = target_page->InsertRecord(record, xid, cid);
-  // std::cout<<"table SlotId"<< slot_id <<  "page:" <<  current_page_id_ << std::endl;
+  // std::cout<<"table SlotId"<< slot_id <<  " page:" <<  current_page_id_ << std::endl;
   //   InsertLog(xid_t xid, lsn_t prev_lsn, oid_t oid, pageid_t page_id, slotid_t slot_id, db_size_t page_offset,
   //       db_size_t record_size, char *record);
   // lab2: 添加插入的日志记录

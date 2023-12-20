@@ -1,5 +1,5 @@
 #include "catalog/system_catalog.h"
-
+#include "iostream"
 #include <cassert>
 
 #include "catalog/system_schema.h"
@@ -37,12 +37,13 @@ void SystemCatalog::LoadSystemTables() {
   CreateTable(STATISTIC_META_NAME, statistic_schema, STATISTIC_META_OID, SYSTEM_DATABASE_OID, false);
   // 加载数据库信息
   LoadDatabaseMeta();
-
+std::cout << "加载系统表" << std::endl;
   ChangeDatabase(DEFAULT_DATABASE_NAME);
 }
 
 void SystemCatalog::CreateDatabase(const std::string &database_name, bool exists_ok, oid_t db_oid) {
   // Step1. 约束检测
+  std::cout << "创建数据库";
   if (!exists_ok && DatabaseExists(database_name)) {
     throw DbException("Database " + database_name + " already exists");
   }
@@ -69,6 +70,7 @@ void SystemCatalog::DropDatabase(const std::string &database_name, bool missing_
     if (missing_ok) {
       return;
     } else {
+      
       throw DbException("Database " + database_name + " does not exist");
     }
   }
