@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "common/constants.h"
+#include "common/typedefs.h"
 #include "iostream"
 #include "table/table_page.h"
 
@@ -24,16 +25,23 @@ std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isola
   // 读取时更新 rid_ 变量，避免重复读取
   // 扫描结束时，返回空指针
   // LAB 1 BEGIN
+<<<<<<< HEAD
   // std::cout<< "scan";
   std::cout <<"该scan语句的事务和sqlid为："  << xid << " " << cid << std::endl;
+=======
+  std::cout<< "scan" << table_->GetDbOid() << " ";
+>>>>>>> e4a8946 (discard)
   if (current_table_page_->GetRecordCount() == 0 || rid_.slot_id_ >= current_table_page_->GetRecordCount()) {
+    std::cout << "尝试获取下一页：" << std::endl;
     if (current_table_page_->GetNextPageId() != NULL_PAGE_ID) {
+      std::cout << "下一页" << std::endl;
       rid_.page_id_ = current_table_page_->GetNextPageId();
       rid_.slot_id_ = 0;
       current_table_page_ =
           std::make_unique<TablePage>(buffer_pool_.GetPage(table_->GetDbOid(), table_->GetOid(), rid_.page_id_));
-          // std::cout << " pageId" << current_table_page_->GetNextPageId() << std::endl;
+          std::cout << " pageId" << current_table_page_->GetNextPageId() << std::endl;
     } else {  //  读取结束
+    std::cout << "读取结束" << std::endl;
       return nullptr;
     }
   }
@@ -53,6 +61,7 @@ std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isola
         rid_.slot_id_ = 0;
       } else {  //  读取结束
         return nullptr;
+        std::cout << "读取结束2" << std::endl;
       }
     }
     current_record = current_table_page_->GetRecord(rid_.slot_id_, table_->GetColumnList());
