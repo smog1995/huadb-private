@@ -28,12 +28,14 @@ std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isola
   // std::cout<< "scan";
   // std::cout <<"该scan语句的事务和sqlid为:"  << xid << " " << cid << std::endl;
   if (current_table_page_->GetRecordCount() == 0 || rid_.slot_id_ >= current_table_page_->GetRecordCount()) {
+    std::cout << "尝试获取下一页：" << std::endl;
     if (current_table_page_->GetNextPageId() != NULL_PAGE_ID) {
+      std::cout << "下一页" << std::endl;
       rid_.page_id_ = current_table_page_->GetNextPageId();
       rid_.slot_id_ = 0;
       current_table_page_ =
           std::make_unique<TablePage>(buffer_pool_.GetPage(table_->GetDbOid(), table_->GetOid(), rid_.page_id_));
-          // std::cout << " pageId" << current_table_page_->GetNextPageId() << std::endl;
+          std::cout << " pageId" << current_table_page_->GetNextPageId() << std::endl;
     } else {  //  读取结束
     // std::cout << "读取结束" << std::endl;
       return nullptr;
