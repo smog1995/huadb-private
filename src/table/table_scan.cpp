@@ -24,15 +24,6 @@ bool TableScan::MvccShowOrNot(Record* record, xid_t xid, IsolationLevel isolatio
   // 删除操作已提交
   std::cout << "record_max:" << record_xmax << " xmin: " << record_xmin << " xid:" 
   << xid << " level" << static_cast<int>(isolation_level) << std::endl;
-  // if (xid == NULL_XID) {
-  //   if (record_xmin == DDL_XID && record_xmax != DDL_XID) {
-  //     return true;
-  //   }
-  //   if (record_xmin == DDL_XID && record_xmax == DDL_XID) {
-  //     return false;
-  //   }
-  // }
-  
   if (record_xmax <= xid && active_xids.find(record_xmax) == active_xids.end()) {
     std::cout << "该元组已删除1" << std::endl;
     return false;
@@ -43,16 +34,28 @@ bool TableScan::MvccShowOrNot(Record* record, xid_t xid, IsolationLevel isolatio
     std::cout << "读已提交，该元组已删除" << std::endl;
     return false;
   }
-  // 该元组插入操作并未提交
-  if (active_xids.find(record_xmin) != active_xids.end()) {
-    std::cout << "该元组插入未提交" << std::endl;
-    return false;
-  }
-  // 如果是当前事务之后的新事务，隔离级别不是读已提交,则即使该事务提交了也对当前事务不可见
+  // 如果是当前事务之后的新事务，隔离级别不是读已提交则不可见
   if (record_xmin > xid && isolation_level != IsolationLevel::READ_COMMITTED) {
     std::cout << "不为读已提交，该元组插入不可见" << std::endl;
     return false;
   }
+  // 如果是当前事务之后的新事务，隔离级别为读已提交，但未提交，则不可见
+  if (record_xmin > xid && isolation_level == IsolationLevel::READ_COMMITTED 
+      && active_xids.find(record_xmin) != active_xids.end()) {
+    return false;
+  }
+  // 虽然为老事务但未提交
+  if (record_xmin < xid && active_xids.find(record_xmin) != active_xids.end()) {
+    std::cout << "虽然为老事务但未提交" << std::endl;
+    return false;
+  }
+  // // 该元组插入操作并未提交
+  // if (record_xmin != xid && active_xids.find(record_xmin) != active_xids.end()) {
+  //   std::cout << "该元组插入未提交" << std::endl;
+  //   return false;
+  // }
+  
+  
   std::cout << "可见" << std::endl;
   return true;
 
@@ -76,30 +79,26 @@ std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isola
       rid_.slot_id_ = 0;
       current_table_page_ =
           std::make_unique<TablePage>(buffer_pool_.GetPage(table_->GetDbOid(), table_->GetOid(), rid_.page_id_));
-          std::cout << " pageId" << current_table_page_->GetNextPageId() << std::endl;
+          // std::cout << " pageId" << current_table_page_->GetNextPageId() << std::endl;
     } else {  //  读取结束
     // std::cout << "读取结束" << std::endl;
       return nullptr;
     }
   }
   auto current_record = current_table_page_->GetRecord(rid_.slot_id_, table_->GetColumnList());
-  // std::cout << current_record->GetXmin() << "XMIN" << std::endl;
-  bool is_show = false;
-  if (xid == NULL_XID) {
-    is_show = current_record->IsDeleted();
-  } else {
+  bool is_show = !current_record->IsDeleted();
+  if (xid != NULL_XID) {
     is_show = MvccShowOrNot(current_record.get(), xid, isolation_level, active_xids);
   } 
   xid_t record_xid = current_record->GetXmin();
   cid_t record_cid = current_record->GetCid();
   while (!is_show || (record_xid == xid && record_cid == cid && cid != NULL_CID)) {
+    // std::cout << "循环" << " ";
     if (record_xid == xid && record_cid == cid && cid != NULL_CID) {
       std::cout << "当前xid,cid:" << xid << " " <<cid << std::endl;
       std::cout << "该记录xid,cid:" << record_xid << " " << record_cid <<std::endl;
       std::cout << "万圣节问题";
-      break;
     }
-    // std::cout << std::endl;
     rid_.slot_id_++;
     if (rid_.slot_id_ >= current_table_page_->GetRecordCount()) {
       if (current_table_page_->GetNextPageId() != NULL_PAGE_ID) {
@@ -113,16 +112,14 @@ std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isola
       }
     }
     current_record = current_table_page_->GetRecord(rid_.slot_id_, table_->GetColumnList());
-    if (xid == NULL_XID) {
-      is_show = current_record->IsDeleted();
-    } else {
+    is_show = !current_record->IsDeleted();
+    if (xid != NULL_XID) {
       is_show = MvccShowOrNot(current_record.get(), xid, isolation_level, active_xids);
     }
-    
     record_xid = current_record->GetXmin();
     record_cid = current_record->GetCid();
   }
-  if (is_show || (record_xid == xid && record_cid == cid && cid != NULL_CID)) {
+  if (!is_show || (record_xid == xid && record_cid == cid && cid != NULL_CID)) {
     return nullptr;
   }
   Record record(*current_record);

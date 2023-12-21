@@ -1,5 +1,5 @@
 #include "executors/update_executor.h"
-
+#include "iostream"
 namespace huadb {
 
 UpdateExecutor::UpdateExecutor(ExecutorContext &context, std::shared_ptr<const UpdateOperator> plan,
@@ -15,6 +15,7 @@ std::shared_ptr<Record> UpdateExecutor::Next() {
   if (finished_) {
     return nullptr;
   }
+  std::cout << "update" << std::endl;
   uint32_t count = 0;
   while (auto record = children_[0]->Next()) {
     std::vector<Value> values;
