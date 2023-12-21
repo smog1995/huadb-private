@@ -1,5 +1,6 @@
 #include "executors/seqscan_executor.h"
 #include "iostream"
+#include "transaction/transaction_manager.h"
 namespace huadb {
 
 SeqScanExecutor::SeqScanExecutor(ExecutorContext &context, std::shared_ptr<const SeqScanOperator> plan)
@@ -9,8 +10,10 @@ SeqScanExecutor::SeqScanExecutor(ExecutorContext &context, std::shared_ptr<const
 void SeqScanExecutor::Init() {
   auto table = context_.GetCatalog().GetTable(plan_->GetTableOid());
   scan_ = std::make_unique<TableScan>(context_.GetBufferPool(), table, Rid{table->GetFirstPageId(), 0});
-  active_xids_.clear();
-  active_xids_ = context_.GetTransactionManager().GetActiveTransactions();
+  if (context_.GetIsolationLevel() == IsolationLevel::READ_COMMITTED) { // 读已提交，可以看见最新提交的事务更改
+    active_xids_.clear();
+    active_xids_ = context_.GetTransactionManager().GetActiveTransactions();
+  }
 }
 
 std::shared_ptr<Record> SeqScanExecutor::Next() {

@@ -8,11 +8,13 @@
 #include "table/record.h"
 #include "table/table.h"
 #include "table/table_page.h"
+#include "transaction/transaction_manager.h"
 namespace huadb {
 
 class TableScan {
  public:
   TableScan(BufferPool &buffer_pool, std::shared_ptr<Table> table, Rid rid = {0, 0});
+  bool MvccShowOrNot(Record* record, xid_t xid, IsolationLevel isolation_level, const std::unordered_set<xid_t> &active_xids);
   // xid: 事务 id
   // isolation_level: 隔离级别
   // cid: 事物内部 command id
@@ -20,7 +22,7 @@ class TableScan {
   // 均为 Lab 3 相关参数
   std::shared_ptr<Record> GetNextRecord(xid_t xid = NULL_XID, IsolationLevel isolation_level = DEFAULT_ISOLATION_LEVEL,
                                         cid_t cid = NULL_CID, const std::unordered_set<xid_t> &active_xids = {});
-
+  
  private:
   BufferPool &buffer_pool_;
   std::shared_ptr<Table> table_;

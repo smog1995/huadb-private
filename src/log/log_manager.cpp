@@ -343,12 +343,12 @@ void LogManager::Redo() {
     }
   }
   size_t all_log_record_size = flushed_lsn_ - min_redo_lsn;
-  std::cout << "all_log_record_size" << all_log_record_size << std::endl;
+  // std::cout << "all_log_record_size" << all_log_record_size << std::endl;
   char* log_data = new char[all_log_record_size];
   disk_.ReadLog(min_redo_lsn, all_log_record_size, log_data);
   size_t log_data_offset = 0;
   while (min_redo_lsn + log_data_offset < flushed_lsn_ + 1) {
-    std::cout << "offset " << log_data_offset << " ";
+    // std::cout << "offset " << log_data_offset << " ";
     auto log_record = LogRecord::DeserializeFrom(log_data + log_data_offset);
     log_record->SetLSN(min_redo_lsn + log_data_offset);
     // 本实验在开始检查点日志和结束检查点日志之间不存在其他日志
@@ -360,25 +360,25 @@ void LogManager::Redo() {
         att_[log_record->GetXid()] = min_redo_lsn + log_data_offset;
         break;
       case LogType::BEGIN:
-        std::cout << "添加新事务" << log_record->GetXid() << std::endl;
+        // std::cout << "添加新事务" << log_record->GetXid() << std::endl;
         if (log_record->GetXid() != DDL_XID) {
           att_[log_record->GetXid()] = min_redo_lsn + log_data_offset;
         }
         break;
       case LogType::COMMIT:
-        std::cout << "事务提交：" << log_record->GetXid() << std::endl;
+        // std::cout << "事务提交：" << log_record->GetXid() << std::endl;
         att_.erase(log_record->GetXid());
         break;
       case LogType::ROLLBACK:
-        std::cout << "事务xid：" << log_record->GetXid() << " " 
-        << " " << att_.count(log_record->GetXid()) << std::endl;
+        // std::cout << "事务xid：" << log_record->GetXid() << " " 
+        // << " " << att_.count(log_record->GetXid()) << std::endl;
         Rollback(log_record->GetXid());
         att_.erase(log_record->GetXid());
         break;
       case LogType::BEGIN_CHECKPOINT:
-        std::cout << "begin checkpoint log" <<std::endl;
+        // std::cout << "begin checkpoint log" <<std::endl;
       case LogType::END_CHECKPOINT:
-      std::cout << "end checkpoint log" <<std::endl;
+      // std::cout << "end checkpoint log" <<std::endl;
         break;
       default:
         throw DbException("Unknown log type");
@@ -386,7 +386,7 @@ void LogManager::Redo() {
     log_data_offset += log_record->GetSize();
     log_buffer_.push_back(std::move(log_record));
   }
-  std::cout << "redo完后此时attsize为" << att_.size() << std::endl;
+  // std::cout << "redo完后此时attsize为" << att_.size() << std::endl;
   delete[] log_data;
   
 }
@@ -394,13 +394,13 @@ void LogManager::Redo() {
 void LogManager::Undo() {
   // 根据活跃事务表，将所有活跃事务回滚
   // LAB 2 BEGIN
-  std::cout << "调用undo flush_lsn:" << flushed_lsn_ << std::endl;
+  // std::cout << "调用undo flush_lsn:" << flushed_lsn_ << std::endl;
   auto iterator = att_.begin();
   for (; iterator != att_.end();) {
     Rollback(iterator->first);
     iterator = att_.erase(iterator);    
   }
-  std::cout << "undo 结束，attsize为:" << att_.size() <<std::endl;
+  // std::cout << "undo 结束，attsize为:" << att_.size() <<std::endl;
   
 }
 
