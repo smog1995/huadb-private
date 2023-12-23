@@ -8,6 +8,7 @@ UpdateExecutor::UpdateExecutor(ExecutorContext &context, std::shared_ptr<const U
 
 void UpdateExecutor::Init() {
   children_[0]->Init();
+  std::cout << "修改引擎的事务发起者: " << context_.GetXid() << "sql语句id:" << context_.GetCid() << std::endl;
   table_ = context_.GetCatalog().GetTable(plan_->GetTableOid());
 }
 

@@ -13,7 +13,8 @@ SeqScanExecutor::SeqScanExecutor(ExecutorContext &context, std::shared_ptr<const
     }
 
 void SeqScanExecutor::Init() {
-  // std::cout << "初始化" << std::endl;
+  std::cout << "初始化" << std::endl;
+  std::cout << "查询引擎的事务发起者: " << context_.GetXid() << "sql语句id:" << context_.GetCid() << std::endl;
   auto table = context_.GetCatalog().GetTable(plan_->GetTableOid());
   scan_ = std::make_unique<TableScan>(context_.GetBufferPool(), table, Rid{table->GetFirstPageId(), 0});
 }

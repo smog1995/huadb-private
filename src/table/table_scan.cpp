@@ -24,7 +24,7 @@ bool TableScan::MvccShowOrNot(Record* record, xid_t xid, IsolationLevel isolatio
   // 删除操作已提交
   std::cout << "record_max:" << record_xmax << " xmin: " << record_xmin << " xid:" 
   << xid << " level" << static_cast<int>(isolation_level) << std::endl;
-  if (record_xmax <= xid && active_xids.find(record_xmax) == active_xids.end()) {
+  if (record_xmax <= xid && (active_xids.find(record_xmax) == active_xids.end() || record_xmax == xid)) {
     std::cout << "该元组已删除1" << std::endl;
     return false;
   }
@@ -36,12 +36,13 @@ bool TableScan::MvccShowOrNot(Record* record, xid_t xid, IsolationLevel isolatio
   }
   // 如果是当前事务之后的新事务，隔离级别不是读已提交则不可见
   if (record_xmin > xid && isolation_level != IsolationLevel::READ_COMMITTED) {
-    std::cout << "不为读已提交，该元组插入不可见" << std::endl;
+    std::cout << "不为读未提交或读已提交，读取不到当前事务之后开始的新事务" << std::endl;
     return false;
   }
   // 如果是当前事务之后的新事务，隔离级别为读已提交，但未提交，则不可见
   if (record_xmin > xid && isolation_level == IsolationLevel::READ_COMMITTED 
       && active_xids.find(record_xmin) != active_xids.end()) {
+        std::cout << "读已提交，可以读取到当前事务之后开始的新事务，但该新事务未提交" << std::endl;
     return false;
   }
   // 虽然为老事务但未提交
@@ -81,7 +82,7 @@ std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isola
           std::make_unique<TablePage>(buffer_pool_.GetPage(table_->GetDbOid(), table_->GetOid(), rid_.page_id_));
           // std::cout << " pageId" << current_table_page_->GetNextPageId() << std::endl;
     } else {  //  读取结束
-    // std::cout << "读取结束" << std::endl;
+    std::cout << "读取结束" << std::endl;
       return nullptr;
     }
   }
@@ -93,7 +94,7 @@ std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isola
   xid_t record_xid = current_record->GetXmin();
   cid_t record_cid = current_record->GetCid();
   while (!is_show || (record_xid == xid && record_cid == cid && cid != NULL_CID)) {
-    // std::cout << "循环" << " ";
+    std::cout << "循环" << " ";
     if (record_xid == xid && record_cid == cid && cid != NULL_CID) {
       std::cout << "当前xid,cid:" << xid << " " <<cid << std::endl;
       std::cout << "该记录xid,cid:" << record_xid << " " << record_cid <<std::endl;
@@ -107,8 +108,8 @@ std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isola
             std::make_unique<TablePage>(buffer_pool_.GetPage(table_->GetDbOid(), table_->GetOid(), rid_.page_id_));
         rid_.slot_id_ = 0;
       } else {  //  读取结束
+        std::cout << "读取结束2" << std::endl;
         return nullptr;
-        // std::cout << "读取结束2" << std::endl;
       }
     }
     current_record = current_table_page_->GetRecord(rid_.slot_id_, table_->GetColumnList());
@@ -120,6 +121,7 @@ std::shared_ptr<Record> TableScan::GetNextRecord(xid_t xid, IsolationLevel isola
     record_cid = current_record->GetCid();
   }
   if (!is_show || (record_xid == xid && record_cid == cid && cid != NULL_CID)) {
+    std::cout << "读取结束2" << std::endl;
     return nullptr;
   }
   Record record(*current_record);
