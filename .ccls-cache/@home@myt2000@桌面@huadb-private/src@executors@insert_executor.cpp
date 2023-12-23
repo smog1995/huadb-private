@@ -28,6 +28,7 @@ std::shared_ptr<Record> InsertExecutor::Next() {
     auto table_record = std::make_shared<Record>(std::move(values));
     // 获取正确的锁，加锁失败时抛出异常
     // LAB 3 BEGIN
+    // std::cout << "Insertexec" << context_.GetXid() << std::endl;
     auto rid = table_->InsertRecord(std::move(table_record), context_.GetXid(), context_.GetCid());
     // 获取正确的锁，加锁失败时抛出异常
     // LAB 3 BEGIN
