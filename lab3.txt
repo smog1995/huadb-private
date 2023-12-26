@@ -1,0 +1,2317 @@
+./build/debug/bin/sqllogictest test/lab{0..3}/*.test
+Test: 1/3
+lab0/10-basic.test add new Page
+ pageId4294967295
+读取结束
+读取结束
+end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab0/20-expression.test 读取结束
+ pageId4294967295
+读取结束
+读取结束
+end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab0/30-set_and_show.test 读取结束
+ pageId4294967295
+读取结束
+读取结束
+end检查点日志写入的dpt_,att_大小为：0 1
+[1m[32mPASS[0m
+lab0/40-error.test 读取结束
+ pageId4294967295
+读取结束
+读取结束
+add new Page
+ pageId4294967295
+end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab1/10-insert.test 读取结束
+ pageId4294967295
+循环 读取结束
+读取结束
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 62sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 61 xid:62 level0
+可见
+当前读
+record_max:4294967295 xmin: 61 xid:62 level0
+可见
+当前读
+record_max:4294967295 xmin: 61 xid:62 level0
+可见
+当前读
+读取结束
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 64sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 61 xid:64 level0
+可见
+当前读
+record_max:4294967295 xmin: 61 xid:64 level0
+可见
+当前读
+record_max:4294967295 xmin: 61 xid:64 level0
+可见
+当前读
+record_max:4294967295 xmin: 63 xid:64 level0
+可见
+当前读
+record_max:4294967295 xmin: 63 xid:64 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 63 xid:64 level0
+可见
+当前读
+读取结束
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 66sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 61 xid:66 level0
+可见
+当前读
+record_max:4294967295 xmin: 61 xid:66 level0
+可见
+当前读
+record_max:4294967295 xmin: 61 xid:66 level0
+可见
+当前读
+record_max:4294967295 xmin: 63 xid:66 level0
+可见
+当前读
+record_max:4294967295 xmin: 63 xid:66 level0
+可见
+当前读
+ pageId2
+record_max:4294967295 xmin: 63 xid:66 level0
+可见
+当前读
+record_max:4294967295 xmin: 65 xid:66 level0
+可见
+当前读
+record_max:4294967295 xmin: 65 xid:66 level0
+可见
+当前读
+record_max:4294967295 xmin: 65 xid:66 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 65 xid:66 level0
+可见
+当前读
+record_max:4294967295 xmin: 65 xid:66 level0
+可见
+当前读
+读取结束
+ pageId4294967295
+end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab1/20-delete.test 读取结束
+ pageId4294967295
+循环 读取结束2
+读取结束
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 70sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 69 xid:70 level0
+可见
+当前读
+record_max:4294967295 xmin: 69 xid:70 level0
+可见
+当前读
+record_max:4294967295 xmin: 69 xid:70 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 71sql语句id:1是否为修改sql语句：1 1
+当前读
+record_max:4294967295 xmin: 69 xid:71 level0
+可见
+当前读
+record_max:4294967295 xmin: 69 xid:71 level0
+可见
+当前读
+record_max:4294967295 xmin: 69 xid:71 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 72sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:71 xmin: 69 xid:72 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 69 xid:72 level0
+可见
+当前读
+record_max:4294967295 xmin: 69 xid:72 level0
+可见
+当前读
+读取结束
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 74sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:71 xmin: 69 xid:74 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 69 xid:74 level0
+可见
+当前读
+record_max:4294967295 xmin: 69 xid:74 level0
+可见
+当前读
+record_max:4294967295 xmin: 73 xid:74 level0
+可见
+当前读
+record_max:4294967295 xmin: 73 xid:74 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 73 xid:74 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 75sql语句id:1是否为修改sql语句：1 1
+当前读
+record_max:71 xmin: 69 xid:75 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 69 xid:75 level0
+可见
+当前读
+record_max:4294967295 xmin: 69 xid:75 level0
+可见
+当前读
+record_max:4294967295 xmin: 73 xid:75 level0
+可见
+当前读
+record_max:4294967295 xmin: 73 xid:75 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 73 xid:75 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 76sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:71 xmin: 69 xid:76 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 69 xid:76 level0
+可见
+当前读
+record_max:75 xmin: 69 xid:76 level0
+该元组已删除
+循环 record_max:75 xmin: 73 xid:76 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 73 xid:76 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 73 xid:76 level0
+可见
+当前读
+读取结束
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 78sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:71 xmin: 69 xid:78 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 69 xid:78 level0
+可见
+当前读
+record_max:75 xmin: 69 xid:78 level0
+该元组已删除
+循环 record_max:75 xmin: 73 xid:78 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 73 xid:78 level0
+可见
+当前读
+ pageId2
+record_max:4294967295 xmin: 73 xid:78 level0
+可见
+当前读
+record_max:4294967295 xmin: 77 xid:78 level0
+可见
+当前读
+record_max:4294967295 xmin: 77 xid:78 level0
+可见
+当前读
+record_max:4294967295 xmin: 77 xid:78 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 77 xid:78 level0
+可见
+当前读
+record_max:4294967295 xmin: 77 xid:78 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 79sql语句id:1是否为修改sql语句：1 1
+当前读
+record_max:71 xmin: 69 xid:79 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 69 xid:79 level0
+可见
+当前读
+record_max:75 xmin: 69 xid:79 level0
+该元组已删除
+循环 record_max:75 xmin: 73 xid:79 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 73 xid:79 level0
+可见
+当前读
+ pageId2
+record_max:4294967295 xmin: 73 xid:79 level0
+可见
+当前读
+record_max:4294967295 xmin: 77 xid:79 level0
+可见
+当前读
+record_max:4294967295 xmin: 77 xid:79 level0
+可见
+当前读
+record_max:4294967295 xmin: 77 xid:79 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 77 xid:79 level0
+可见
+当前读
+record_max:4294967295 xmin: 77 xid:79 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 80sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:71 xmin: 69 xid:80 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 69 xid:80 level0
+可见
+当前读
+record_max:75 xmin: 69 xid:80 level0
+该元组已删除
+循环 record_max:75 xmin: 73 xid:80 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 73 xid:80 level0
+可见
+当前读
+ pageId2
+record_max:4294967295 xmin: 73 xid:80 level0
+可见
+当前读
+record_max:4294967295 xmin: 77 xid:80 level0
+可见
+当前读
+record_max:4294967295 xmin: 77 xid:80 level0
+可见
+当前读
+record_max:4294967295 xmin: 77 xid:80 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 77 xid:80 level0
+可见
+当前读
+record_max:4294967295 xmin: 77 xid:80 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 81sql语句id:1是否为修改sql语句：1 1
+当前读
+record_max:71 xmin: 69 xid:81 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 69 xid:81 level0
+可见
+当前读
+record_max:75 xmin: 69 xid:81 level0
+该元组已删除
+循环 record_max:75 xmin: 73 xid:81 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 73 xid:81 level0
+可见
+当前读
+ pageId2
+record_max:4294967295 xmin: 73 xid:81 level0
+可见
+当前读
+record_max:4294967295 xmin: 77 xid:81 level0
+可见
+当前读
+record_max:4294967295 xmin: 77 xid:81 level0
+可见
+当前读
+record_max:4294967295 xmin: 77 xid:81 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 77 xid:81 level0
+可见
+当前读
+record_max:4294967295 xmin: 77 xid:81 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 82sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:71 xmin: 69 xid:82 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 69 xid:82 level0
+可见
+当前读
+record_max:75 xmin: 69 xid:82 level0
+该元组已删除
+循环 record_max:75 xmin: 73 xid:82 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 73 xid:82 level0
+可见
+当前读
+ pageId2
+record_max:4294967295 xmin: 73 xid:82 level0
+可见
+当前读
+record_max:4294967295 xmin: 77 xid:82 level0
+可见
+当前读
+record_max:4294967295 xmin: 77 xid:82 level0
+可见
+当前读
+record_max:4294967295 xmin: 77 xid:82 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 77 xid:82 level0
+可见
+当前读
+record_max:81 xmin: 77 xid:82 level0
+该元组已删除
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 83sql语句id:1是否为修改sql语句：1 1
+当前读
+record_max:71 xmin: 69 xid:83 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 69 xid:83 level0
+可见
+当前读
+record_max:75 xmin: 69 xid:83 level0
+该元组已删除
+循环 record_max:75 xmin: 73 xid:83 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 73 xid:83 level0
+可见
+当前读
+ pageId2
+record_max:4294967295 xmin: 73 xid:83 level0
+可见
+当前读
+record_max:4294967295 xmin: 77 xid:83 level0
+可见
+当前读
+record_max:4294967295 xmin: 77 xid:83 level0
+可见
+当前读
+record_max:4294967295 xmin: 77 xid:83 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 77 xid:83 level0
+可见
+当前读
+record_max:81 xmin: 77 xid:83 level0
+该元组已删除
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 85sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:71 xmin: 69 xid:85 level0
+该元组已删除
+循环 record_max:83 xmin: 69 xid:85 level0
+该元组已删除
+循环 record_max:75 xmin: 69 xid:85 level0
+该元组已删除
+循环 record_max:75 xmin: 73 xid:85 level0
+该元组已删除
+循环 record_max:83 xmin: 73 xid:85 level0
+该元组已删除
+循环 record_max:83 xmin: 73 xid:85 level0
+该元组已删除
+循环 record_max:83 xmin: 77 xid:85 level0
+该元组已删除
+循环 record_max:83 xmin: 77 xid:85 level0
+该元组已删除
+循环 record_max:83 xmin: 77 xid:85 level0
+该元组已删除
+循环 record_max:83 xmin: 77 xid:85 level0
+该元组已删除
+循环 record_max:81 xmin: 77 xid:85 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 84 xid:85 level0
+可见
+当前读
+record_max:4294967295 xmin: 84 xid:85 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 86sql语句id:1是否为修改sql语句：1 1
+当前读
+record_max:71 xmin: 69 xid:86 level0
+该元组已删除
+循环 record_max:83 xmin: 69 xid:86 level0
+该元组已删除
+循环 record_max:75 xmin: 69 xid:86 level0
+该元组已删除
+循环 record_max:75 xmin: 73 xid:86 level0
+该元组已删除
+循环 record_max:83 xmin: 73 xid:86 level0
+该元组已删除
+循环 record_max:83 xmin: 73 xid:86 level0
+该元组已删除
+循环 record_max:83 xmin: 77 xid:86 level0
+该元组已删除
+循环 record_max:83 xmin: 77 xid:86 level0
+该元组已删除
+循环 record_max:83 xmin: 77 xid:86 level0
+该元组已删除
+循环 record_max:83 xmin: 77 xid:86 level0
+该元组已删除
+循环 record_max:81 xmin: 77 xid:86 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 84 xid:86 level0
+可见
+当前读
+record_max:4294967295 xmin: 84 xid:86 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 87sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:71 xmin: 69 xid:87 level0
+该元组已删除
+循环 record_max:83 xmin: 69 xid:87 level0
+该元组已删除
+循环 record_max:75 xmin: 69 xid:87 level0
+该元组已删除
+循环 record_max:75 xmin: 73 xid:87 level0
+该元组已删除
+循环 record_max:83 xmin: 73 xid:87 level0
+该元组已删除
+循环 record_max:83 xmin: 73 xid:87 level0
+该元组已删除
+循环 record_max:83 xmin: 77 xid:87 level0
+该元组已删除
+循环 record_max:83 xmin: 77 xid:87 level0
+该元组已删除
+循环 record_max:83 xmin: 77 xid:87 level0
+该元组已删除
+循环 record_max:83 xmin: 77 xid:87 level0
+该元组已删除
+循环 record_max:81 xmin: 77 xid:87 level0
+该元组已删除
+循环 record_max:86 xmin: 84 xid:87 level0
+该元组已删除
+循环 record_max:86 xmin: 84 xid:87 level0
+该元组已删除
+循环 读取结束2
+ pageId4294967295
+end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab1/30-update.test 读取结束
+ pageId4294967295
+循环 读取结束2
+读取结束
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 91sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 90 xid:91 level0
+可见
+当前读
+record_max:4294967295 xmin: 90 xid:91 level0
+可见
+当前读
+record_max:4294967295 xmin: 90 xid:91 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 92sql语句id:1是否为修改sql语句：1 1
+当前读
+record_max:4294967295 xmin: 90 xid:92 level0
+可见
+当前读
+record_max:4294967295 xmin: 90 xid:92 level0
+可见
+当前读
+record_max:4294967295 xmin: 90 xid:92 level0
+可见
+当前读
+record_max:4294967295 xmin: 92 xid:92 level0
+可见
+循环 当前xid,cid:92 1
+该记录xid,cid:92 1
+万圣节问题读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 93sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 90 xid:93 level0
+可见
+当前读
+record_max:4294967295 xmin: 90 xid:93 level0
+可见
+当前读
+record_max:92 xmin: 90 xid:93 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 92 xid:93 level0
+可见
+当前读
+读取结束
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 95sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 90 xid:95 level0
+可见
+当前读
+record_max:4294967295 xmin: 90 xid:95 level0
+可见
+当前读
+record_max:92 xmin: 90 xid:95 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 92 xid:95 level0
+可见
+当前读
+record_max:4294967295 xmin: 94 xid:95 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 94 xid:95 level0
+可见
+当前读
+record_max:4294967295 xmin: 94 xid:95 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 96sql语句id:1是否为修改sql语句：1 1
+当前读
+record_max:4294967295 xmin: 90 xid:96 level0
+可见
+当前读
+record_max:4294967295 xmin: 90 xid:96 level0
+可见
+当前读
+record_max:92 xmin: 90 xid:96 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 92 xid:96 level0
+可见
+当前读
+record_max:4294967295 xmin: 94 xid:96 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 94 xid:96 level0
+可见
+add new Page
+当前读
+record_max:4294967295 xmin: 94 xid:96 level0
+可见
+当前读
+record_max:4294967295 xmin: 96 xid:96 level0
+可见
+循环 当前xid,cid:96 1
+该记录xid,cid:96 1
+万圣节问题record_max:4294967295 xmin: 96 xid:96 level0
+可见
+循环 当前xid,cid:96 1
+该记录xid,cid:96 1
+万圣节问题record_max:4294967295 xmin: 96 xid:96 level0
+可见
+循环 当前xid,cid:96 1
+该记录xid,cid:96 1
+万圣节问题读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 97sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 90 xid:97 level0
+可见
+当前读
+record_max:4294967295 xmin: 90 xid:97 level0
+可见
+当前读
+record_max:92 xmin: 90 xid:97 level0
+该元组已删除
+循环 record_max:96 xmin: 92 xid:97 level0
+该元组已删除
+循环 record_max:96 xmin: 94 xid:97 level0
+该元组已删除
+循环 record_max:96 xmin: 94 xid:97 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 94 xid:97 level0
+可见
+当前读
+record_max:4294967295 xmin: 96 xid:97 level0
+可见
+当前读
+record_max:4294967295 xmin: 96 xid:97 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 96 xid:97 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 98sql语句id:1是否为修改sql语句：1 1
+当前读
+record_max:4294967295 xmin: 90 xid:98 level0
+可见
+当前读
+record_max:4294967295 xmin: 90 xid:98 level0
+可见
+当前读
+record_max:92 xmin: 90 xid:98 level0
+该元组已删除
+循环 record_max:96 xmin: 92 xid:98 level0
+该元组已删除
+循环 record_max:96 xmin: 94 xid:98 level0
+该元组已删除
+循环 record_max:96 xmin: 94 xid:98 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 94 xid:98 level0
+可见
+当前读
+record_max:4294967295 xmin: 96 xid:98 level0
+可见
+当前读
+record_max:4294967295 xmin: 96 xid:98 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 96 xid:98 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 99sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 90 xid:99 level0
+可见
+当前读
+record_max:4294967295 xmin: 90 xid:99 level0
+可见
+当前读
+record_max:92 xmin: 90 xid:99 level0
+该元组已删除
+循环 record_max:96 xmin: 92 xid:99 level0
+该元组已删除
+循环 record_max:96 xmin: 94 xid:99 level0
+该元组已删除
+循环 record_max:96 xmin: 94 xid:99 level0
+该元组已删除
+循环 record_max:98 xmin: 94 xid:99 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 96 xid:99 level0
+可见
+当前读
+record_max:4294967295 xmin: 96 xid:99 level0
+可见
+当前读
+ pageId4294967295
+record_max:98 xmin: 96 xid:99 level0
+该元组已删除
+循环 读取结束2
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 101sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 90 xid:101 level0
+可见
+当前读
+record_max:4294967295 xmin: 90 xid:101 level0
+可见
+当前读
+record_max:92 xmin: 90 xid:101 level0
+该元组已删除
+循环 record_max:96 xmin: 92 xid:101 level0
+该元组已删除
+循环 record_max:96 xmin: 94 xid:101 level0
+该元组已删除
+循环 record_max:96 xmin: 94 xid:101 level0
+该元组已删除
+循环 record_max:98 xmin: 94 xid:101 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 96 xid:101 level0
+可见
+当前读
+record_max:4294967295 xmin: 96 xid:101 level0
+可见
+当前读
+ pageId3
+record_max:98 xmin: 96 xid:101 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 100 xid:101 level0
+可见
+当前读
+record_max:4294967295 xmin: 100 xid:101 level0
+可见
+当前读
+record_max:4294967295 xmin: 100 xid:101 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 100 xid:101 level0
+可见
+当前读
+record_max:4294967295 xmin: 100 xid:101 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 102sql语句id:1是否为修改sql语句：1 1
+当前读
+record_max:4294967295 xmin: 90 xid:102 level0
+可见
+当前读
+record_max:4294967295 xmin: 90 xid:102 level0
+可见
+当前读
+record_max:92 xmin: 90 xid:102 level0
+该元组已删除
+循环 record_max:96 xmin: 92 xid:102 level0
+该元组已删除
+循环 record_max:96 xmin: 94 xid:102 level0
+该元组已删除
+循环 record_max:96 xmin: 94 xid:102 level0
+该元组已删除
+循环 record_max:98 xmin: 94 xid:102 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 96 xid:102 level0
+可见
+当前读
+record_max:4294967295 xmin: 96 xid:102 level0
+可见
+当前读
+ pageId3
+record_max:98 xmin: 96 xid:102 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 100 xid:102 level0
+可见
+当前读
+record_max:4294967295 xmin: 100 xid:102 level0
+可见
+当前读
+record_max:4294967295 xmin: 100 xid:102 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 100 xid:102 level0
+可见
+当前读
+record_max:4294967295 xmin: 100 xid:102 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 103sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 90 xid:103 level0
+可见
+当前读
+record_max:4294967295 xmin: 90 xid:103 level0
+可见
+当前读
+record_max:92 xmin: 90 xid:103 level0
+该元组已删除
+循环 record_max:96 xmin: 92 xid:103 level0
+该元组已删除
+循环 record_max:96 xmin: 94 xid:103 level0
+该元组已删除
+循环 record_max:96 xmin: 94 xid:103 level0
+该元组已删除
+循环 record_max:98 xmin: 94 xid:103 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 96 xid:103 level0
+可见
+当前读
+record_max:4294967295 xmin: 96 xid:103 level0
+可见
+当前读
+ pageId3
+record_max:98 xmin: 96 xid:103 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 100 xid:103 level0
+可见
+当前读
+record_max:4294967295 xmin: 100 xid:103 level0
+可见
+当前读
+record_max:4294967295 xmin: 100 xid:103 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 100 xid:103 level0
+可见
+当前读
+record_max:4294967295 xmin: 100 xid:103 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 104sql语句id:1是否为修改sql语句：1 1
+当前读
+record_max:4294967295 xmin: 90 xid:104 level0
+可见
+当前读
+record_max:4294967295 xmin: 90 xid:104 level0
+可见
+当前读
+record_max:92 xmin: 90 xid:104 level0
+该元组已删除
+循环 record_max:96 xmin: 92 xid:104 level0
+该元组已删除
+循环 record_max:96 xmin: 94 xid:104 level0
+该元组已删除
+循环 record_max:96 xmin: 94 xid:104 level0
+该元组已删除
+循环 record_max:98 xmin: 94 xid:104 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 96 xid:104 level0
+可见
+add new Page
+当前读
+record_max:4294967295 xmin: 96 xid:104 level0
+可见
+当前读
+ pageId3
+record_max:98 xmin: 96 xid:104 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 100 xid:104 level0
+可见
+当前读
+record_max:4294967295 xmin: 100 xid:104 level0
+可见
+当前读
+record_max:4294967295 xmin: 100 xid:104 level0
+可见
+当前读
+ pageId4
+record_max:4294967295 xmin: 100 xid:104 level0
+可见
+当前读
+record_max:4294967295 xmin: 100 xid:104 level0
+可见
+当前读
+record_max:4294967295 xmin: 104 xid:104 level0
+可见
+循环 当前xid,cid:104 1
+该记录xid,cid:104 1
+万圣节问题record_max:4294967295 xmin: 104 xid:104 level0
+可见
+循环 当前xid,cid:104 1
+该记录xid,cid:104 1
+万圣节问题record_max:4294967295 xmin: 104 xid:104 level0
+可见
+循环 当前xid,cid:104 1
+该记录xid,cid:104 1
+万圣节问题读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 105sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:104 xmin: 90 xid:105 level0
+该元组已删除
+循环 record_max:104 xmin: 90 xid:105 level0
+该元组已删除
+循环 record_max:92 xmin: 90 xid:105 level0
+该元组已删除
+循环 record_max:96 xmin: 92 xid:105 level0
+该元组已删除
+循环 record_max:96 xmin: 94 xid:105 level0
+该元组已删除
+循环 record_max:96 xmin: 94 xid:105 level0
+该元组已删除
+循环 record_max:98 xmin: 94 xid:105 level0
+该元组已删除
+循环 record_max:104 xmin: 96 xid:105 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 96 xid:105 level0
+可见
+当前读
+ pageId3
+record_max:98 xmin: 96 xid:105 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 100 xid:105 level0
+可见
+当前读
+record_max:4294967295 xmin: 100 xid:105 level0
+可见
+当前读
+record_max:4294967295 xmin: 100 xid:105 level0
+可见
+当前读
+ pageId4
+record_max:4294967295 xmin: 100 xid:105 level0
+可见
+当前读
+record_max:4294967295 xmin: 100 xid:105 level0
+可见
+当前读
+record_max:4294967295 xmin: 104 xid:105 level0
+可见
+当前读
+record_max:4294967295 xmin: 104 xid:105 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 104 xid:105 level0
+可见
+当前读
+读取结束
+ pageId4294967295
+end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab1/40-database.test 读取结束
+ pageId4294967295
+循环 读取结束2
+读取结束
+ pageId4294967295
+循环 读取结束2
+读取结束
+ pageId4294967295
+循环 读取结束2
+读取结束
+ pageId4294967295
+循环 读取结束2
+读取结束
+读取结束
+读取结束
+ pageId4294967295
+循环 读取结束2
+ pageId4294967295
+循环 读取结束2
+add new Page
+ pageId4294967295
+读取结束
+ pageId4294967295
+读取结束
+ pageId4294967295
+读取结束
+ pageId4294967295
+读取结束
+读取结束
+ pageId4294967295
+读取结束
+end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab1/50-buffer_pool.test 循环 循环 读取结束2
+ pageId4294967295
+循环 读取结束2
+读取结束
+add new Page
+add new Page
+add new Page
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 134sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 129 xid:134 level0
+可见
+当前读
+record_max:4294967295 xmin: 129 xid:134 level0
+可见
+当前读
+record_max:4294967295 xmin: 129 xid:134 level0
+可见
+当前读
+record_max:4294967295 xmin: 129 xid:134 level0
+可见
+当前读
+record_max:4294967295 xmin: 129 xid:134 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 135sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 132 xid:135 level0
+可见
+当前读
+record_max:4294967295 xmin: 132 xid:135 level0
+可见
+当前读
+record_max:4294967295 xmin: 132 xid:135 level0
+可见
+当前读
+record_max:4294967295 xmin: 132 xid:135 level0
+可见
+当前读
+record_max:4294967295 xmin: 132 xid:135 level0
+可见
+当前读
+record_max:4294967295 xmin: 132 xid:135 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 132 xid:135 level0
+可见
+当前读
+record_max:4294967295 xmin: 132 xid:135 level0
+可见
+当前读
+record_max:4294967295 xmin: 132 xid:135 level0
+可见
+当前读
+record_max:4294967295 xmin: 132 xid:135 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 136sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 132 xid:136 level0
+可见
+当前读
+record_max:4294967295 xmin: 132 xid:136 level0
+可见
+当前读
+record_max:4294967295 xmin: 132 xid:136 level0
+可见
+当前读
+record_max:4294967295 xmin: 132 xid:136 level0
+可见
+当前读
+record_max:4294967295 xmin: 132 xid:136 level0
+可见
+当前读
+record_max:4294967295 xmin: 132 xid:136 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 132 xid:136 level0
+可见
+当前读
+record_max:4294967295 xmin: 132 xid:136 level0
+可见
+当前读
+record_max:4294967295 xmin: 132 xid:136 level0
+可见
+当前读
+record_max:4294967295 xmin: 132 xid:136 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 138sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 122 xid:138 level0
+可见
+当前读
+record_max:4294967295 xmin: 122 xid:138 level0
+可见
+当前读
+record_max:4294967295 xmin: 122 xid:138 level0
+可见
+当前读
+record_max:4294967295 xmin: 122 xid:138 level0
+可见
+当前读
+record_max:4294967295 xmin: 122 xid:138 level0
+可见
+当前读
+读取结束
+循环 循环 循环 循环 循环 循环 循环 循环 循环 循环 循环 循环 循环 循环 循环 循环 循环 循环 循环 循环 循环 end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab2/10-rollback.test 循环 循环 读取结束2
+循环 循环 循环 循环 循环 循环 循环 读取结束2
+读取结束
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 149sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 148 xid:149 level0
+可见
+当前读
+record_max:4294967295 xmin: 148 xid:149 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 150sql语句id:2是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 148 xid:150 level0
+可见
+当前读
+record_max:4294967295 xmin: 148 xid:150 level0
+可见
+当前读
+record_max:4294967295 xmin: 150 xid:150 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 151sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 148 xid:151 level0
+可见
+当前读
+record_max:4294967295 xmin: 148 xid:151 level0
+可见
+当前读
+record_max:150 xmin: 150 xid:151 level0
+该元组已删除
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 152sql语句id:1是否为修改sql语句：1 1
+当前读
+record_max:4294967295 xmin: 148 xid:152 level0
+可见
+当前读
+record_max:4294967295 xmin: 148 xid:152 level0
+可见
+当前读
+record_max:150 xmin: 150 xid:152 level0
+该元组已删除
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 152sql语句id:2是否为修改sql语句：0 0
+当前读
+record_max:152 xmin: 148 xid:152 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 148 xid:152 level0
+可见
+当前读
+record_max:150 xmin: 150 xid:152 level0
+该元组已删除
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 153sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 148 xid:153 level0
+可见
+当前读
+record_max:4294967295 xmin: 148 xid:153 level0
+可见
+当前读
+record_max:150 xmin: 150 xid:153 level0
+该元组已删除
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 154sql语句id:1是否为修改sql语句：1 1
+当前读
+record_max:4294967295 xmin: 148 xid:154 level0
+可见
+当前读
+record_max:4294967295 xmin: 148 xid:154 level0
+可见
+当前读
+record_max:150 xmin: 150 xid:154 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 154 xid:154 level0
+可见
+循环 当前xid,cid:154 1
+该记录xid,cid:154 1
+万圣节问题读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 154sql语句id:2是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 148 xid:154 level0
+可见
+当前读
+record_max:154 xmin: 148 xid:154 level0
+该元组已删除
+循环 record_max:150 xmin: 150 xid:154 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 154 xid:154 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 155sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 148 xid:155 level0
+可见
+当前读
+record_max:4294967295 xmin: 148 xid:155 level0
+可见
+当前读
+record_max:150 xmin: 150 xid:155 level0
+该元组已删除
+循环 record_max:154 xmin: 154 xid:155 level0
+该元组已删除
+循环 读取结束2
+add new Page
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 156sql语句id:2是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 148 xid:156 level0
+可见
+当前读
+record_max:4294967295 xmin: 148 xid:156 level0
+可见
+当前读
+record_max:150 xmin: 150 xid:156 level0
+该元组已删除
+循环 record_max:154 xmin: 154 xid:156 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 156 xid:156 level0
+可见
+当前读
+ pageId2
+record_max:4294967295 xmin: 156 xid:156 level0
+可见
+当前读
+record_max:4294967295 xmin: 156 xid:156 level0
+可见
+当前读
+record_max:4294967295 xmin: 156 xid:156 level0
+可见
+当前读
+record_max:4294967295 xmin: 156 xid:156 level0
+可见
+当前读
+record_max:4294967295 xmin: 156 xid:156 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 156 xid:156 level0
+可见
+当前读
+record_max:4294967295 xmin: 156 xid:156 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 157sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 148 xid:157 level0
+可见
+当前读
+record_max:4294967295 xmin: 148 xid:157 level0
+可见
+当前读
+record_max:150 xmin: 150 xid:157 level0
+该元组已删除
+循环 record_max:154 xmin: 154 xid:157 level0
+该元组已删除
+循环 record_max:156 xmin: 156 xid:157 level0
+该元组已删除
+循环 record_max:156 xmin: 156 xid:157 level0
+该元组已删除
+循环 record_max:156 xmin: 156 xid:157 level0
+该元组已删除
+循环 record_max:156 xmin: 156 xid:157 level0
+该元组已删除
+循环 record_max:156 xmin: 156 xid:157 level0
+该元组已删除
+循环 record_max:156 xmin: 156 xid:157 level0
+该元组已删除
+循环 record_max:156 xmin: 156 xid:157 level0
+该元组已删除
+循环 record_max:156 xmin: 156 xid:157 level0
+该元组已删除
+循环 读取结束2
+循环 end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab2/20-recover.test 循环 循环 读取结束2
+循环 循环 读取结束2
+读取结束
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 161sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 160 xid:161 level0
+可见
+当前读
+record_max:4294967295 xmin: 160 xid:161 level0
+可见
+当前读
+读取结束
+end检查点日志写入的dpt_,att_大小为：0 0
+循环 循环 读取结束2
+循环 读取结束
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 162sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 160 xid:162 level0
+可见
+当前读
+record_max:4294967295 xmin: 160 xid:162 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 164sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 160 xid:164 level0
+可见
+当前读
+record_max:4294967295 xmin: 160 xid:164 level0
+可见
+当前读
+record_max:4294967295 xmin: 163 xid:164 level0
+可见
+当前读
+读取结束
+循环 循环 读取结束2
+循环 读取结束
+读取结束
+ARIES回复
+analyze
+调用redo
+all_log_record_size211
+offset 0 begin checkpoint log
+end checkpoint log
+offset 16 end checkpoint log
+offset 48 添加新事务162
+offset 64 事务提交：162
+offset 80 添加新事务163
+offset 96 offset 164 事务提交：163
+offset 180 添加新事务164
+offset 196 事务提交：164
+redo完后此时attsize为0
+调用undo flush_lsn:13993
+undo 结束，attsize为:0
+recover结束
+查询引擎初始化
+查询引擎的事务发起者: 162sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 160 xid:162 level0
+可见
+当前读
+record_max:4294967295 xmin: 160 xid:162 level0
+可见
+当前读
+record_max:4294967295 xmin: 163 xid:162 level0
+可见
+当前读
+读取结束
+end检查点日志写入的dpt_,att_大小为：0 0
+查询引擎初始化
+查询引擎的事务发起者: 163sql语句id:1是否为修改sql语句：1 1
+当前读
+record_max:4294967295 xmin: 160 xid:163 level0
+可见
+当前读
+record_max:4294967295 xmin: 160 xid:163 level0
+可见
+当前读
+record_max:4294967295 xmin: 163 xid:163 level0
+可见
+循环 当前xid,cid:163 1
+该记录xid,cid:163 1
+万圣节问题读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 164sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:163 xmin: 160 xid:164 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 160 xid:164 level0
+可见
+当前读
+record_max:4294967295 xmin: 163 xid:164 level0
+可见
+当前读
+读取结束
+循环 循环 读取结束2
+循环 读取结束
+读取结束
+ARIES回复
+analyze
+调用redo
+all_log_record_size333
+offset 0 begin checkpoint log
+end checkpoint log
+offset 16 end checkpoint log
+offset 48 添加新事务162
+offset 64 事务提交：162
+offset 80 添加新事务163
+offset 96 offset 164 事务提交：163
+offset 180 添加新事务164
+offset 196 事务提交：164
+offset 212 添加新事务162
+offset 228 事务提交：162
+offset 244 添加新事务163
+offset 260 offset 286 事务提交：163
+offset 302 添加新事务164
+offset 318 事务提交：164
+redo完后此时attsize为0
+调用undo flush_lsn:14115
+undo 结束，attsize为:0
+recover结束
+查询引擎初始化
+查询引擎的事务发起者: 162sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:163 xmin: 160 xid:162 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 160 xid:162 level0
+可见
+当前读
+record_max:4294967295 xmin: 163 xid:162 level0
+可见
+当前读
+读取结束
+end检查点日志写入的dpt_,att_大小为：0 0
+查询引擎初始化
+查询引擎的事务发起者: 163sql语句id:1是否为修改sql语句：1 1
+当前读
+record_max:163 xmin: 160 xid:163 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 160 xid:163 level0
+可见
+当前读
+record_max:4294967295 xmin: 163 xid:163 level0
+可见
+循环 当前xid,cid:163 1
+该记录xid,cid:163 1
+万圣节问题record_max:4294967295 xmin: 163 xid:163 level0
+可见
+循环 当前xid,cid:163 1
+该记录xid,cid:163 1
+万圣节问题读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 164sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:163 xmin: 160 xid:164 level0
+该元组已删除
+循环 record_max:163 xmin: 160 xid:164 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 163 xid:164 level0
+可见
+当前读
+record_max:4294967295 xmin: 163 xid:164 level0
+可见
+当前读
+读取结束
+循环 循环 读取结束2
+循环 读取结束
+读取结束
+ARIES回复
+analyze
+调用redo
+all_log_record_size523
+offset 0 begin checkpoint log
+end checkpoint log
+offset 16 end checkpoint log
+offset 48 添加新事务162
+offset 64 事务提交：162
+offset 80 添加新事务163
+offset 96 offset 164 事务提交：163
+offset 180 添加新事务164
+offset 196 事务提交：164
+offset 212 添加新事务162
+offset 228 事务提交：162
+offset 244 添加新事务163
+offset 260 offset 286 事务提交：163
+offset 302 添加新事务164
+offset 318 事务提交：164
+offset 334 添加新事务162
+offset 350 事务提交：162
+offset 366 添加新事务163
+offset 382 offset 408 offset 476 事务提交：163
+offset 492 添加新事务164
+offset 508 事务提交：164
+redo完后此时attsize为0
+调用undo flush_lsn:14305
+undo 结束，attsize为:0
+recover结束
+查询引擎初始化
+查询引擎的事务发起者: 162sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:163 xmin: 160 xid:162 level0
+该元组已删除
+循环 record_max:163 xmin: 160 xid:162 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 163 xid:162 level0
+可见
+当前读
+record_max:4294967295 xmin: 163 xid:162 level0
+可见
+当前读
+读取结束
+end检查点日志写入的dpt_,att_大小为：0 0
+add new Page
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 164sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:163 xmin: 160 xid:164 level0
+该元组已删除
+循环 record_max:163 xmin: 160 xid:164 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 163 xid:164 level0
+可见
+当前读
+record_max:4294967295 xmin: 163 xid:164 level0
+可见
+当前读
+record_max:4294967295 xmin: 163 xid:164 level0
+可见
+当前读
+ pageId2
+record_max:4294967295 xmin: 163 xid:164 level0
+可见
+当前读
+record_max:4294967295 xmin: 163 xid:164 level0
+可见
+当前读
+record_max:4294967295 xmin: 163 xid:164 level0
+可见
+当前读
+record_max:4294967295 xmin: 163 xid:164 level0
+可见
+当前读
+record_max:4294967295 xmin: 163 xid:164 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 163 xid:164 level0
+可见
+当前读
+读取结束
+循环 循环 读取结束2
+循环 读取结束
+读取结束
+ARIES回复
+analyze
+调用redo
+all_log_record_size1152
+offset 0 begin checkpoint log
+end checkpoint log
+offset 16 end checkpoint log
+offset 48 添加新事务162
+offset 64 事务提交：162
+offset 80 添加新事务163
+offset 96 offset 164 事务提交：163
+offset 180 添加新事务164
+offset 196 事务提交：164
+offset 212 添加新事务162
+offset 228 事务提交：162
+offset 244 添加新事务163
+offset 260 offset 286 事务提交：163
+offset 302 添加新事务164
+offset 318 事务提交：164
+offset 334 添加新事务162
+offset 350 事务提交：162
+offset 366 添加新事务163
+offset 382 offset 408 offset 476 事务提交：163
+offset 492 添加新事务164
+offset 508 事务提交：164
+offset 524 添加新事务162
+offset 540 事务提交：162
+offset 556 添加新事务163
+offset 572 offset 640 offset 668 offset 736 offset 804 offset 872 offset 940 offset 1008 offset 1036 offset 1105 事务提交：163
+offset 1121 添加新事务164
+offset 1137 事务提交：164
+redo完后此时attsize为0
+调用undo flush_lsn:14934
+undo 结束，attsize为:0
+recover结束
+查询引擎初始化
+查询引擎的事务发起者: 162sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:163 xmin: 160 xid:162 level0
+该元组已删除
+循环 record_max:163 xmin: 160 xid:162 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 163 xid:162 level0
+可见
+当前读
+record_max:4294967295 xmin: 163 xid:162 level0
+可见
+当前读
+record_max:4294967295 xmin: 163 xid:162 level0
+可见
+当前读
+ pageId2
+record_max:4294967295 xmin: 163 xid:162 level0
+可见
+当前读
+record_max:4294967295 xmin: 163 xid:162 level0
+可见
+当前读
+record_max:4294967295 xmin: 163 xid:162 level0
+可见
+当前读
+record_max:4294967295 xmin: 163 xid:162 level0
+可见
+当前读
+record_max:4294967295 xmin: 163 xid:162 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 163 xid:162 level0
+可见
+当前读
+读取结束
+end检查点日志写入的dpt_,att_大小为：0 0
+循环 end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab2/30-aries.test 循环 循环 读取结束2
+循环 循环 读取结束2
+读取结束
+add new Page
+end检查点日志写入的dpt_,att_大小为：0 0
+循环 循环 读取结束2
+循环 读取结束
+读取结束
+add new Page
+end检查点日志写入的dpt_,att_大小为：2 1
+add new Page
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 166sql语句id:1是否为修改sql语句：1 1
+当前读
+record_max:4294967295 xmin: 165 xid:166 level0
+可见
+当前读
+ pageId2
+record_max:4294967295 xmin: 165 xid:166 level0
+可见
+当前读
+ pageId3
+record_max:4294967295 xmin: 165 xid:166 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 167 xid:166 level0
+该元组的插入还未提交
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 167sql语句id:2是否为修改sql语句：1 1
+当前读
+record_max:4294967295 xmin: 165 xid:167 level0
+可见
+当前读
+ pageId2
+record_max:166 xmin: 165 xid:167 level0
+可见
+当前读
+ pageId3
+record_max:4294967295 xmin: 165 xid:167 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 167 xid:167 level0
+可见
+当前读
+读取结束
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 166sql语句id:3是否为修改sql语句：0 0
+当前读
+record_max:167 xmin: 165 xid:166 level0
+该元组已删除
+循环 record_max:166 xmin: 165 xid:166 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 165 xid:166 level0
+可见
+当前读
+ pageId4
+record_max:4294967295 xmin: 167 xid:166 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 166 xid:166 level0
+可见
+当前读
+读取结束
+循环 循环 读取结束2
+循环 读取结束
+读取结束
+ARIES回复
+analyze
+调用redo
+all_log_record_size1287
+offset 0 offset 249 offset 277 offset 526 begin checkpoint log
+end checkpoint log
+offset 542 end checkpoint log
+offset 618 添加新事务166
+offset 634 offset 662 offset 911 添加新事务167
+offset 927 offset 955 offset 1204 事务提交：165
+offset 1220 offset 1246 offset 1272 事务提交：167
+redo完后此时attsize为1
+调用undo flush_lsn:16458
+undo 结束，attsize为:0
+recover结束
+查询引擎初始化
+查询引擎的事务发起者: 165sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:167 xmin: 165 xid:165 level0
+该元组已删除
+循环 当前xid,cid:165 1
+该记录xid,cid:165 1
+万圣节问题record_max:4294967295 xmin: 165 xid:165 level0
+可见
+当前读
+ pageId3
+record_max:4294967295 xmin: 165 xid:165 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 167 xid:165 level0
+可见
+当前读
+读取结束
+end检查点日志写入的dpt_,att_大小为：2 1
+循环 end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab3/10-halloween.test 循环 循环 读取结束2
+循环 循环 读取结束2
+读取结束
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 169sql语句id:1是否为修改sql语句：1 1
+当前读
+record_max:4294967295 xmin: 168 xid:169 level0
+可见
+当前读
+record_max:4294967295 xmin: 168 xid:169 level0
+可见
+当前读
+record_max:4294967295 xmin: 168 xid:169 level0
+可见
+当前读
+record_max:4294967295 xmin: 168 xid:169 level0
+可见
+当前读
+record_max:4294967295 xmin: 169 xid:169 level0
+可见
+循环 当前xid,cid:169 1
+该记录xid,cid:169 1
+万圣节问题record_max:4294967295 xmin: 169 xid:169 level0
+可见
+循环 当前xid,cid:169 1
+该记录xid,cid:169 1
+万圣节问题读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 170sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:169 xmin: 168 xid:170 level0
+该元组已删除
+循环 record_max:169 xmin: 168 xid:170 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 168 xid:170 level0
+可见
+当前读
+record_max:4294967295 xmin: 168 xid:170 level0
+可见
+当前读
+record_max:4294967295 xmin: 169 xid:170 level0
+可见
+当前读
+record_max:4294967295 xmin: 169 xid:170 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 171sql语句id:1是否为修改sql语句：1 1
+当前读
+record_max:169 xmin: 168 xid:171 level0
+该元组已删除
+循环 record_max:169 xmin: 168 xid:171 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 168 xid:171 level0
+可见
+当前读
+record_max:4294967295 xmin: 168 xid:171 level0
+可见
+add new Page
+当前读
+record_max:4294967295 xmin: 169 xid:171 level0
+可见
+当前读
+record_max:4294967295 xmin: 169 xid:171 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 171 xid:171 level0
+可见
+循环 当前xid,cid:171 1
+该记录xid,cid:171 1
+万圣节问题读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 172sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:169 xmin: 168 xid:172 level0
+该元组已删除
+循环 record_max:169 xmin: 168 xid:172 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 168 xid:172 level0
+可见
+当前读
+record_max:171 xmin: 168 xid:172 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 169 xid:172 level0
+可见
+当前读
+record_max:4294967295 xmin: 169 xid:172 level0
+可见
+当前读
+ pageId4294967295
+record_max:4294967295 xmin: 171 xid:172 level0
+可见
+当前读
+读取结束
+循环 end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab3/20-mvcc_insert.test 循环 循环 读取结束2
+循环 循环 读取结束2
+读取结束
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 177sql语句id:2是否为修改sql语句：0 0
+record_max:4294967295 xmin: 177 xid:177 level1
+可见
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 178sql语句id:1是否为修改sql语句：0 0
+record_max:4294967295 xmin: 177 xid:178 level1
+该元组的插入还未提交
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 178sql语句id:2是否为修改sql语句：0 0
+record_max:4294967295 xmin: 177 xid:178 level1
+该元组的插入还未提交
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 179sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 177 xid:179 level0
+可见
+当前读
+读取结束
+循环 end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab3/21-mvcc_delete.test 循环 循环 读取结束2
+循环 循环 读取结束2
+读取结束
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 185sql语句id:1是否为修改sql语句：1 1
+record_max:4294967295 xmin: 182 xid:185 level1
+可见
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 185sql语句id:2是否为修改sql语句：0 0
+record_max:185 xmin: 182 xid:185 level1
+该元组已删除
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 187sql语句id:1是否为修改sql语句：0 0
+record_max:185 xmin: 182 xid:187 level1
+可见
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 187sql语句id:2是否为修改sql语句：0 0
+record_max:185 xmin: 182 xid:187 level1
+可见
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 188sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:185 xmin: 182 xid:188 level0
+该元组已删除
+循环 读取结束2
+循环 end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab3/22-mvcc_update.test 循环 循环 读取结束2
+循环 循环 读取结束2
+读取结束
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 194sql语句id:1是否为修改sql语句：1 1
+record_max:4294967295 xmin: 191 xid:194 level1
+可见
+record_max:4294967295 xmin: 194 xid:194 level1
+可见
+循环 当前xid,cid:194 1
+该记录xid,cid:194 1
+万圣节问题读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 194sql语句id:2是否为修改sql语句：0 0
+record_max:194 xmin: 191 xid:194 level1
+该元组已删除
+循环 record_max:4294967295 xmin: 194 xid:194 level1
+可见
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 195sql语句id:1是否为修改sql语句：0 0
+record_max:194 xmin: 191 xid:195 level1
+可见
+record_max:4294967295 xmin: 194 xid:195 level1
+该元组的插入还未提交
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 195sql语句id:2是否为修改sql语句：0 0
+record_max:194 xmin: 191 xid:195 level1
+可见
+record_max:4294967295 xmin: 194 xid:195 level1
+该元组的插入还未提交
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 196sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:194 xmin: 191 xid:196 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 194 xid:196 level0
+可见
+当前读
+读取结束
+循环 end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab3/23-write_skew.test 循环 循环 读取结束2
+循环 循环 读取结束2
+读取结束
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 202sql语句id:1是否为修改sql语句：1 1
+record_max:4294967295 xmin: 199 xid:202 level1
+可见
+record_max:4294967295 xmin: 199 xid:202 level1
+可见
+record_max:4294967295 xmin: 202 xid:202 level1
+可见
+循环 当前xid,cid:202 1
+该记录xid,cid:202 1
+万圣节问题读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 202sql语句id:2是否为修改sql语句：0 0
+record_max:202 xmin: 199 xid:202 level1
+该元组已删除
+循环 record_max:4294967295 xmin: 199 xid:202 level1
+可见
+record_max:4294967295 xmin: 202 xid:202 level1
+可见
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 203sql语句id:1是否为修改sql语句：1 1
+record_max:202 xmin: 199 xid:203 level1
+可见
+record_max:4294967295 xmin: 199 xid:203 level1
+可见
+record_max:4294967295 xmin: 202 xid:203 level1
+该元组的插入还未提交
+循环 record_max:4294967295 xmin: 203 xid:203 level1
+可见
+循环 当前xid,cid:203 1
+该记录xid,cid:203 1
+万圣节问题读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 203sql语句id:2是否为修改sql语句：0 0
+record_max:202 xmin: 199 xid:203 level1
+可见
+record_max:203 xmin: 199 xid:203 level1
+该元组已删除
+循环 record_max:4294967295 xmin: 202 xid:203 level1
+该元组的插入还未提交
+循环 record_max:4294967295 xmin: 203 xid:203 level1
+可见
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 204sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:202 xmin: 199 xid:204 level0
+该元组已删除
+循环 record_max:203 xmin: 199 xid:204 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 202 xid:204 level0
+可见
+当前读
+record_max:4294967295 xmin: 203 xid:204 level0
+可见
+当前读
+读取结束
+循环 end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab3/30-repeatable_read.test 循环 循环 读取结束2
+循环 循环 读取结束2
+读取结束
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 210sql语句id:2是否为修改sql语句：0 0
+record_max:4294967295 xmin: 207 xid:210 level1
+可见
+record_max:4294967295 xmin: 210 xid:210 level1
+可见
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 211sql语句id:1是否为修改sql语句：0 0
+record_max:4294967295 xmin: 207 xid:211 level1
+可见
+record_max:4294967295 xmin: 210 xid:211 level1
+该元组的插入还未提交
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 211sql语句id:2是否为修改sql语句：1 1
+record_max:4294967295 xmin: 207 xid:211 level1
+可见
+record_max:4294967295 xmin: 210 xid:211 level1
+该元组的插入还未提交
+循环 record_max:4294967295 xmin: 211 xid:211 level1
+可见
+循环 当前xid,cid:211 2
+该记录xid,cid:211 2
+万圣节问题读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 210sql语句id:3是否为修改sql语句：0 0
+record_max:211 xmin: 207 xid:210 level1
+该元组已删除
+循环 record_max:4294967295 xmin: 210 xid:210 level1
+可见
+record_max:4294967295 xmin: 211 xid:210 level1
+可见
+读取结束
+end检查点日志写入的dpt_,att_大小为：0 2
+lab3/40-read_committed.test 循环 循环 读取结束2
+循环 读取结束
+读取结束
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 216sql语句id:2是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 213 xid:216 level0
+可见
+当前读
+record_max:4294967295 xmin: 216 xid:216 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 217sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 213 xid:217 level0
+可见
+当前读
+record_max:4294967295 xmin: 216 xid:217 level0
+该元组的插入还未提交
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 217sql语句id:2是否为修改sql语句：1 1
+当前读
+record_max:4294967295 xmin: 213 xid:217 level0
+可见
+当前读
+record_max:4294967295 xmin: 216 xid:217 level0
+该元组的插入还未提交
+循环 record_max:4294967295 xmin: 217 xid:217 level0
+可见
+循环 当前xid,cid:217 2
+该记录xid,cid:217 2
+万圣节问题读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 216sql语句id:3是否为修改sql语句：0 0
+当前读
+record_max:217 xmin: 213 xid:216 level0
+可见
+当前读
+record_max:4294967295 xmin: 216 xid:216 level0
+可见
+当前读
+record_max:4294967295 xmin: 217 xid:216 level0
+该元组的插入还未提交
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 217sql语句id:3是否为修改sql语句：0 0
+当前读
+record_max:217 xmin: 213 xid:217 level0
+该元组已删除
+循环 record_max:4294967295 xmin: 216 xid:217 level0
+该元组的插入还未提交
+循环 record_max:4294967295 xmin: 217 xid:217 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 216sql语句id:4是否为修改sql语句：1 1
+当前读
+record_max:217 xmin: 213 xid:216 level0
+可见
+当前读
+record_max:4294967295 xmin: 216 xid:216 level0
+可见
+当前读
+record_max:4294967295 xmin: 217 xid:216 level0
+该元组的插入还未提交
+循环 record_max:4294967295 xmin: 216 xid:216 level0
+可见
+循环 当前xid,cid:216 4
+该记录xid,cid:216 4
+万圣节问题record_max:4294967295 xmin: 216 xid:216 level0
+可见
+循环 当前xid,cid:216 4
+该记录xid,cid:216 4
+万圣节问题读取结束2
+end检查点日志写入的dpt_,att_大小为：0 2
+lab3/50-lock.test 循环 循环 读取结束2
+循环 读取结束
+读取结束
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 220sql语句id:1是否为修改sql语句：1 1
+当前读
+record_max:4294967295 xmin: 219 xid:220 level0
+可见
+当前读
+record_max:4294967295 xmin: 219 xid:220 level0
+可见
+当前读
+record_max:4294967295 xmin: 219 xid:220 level0
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 221sql语句id:1是否为修改sql语句：1 1
+当前读
+record_max:220 xmin: 219 xid:221 level0
+可见
+当前读
+record_max:4294967295 xmin: 219 xid:221 level0
+可见
+当前读
+record_max:4294967295 xmin: 219 xid:221 level0
+可见
+当前读
+record_max:4294967295 xmin: 221 xid:221 level0
+可见
+循环 当前xid,cid:221 1
+该记录xid,cid:221 1
+万圣节问题读取结束2
+end检查点日志写入的dpt_,att_大小为：0 2
+lab3/60-mv2pl.test 循环 循环 读取结束2
+循环 读取结束
+读取结束
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 227sql语句id:1是否为修改sql语句：0 0
+record_max:4294967295 xmin: 223 xid:227 level2
+可见
+record_max:4294967295 xmin: 223 xid:227 level2
+可见
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 227sql语句id:2是否为修改sql语句：0 0
+record_max:4294967295 xmin: 223 xid:227 level2
+可见
+record_max:4294967295 xmin: 223 xid:227 level2
+可见
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 228sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 223 xid:228 level2
+可见
+当前读
+record_max:4294967295 xmin: 223 xid:228 level2
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 228sql语句id:2是否为修改sql语句：1 1
+record_max:4294967295 xmin: 223 xid:228 level2
+可见
+record_max:4294967295 xmin: 223 xid:228 level2
+可见
+record_max:4294967295 xmin: 228 xid:228 level2
+可见
+循环 当前xid,cid:228 2
+该记录xid,cid:228 2
+万圣节问题读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 228sql语句id:3是否为修改sql语句：0 0
+record_max:228 xmin: 223 xid:228 level2
+该元组已删除
+循环 record_max:4294967295 xmin: 223 xid:228 level2
+可见
+record_max:4294967295 xmin: 228 xid:228 level2
+可见
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 228sql语句id:4是否为修改sql语句：0 0
+当前读
+record_max:228 xmin: 223 xid:228 level2
+该元组已删除
+循环 record_max:4294967295 xmin: 223 xid:228 level2
+可见
+当前读
+record_max:4294967295 xmin: 228 xid:228 level2
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 229sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:228 xmin: 223 xid:229 level2
+可见
+当前读
+record_max:4294967295 xmin: 223 xid:229 level2
+可见
+当前读
+record_max:4294967295 xmin: 228 xid:229 level2
+该元组的插入还未提交
+循环 读取结束2
+end检查点日志写入的dpt_,att_大小为：0 2
+lab3/70-write_skew_serializable.test 循环 循环 读取结束2
+循环 读取结束
+读取结束
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 234sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 231 xid:234 level2
+可见
+当前读
+record_max:4294967295 xmin: 231 xid:234 level2
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 234sql语句id:2是否为修改sql语句：0 0
+当前读
+record_max:4294967295 xmin: 231 xid:234 level2
+可见
+当前读
+record_max:4294967295 xmin: 231 xid:234 level2
+可见
+当前读
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 234sql语句id:3是否为修改sql语句：1 1
+record_max:4294967295 xmin: 231 xid:234 level2
+可见
+record_max:4294967295 xmin: 231 xid:234 level2
+可见
+record_max:4294967295 xmin: 234 xid:234 level2
+可见
+循环 当前xid,cid:234 3
+该记录xid,cid:234 3
+万圣节问题读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 235sql语句id:1是否为修改sql语句：0 0
+当前读
+record_max:234 xmin: 231 xid:235 level2
+可见
+当前读
+record_max:4294967295 xmin: 231 xid:235 level2
+可见
+当前读
+record_max:4294967295 xmin: 234 xid:235 level2
+该元组的插入还未提交
+循环 读取结束2
+end检查点日志写入的dpt_,att_大小为：0 2

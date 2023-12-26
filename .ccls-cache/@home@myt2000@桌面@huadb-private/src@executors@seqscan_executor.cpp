@@ -16,7 +16,6 @@ SeqScanExecutor::SeqScanExecutor(ExecutorContext &context, std::shared_ptr<const
 
 void SeqScanExecutor::Init() {
   std::cout << "查询引擎初始化" << std::endl;
-  
   auto table = context_.GetCatalog().GetTable(plan_->GetTableOid());
   LockType locktype = context_.IsModificationSql() ? LockType::IX : LockType::IS;
   std::cout << "查询引擎的事务发起者: " << context_.GetXid() << "sql语句id:" << context_.GetCid() 
@@ -41,10 +40,12 @@ std::shared_ptr<Record> SeqScanExecutor::Next() {
   // LAB 3 BEGIN
   // std::cout << "next" << std::endl;
   auto record = scan_->GetNextRecord(context_.GetXid(), context_.GetIsolationLevel(), context_.GetCid(), active_xids);
-  while (record != nullptr && record->GetXmax() > context_.GetXid() && record->GetXmax() != NULL_XID 
-      && active_xids.find(record->GetXmax()) == active_xids.end() && plan_->HasLock()) {
-        record = scan_->GetNextRecord(context_.GetXid(), context_.GetIsolationLevel(), context_.GetCid(), active_xids);
-      }
+  // while (record != nullptr && record->GetXmax() > context_.GetXid() && record->GetXmax() != NULL_XID 
+  //     && active_xids.find(record->GetXmax()) == active_xids.end() && plan_->HasLock()) {
+  //       record = scan_->GetNextRecord(context_.GetXid(), context_.GetIsolationLevel(), context_.GetCid(), active_xids);
+  //     }
+  return record;
+
 }
 
 }  // namespace huadb

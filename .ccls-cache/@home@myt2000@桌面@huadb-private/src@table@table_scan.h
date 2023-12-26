@@ -18,6 +18,8 @@ class TableScan {
   // cid: 事物内部 command id
   // active_xids: 活跃的事务 id 集合
   // 均为 Lab 3 相关参数
+  bool MvccShowOrNot(Record* record, xid_t xid, IsolationLevel isolation_level,
+                              const std::unordered_set<xid_t> &active_xids);
   std::shared_ptr<Record> GetNextRecord(xid_t xid = NULL_XID, IsolationLevel isolation_level = DEFAULT_ISOLATION_LEVEL,
                                         cid_t cid = NULL_CID, const std::unordered_set<xid_t> &active_xids = {});
 
