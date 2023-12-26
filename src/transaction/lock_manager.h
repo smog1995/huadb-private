@@ -1,11 +1,11 @@
 #pragma once
-
 #include <mutex>
 #include <memory>
+#include <list>
 #include <unordered_map>
 #include "common/constants.h"
 #include "common/typedefs.h"
-#include "list"
+
 
 namespace huadb {
 
@@ -26,26 +26,24 @@ class LockManager {
  public:
   class LockRequest {
     public:
-      LockRequest(xid_t xid, LockType lock_type, oid_t oid) /** Table lock request */
+      LockRequest(xid_t xid, LockType lock_type, oid_t oid) //  表锁请求的构造
           : xid_(xid), lock_type_(lock_type), oid_(oid) {}
-      LockRequest(xid_t txn_id, LockType lock_type, oid_t oid, Rid rid) /** Row lock request */
+      LockRequest(xid_t txn_id, LockType lock_type, oid_t oid, Rid rid) //  行锁请求的构造
           : xid_(txn_id), lock_type_(lock_type), oid_(oid), rid_(rid) {}
 
-      /** Txn_id of the txn requesting the lock */
+      //  记录执行上锁的事务id
       xid_t xid_;
-      /** Locking mode of the requested lock */
+      //  锁类型
       LockType lock_type_;
-      /** Oid of the table for a table lock; oid of the table the row belong to for a row lock */
+      //  表的对象id，记录了一个行所属的表id或者一个表的表id
       oid_t oid_;
-      /** Rid of the row for a row lock; unused for table locks */
+      // 行的rid
       Rid rid_;
     };
   class LockRequestQueue {
     public:
-    /** List of lock requests for the same resource (table or row) */
+    //  锁请求队列
     std::list<std::unique_ptr<LockRequest>> request_queue_;
-    /** coordination */
-    xid_t upgrading_ = DDL_XID;
     std::mutex latch_;
   };
   // 获取表级锁
@@ -61,18 +59,26 @@ class LockManager {
  private:
   // 判断锁的相容性
   //  LockMode {IS IX S SIX X};
-  bool upgrade_lock_[5][5] = {{true, true, false, false, true},
-                             {false, false, false, false, false},
-                             {true, true, true, true, true},
+  bool upgrade_lock_[5][5] = {{true, true, true, false, false},
                              {false, true, false, true, true},
-                             {false, true, false, false, false}};
+                             {false, false, true, true, true},
+                             {false, true, true, true, true},
+                             {false, false, false, false, true}};
   bool compatable_lock_[5][5] = {{true, true, true, true, false},
                                  {true, true, false, false, false},
                                  {true, false, true, false, false},
-                                 {false, false, false, false, false},
+                                 {true, false, false, false, false},
                                  {false, false, false, false, false}};
   bool Compatible(LockType type_a, LockType type_b);
   
+
+  //  rid的哈希函数实现
+  struct RidHash {
+    size_t operator()(const Rid& rid) const {
+        // 一种简单的哈希函数示例，可以根据实际情况修改
+        return std::hash<pageid_t>()(rid.page_id_) ^ std::hash<slotid_t>()(rid.slot_id_);
+    }
+  };
   
   // 实现锁的升级
   LockType Upgrade(LockType self, LockType other);
@@ -82,9 +88,9 @@ class LockManager {
   std::mutex row_lock_map_latch_;
   std::mutex table_lock_map_latch_;
 
-  std::unordered_map<oid_t, std::shared_ptr<LockRequestQueue> > table_lock_map_;
+  std::unordered_map<oid_t, std::shared_ptr<LockRequestQueue>> table_lock_map_;
   
-  std::unordered_map<Rid, std::shared_ptr<LockRequestQueue> > row_lock_map_;
+  std::unordered_map<Rid, std::shared_ptr<LockRequestQueue>,RidHash> row_lock_map_;
 };
 
 }  // namespace huadb

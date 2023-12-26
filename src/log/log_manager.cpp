@@ -91,7 +91,7 @@ lsn_t LogManager::AppendNewPageLog(xid_t xid, oid_t oid, pageid_t prev_page_id, 
 }
 
 lsn_t LogManager::AppendBeginLog(xid_t xid) {
-  // std::cout << "写入事务开始日志,xid:" << xid << std::endl; 
+  std::cout << "写入事务开始日志,xid:" << xid << std::endl; 
   if (att_.find(xid) != att_.end()) {
     throw DbException(std::to_string(xid) + " already exists in att");
   }
@@ -181,14 +181,25 @@ void LogManager::Rollback(xid_t xid) {
       in.close();
     }
   }
+  size_t last_record_size = 0;
+  if (lsn <= flushed_lsn) {
+    last_record_size = flushed_lsn - lsn;
+  }
   while (!rollback_finish) {
     // std::cout << flushed_lsn<<std::endl;
     if (prev_lsn <= flushed_lsn) { // 不在日志缓冲区中
       // std::cout << "日志不在内存" << std::endl;
-      size_t record_size = lsn - prev_lsn;
+      size_t record_size;
+      if (last_record_size != 0 || prev_lsn == lsn) {
+        record_size = flushed_lsn - lsn;
+      } else {
+        record_size = lsn - prev_lsn;
+      }
+      // std::cout << "日志大小：" << record_size << std::endl;
       char* log = new char[record_size];
       disk_.ReadLog(lsn, record_size, log);
       log_record = LogRecord::DeserializeFrom(log);
+      lsn = prev_lsn;
       prev_lsn = log_record->GetPrevLSN(); 
       delete[] log;
       if (log_record->GetType() == LogType::INSERT || log_record->GetType() == LogType::DELETE 
@@ -196,24 +207,27 @@ void LogManager::Rollback(xid_t xid) {
         log_record->Undo(*buffer_pool_, *catalog_, *this, lsn, prev_lsn);
       } else if (log_record->GetType() == LogType::BEGIN) {
         rollback_finish = true;
+        // std::cout << "回滚结束" << std::endl;
       }
+      
     } else {
       // std::cout << "日志在内存中" << std::endl;
       auto iterator = log_buffer_.cbegin();
-      lsn = prev_lsn;
       for (; iterator != log_buffer_.cend(); iterator++) {
         log_record = *iterator;
         if (log_record->GetLSN() == lsn) {
           prev_lsn = log_record->GetPrevLSN();
           // std::cout << " prevlsn:" << prev_lsn <<std::endl;
           // std::cout << "日志类型为：" << (int)log_record->GetType() << std::endl;
-          if (log_record->GetType() == LogType::INSERT || log_record->GetType() == LogType::DELETE) {
+          if (log_record->GetType() == LogType::INSERT || log_record->GetType() == LogType::DELETE
+           || log_record->GetType() == LogType::NEW_PAGE) {
             log_record->Undo(*buffer_pool_, *catalog_, *this, lsn, prev_lsn);
             // std::cout <<"undo" <<std::endl;
           } else if (log_record->GetType() == LogType::BEGIN) {
             rollback_finish = true;
             // std::cout << "回滚结束" << std::endl;
           }
+          lsn = prev_lsn;
           break;
         }
       }
@@ -223,11 +237,11 @@ void LogManager::Rollback(xid_t xid) {
 }
 
 void LogManager::Recover() {
-  std::cout <<"ARIES回复" << std::endl;
+  // std::cout <<"ARIES回复" << std::endl;
   Analyze();
   Redo();
   Undo();
-  std::cout << "recover结束" << std::endl;
+  // std::cout << "recover结束" << std::endl;
 }
 
 void LogManager::IncrementRedoCount() { redo_count_++; }
@@ -325,7 +339,7 @@ void LogManager::Analyze() {
 
 void LogManager::Redo() {
   IncrementRedoCount();
-  std::cout << "调用redo" << std::endl;
+  // std::cout << "调用redo" << std::endl;
   // 正序读取日志，调用日志记录的 Redo 函数
   // LAB 2 BEGIN
   // 需要从脏页表中选取最小的rec lsn开始重做

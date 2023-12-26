@@ -1,4 +1,6 @@
 #include "executors/insert_executor.h"
+#include "binder/expression.h"
+#include "common/exceptions.h"
 #include "iostream"
 namespace huadb {
 
@@ -8,7 +10,13 @@ InsertExecutor::InsertExecutor(ExecutorContext &context, std::shared_ptr<const I
 
 void InsertExecutor::Init() {
   children_[0]->Init();
+  std::cout << "插入executor" << std::endl;
   table_ = context_.GetCatalog().GetTable(plan_->GetTableOid());
+  // insert操作对目标表加的是IX
+  // if (!context_.GetLockManager().LockTable(context_.GetXid(), LockType::IX, table_->GetOid())) {
+  //   std::cout << "上表锁失败" << std::endl;
+  //   throw DbException("插入执行器：上表锁失败");
+  // }
   column_list_ = context_.GetCatalog().GetTableColumnList(plan_->GetTableOid());
 }
 
@@ -28,10 +36,8 @@ std::shared_ptr<Record> InsertExecutor::Next() {
     auto table_record = std::make_shared<Record>(std::move(values));
     // 获取正确的锁，加锁失败时抛出异常
     // LAB 3 BEGIN
-    // std::cout << "Insertexec" << context_.GetXid() << std::endl;
+    // 不需要对行加锁,只需上表锁
     auto rid = table_->InsertRecord(std::move(table_record), context_.GetXid(), context_.GetCid());
-    // 获取正确的锁，加锁失败时抛出异常
-    // LAB 3 BEGIN
     count++;
   }
   finished_ = true;

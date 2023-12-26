@@ -13,9 +13,15 @@ SeqScanExecutor::SeqScanExecutor(ExecutorContext &context, std::shared_ptr<const
     }
 
 void SeqScanExecutor::Init() {
-  std::cout << "初始化" << std::endl;
-  std::cout << "查询引擎的事务发起者: " << context_.GetXid() << "sql语句id:" << context_.GetCid() << std::endl;
+  std::cout << "查询引擎初始化" << std::endl;
+  
   auto table = context_.GetCatalog().GetTable(plan_->GetTableOid());
+  LockType locktype = context_.IsModificationSql() ? LockType::IX : LockType::IS;
+  std::cout << "查询引擎的事务发起者: " << context_.GetXid() << "sql语句id:" << context_.GetCid() 
+  << "是否为修改sql语句："<< context_.IsModificationSql() <<" "<< static_cast<int>(locktype) << std::endl;
+  if (!context_.GetLockManager().LockTable(context_.GetXid(), locktype, table->GetOid())) {
+    throw DbException("查询执行器：上表锁失败");
+  }
   scan_ = std::make_unique<TableScan>(context_.GetBufferPool(), table, Rid{table->GetFirstPageId(), 0});
 }
 

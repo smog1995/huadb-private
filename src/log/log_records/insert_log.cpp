@@ -76,6 +76,7 @@ void InsertLog::Undo(BufferPool &buffer_pool, Catalog &catalog, LogManager &log_
   // LAB 2 BEGIN
   auto table = catalog.GetTable(oid_);
   // std::cout <<"page_id" << page_id_ << " slotid " << slot_id_ <<std::endl;
+  std::cout << "撤销操作删除了该行:执行者为:" << xid_ << std::endl;
   table->DeleteRecord({page_id_, slot_id_}, xid_, false);  //  这里暂时没设置写日志,或者做补偿日志
   
 
