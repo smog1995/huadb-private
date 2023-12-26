@@ -22,17 +22,23 @@ bool LockManager::LockTable(xid_t xid, LockType lock_type, oid_t oid) {
    */
   for (auto ele = lock_request_queue->request_queue_.begin(); ele != lock_request_queue->request_queue_.end(); ele++) {
     if ((*ele)->xid_ != xid && !Compatible((*ele)->lock_type_, lock_type)) {
+      std::cout << "上锁不兼容" << static_cast<int>((*ele)->lock_type_) << " :" << static_cast<int>(lock_type)<< std::endl;
+      std::cout << xid << "该锁xid" << (*ele)->xid_ << std::endl;
       return false;
     }
   }
   for (auto ele = lock_request_queue->request_queue_.begin(); ele != lock_request_queue->request_queue_.end(); ele++) {
     if ((*ele)->xid_ == xid) {
-      LockType upgrade_lock_ = Upgrade((*ele)->lock_type_, lock_type);
-      if (upgrade_lock_ == (*ele)->lock_type_) { // 说明不能原地升级
+      if ((*ele)->lock_type_ == lock_type) {
+        std::cout << "(原地升级锁,但是升级类型相同，无需升级)上表锁：" << oid << "锁类型" << static_cast<int>(lock_type) << std::endl;
+        return true;
+      }
+      LockType upgrade_lock = Upgrade((*ele)->lock_type_, lock_type);
+      if (upgrade_lock == (*ele)->lock_type_) { // 说明不能原地升级
         //只能加新锁
         break;
       } else { // 否则直接原地升级
-        (*ele)->lock_type_ = upgrade_lock_;
+        (*ele)->lock_type_ = upgrade_lock;
         std::cout << "(原地升级锁)上表锁：" << oid << "锁类型" << static_cast<int>(lock_type) << std::endl;
         return true;
       }
@@ -85,21 +91,23 @@ void LockManager::ReleaseLocks(xid_t xid) {
   // LAB 3 BEGIN
   // 先解所有行锁
   for (auto &[rid, lock_request_queue] : row_lock_map_) {
-    for (auto ele = lock_request_queue->request_queue_.begin(); ele != lock_request_queue->request_queue_.end(); ele++) {
+    for (auto ele = lock_request_queue->request_queue_.begin(); ele != lock_request_queue->request_queue_.end();) {
       if ((*ele)->xid_ == xid) {
         std::cout << "释放行锁：" << rid.page_id_ << "," << rid.slot_id_<< " 锁类型" << static_cast<int>((*ele)->lock_type_) << std::endl;
-        ele = lock_request_queue->request_queue_.erase(ele);
-        
+        ele = lock_request_queue->request_queue_.erase(ele++);
+      } else {
+        ele++;
       }
     }
   }
   // 再解表锁
   for (auto &[oid, lock_request_queue] : table_lock_map_) {
-    for (auto ele = lock_request_queue->request_queue_.begin(); ele != lock_request_queue->request_queue_.end(); ele++) {
+    for (auto ele = lock_request_queue->request_queue_.begin(); ele != lock_request_queue->request_queue_.end();) {
       if ((*ele)->xid_ == xid) {
         std::cout << "释放表锁：" << oid << " 锁类型" << static_cast<int>((*ele)->lock_type_) << std::endl;
-        ele = lock_request_queue->request_queue_.erase(ele);
-        
+        ele = lock_request_queue->request_queue_.erase(ele++);
+      } else {
+        ele++;
       }
     }
   }

@@ -31,7 +31,8 @@ std::shared_ptr<Record> DeleteExecutor::Next() {
     
     //  在删除时会进行当前读；可重复读、可串行化隔离级别下，如果删除该元组的事务已经提交了，那么当前读会导致该元组更新失败
     if (record->GetXmax() != NULL_XID && active_txn.find(record->GetXmax()) == active_txn.end()) {
-      throw DbException("修改了不存在的元组");
+      std::cout << "当前读，该元组已不存在" << std::endl;
+      continue;
     }
     table_->DeleteRecord(record->GetRid(), context_.GetXid());
     count++;

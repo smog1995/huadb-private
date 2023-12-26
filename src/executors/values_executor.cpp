@@ -1,11 +1,13 @@
 #include "executors/values_executor.h"
-
+#include "iostream"
 namespace huadb {
 
 ValuesExecutor::ValuesExecutor(ExecutorContext &context, std::shared_ptr<const ValuesOperator> plan)
     : Executor(context, {}), plan_(std::move(plan)) {}
 
-void ValuesExecutor::Init() {}
+void ValuesExecutor::Init() {
+  std::cout << " value executor初始化" << std::endl;
+}
 
 std::shared_ptr<Record> ValuesExecutor::Next() {
   if (cursor_ >= plan_->values_.size()) {

@@ -9,14 +9,16 @@ InsertExecutor::InsertExecutor(ExecutorContext &context, std::shared_ptr<const I
     : Executor(context, {std::move(child)}), plan_(std::move(plan)) {}
 
 void InsertExecutor::Init() {
-  children_[0]->Init();
   std::cout << "插入executor" << std::endl;
+  //  value executor引擎初始化
+  children_[0]->Init();
+  
   table_ = context_.GetCatalog().GetTable(plan_->GetTableOid());
   // insert操作对目标表加的是IX
-  // if (!context_.GetLockManager().LockTable(context_.GetXid(), LockType::IX, table_->GetOid())) {
-  //   std::cout << "上表锁失败" << std::endl;
-  //   throw DbException("插入执行器：上表锁失败");
-  // }
+  if (!context_.GetLockManager().LockTable(context_.GetXid(), LockType::IX, table_->GetOid())) {
+    std::cout << "上表锁失败" << std::endl;
+    throw DbException("插入执行器：上表锁失败");
+  }
   column_list_ = context_.GetCatalog().GetTableColumnList(plan_->GetTableOid());
 }
 

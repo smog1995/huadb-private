@@ -17,7 +17,6 @@ class SeqScanExecutor : public Executor {
  private:
   std::shared_ptr<const SeqScanOperator> plan_;
   std::unique_ptr<TableScan> scan_;
-  std::unordered_set<xid_t> active_xids_;
 };
 
 }  // namespace huadb

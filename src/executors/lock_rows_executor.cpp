@@ -23,14 +23,14 @@ std::shared_ptr<Record> LockRowsExecutor::Next() {
       break;
     case SelectLockType::SHARE :
       if (!context_.GetLockManager().LockRow(context_.GetXid(), LockType::S, plan_->GetOid(), record->GetRid())) {
-        throw DbException("select for update 或share 上锁失败");
+        throw DbException("select for share 上锁失败");
       } else {
         lock_result = true;
       }
       break;
     case SelectLockType::UPDATE :
       if (!context_.GetLockManager().LockRow(context_.GetXid(), LockType::X, plan_->GetOid(), record->GetRid())) {
-        throw DbException("selectforupdate或share上锁失败");
+        throw DbException("select for update上锁失败");
       } else {
         lock_result = true;
       }

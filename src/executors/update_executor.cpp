@@ -37,8 +37,8 @@ std::shared_ptr<Record> UpdateExecutor::Next() {
     
     //  在修改时会进行当前读；可重复读、可串行化隔离级别下，如果删除该元组的事务已经提交了，那么当前读会导致该元组更新失败
     if (record->GetXmax() != NULL_XID && active_txn.find(record->GetXmax()) == active_txn.end()) {
-      std::cout << "修改了不存在的元组" << std::endl;
-      throw DbException("修改了不存在的元组");
+      std::cout << "当前读，该元组已不存在" << std::endl;
+      continue;
     }
     auto rid = table_->UpdateRecord(record->GetRid(), context_.GetXid(), context_.GetCid(), new_record);
     // 获取正确的锁，加锁失败时抛出异常

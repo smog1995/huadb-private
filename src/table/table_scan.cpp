@@ -15,6 +15,29 @@ TableScan::TableScan(BufferPool &buffer_pool, std::shared_ptr<Table> table, Rid 
       std::make_unique<TablePage>(buffer_pool_.GetPage(table_->GetDbOid(), table_->GetOid(), table_->GetFirstPageId()));
   current_table_page_id_ = table_->GetFirstPageId();
 }
+// bool TableScan::MvccShowOrNot(Record* record, xid_t xid, IsolationLevel isolation_level,
+//                               const std::unordered_set<xid_t> &active_xids) {
+
+  
+//   xid_t record_xmax = record->GetXmax();
+//   xid_t record_xmin = record->GetXmin();
+//   // 删除操作已提交
+//   std::cout << "record_max:" << record_xmax << " xmin: " << record_xmin << " xid:" 
+//   << xid << " level" << static_cast<int>(isolation_level) << std::endl;
+//   if (record_xmax != NULL_XID 
+//       && (active_xids.find(record_xmax) == active_xids.end() || record_xmax == xid)) {
+//     std::cout << "该元组已删除" << std::endl;
+//     return false;
+//   }
+//   if (record_xmin != xid
+//       && active_xids.find(record_xmin) != active_xids.end()) {
+//     std::cout << "该元组的插入还未提交" << std::endl;
+//     return false;
+//   }
+//   std::cout << "可见" << std::endl;
+//   return true;
+
+// }
 bool TableScan::MvccShowOrNot(Record* record, xid_t xid, IsolationLevel isolation_level,
                               const std::unordered_set<xid_t> &active_xids) {
 
@@ -29,13 +52,16 @@ bool TableScan::MvccShowOrNot(Record* record, xid_t xid, IsolationLevel isolatio
     return false;
   }
   // 读已提交隔离级别，比当前事务新的事务已经提交该删除操作
-  if (record_xmax > xid && record_xmax != NULL_XID && isolation_level == IsolationLevel::READ_COMMITTED
-      && active_xids.find(record_xmax) == active_xids.end()) {
-    std::cout << "读已提交，该元组已删除" << std::endl;
-    return false;
-  }
+  
+  // if (record_xmax > xid && record_xmax != NULL_XID && isolation_level == IsolationLevel::READ_COMMITTED
+  //     && active_xids.find(record_xmax) == active_xids.end()) {
+  // if (record_xmax > xid && record_xmax != NULL_XID 
+  //     && active_xids.find(record_xmax) == active_xids.end()) {
+  //   std::cout << "当前读，该元组已删除" << std::endl;
+  //   return false;
+  // }
   // 如果是当前事务之后的新事务，隔离级别不是读已提交则不可见
-  if (record_xmin > xid && isolation_level != IsolationLevel::READ_COMMITTED) {
+    if (record_xmin > xid && isolation_level != IsolationLevel::READ_COMMITTED) {
     std::cout << "不为读未提交或读已提交，读取不到当前事务之后开始的新事务" << std::endl;
     return false;
   }
