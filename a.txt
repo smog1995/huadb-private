@@ -1,0 +1,2633 @@
+./build/debug/bin/sqllogictest test/lab{0..3}/*.test
+Test: 1/3
+lab0/10-basic.test add new Page
+读取结束
+读取结束
+写入事务开始日志,xid:1
+写入事务开始日志,xid:2
+end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab0/20-expression.test 读取结束
+读取结束
+读取结束
+写入事务开始日志,xid:3
+写入事务开始日志,xid:4
+写入事务开始日志,xid:5
+写入事务开始日志,xid:6
+写入事务开始日志,xid:7
+写入事务开始日志,xid:8
+写入事务开始日志,xid:9
+写入事务开始日志,xid:10
+写入事务开始日志,xid:11
+写入事务开始日志,xid:12
+写入事务开始日志,xid:13
+写入事务开始日志,xid:14
+写入事务开始日志,xid:15
+写入事务开始日志,xid:16
+写入事务开始日志,xid:17
+写入事务开始日志,xid:18
+写入事务开始日志,xid:19
+写入事务开始日志,xid:20
+写入事务开始日志,xid:21
+写入事务开始日志,xid:22
+写入事务开始日志,xid:23
+写入事务开始日志,xid:24
+写入事务开始日志,xid:25
+写入事务开始日志,xid:26
+写入事务开始日志,xid:27
+写入事务开始日志,xid:28
+end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab0/30-set_and_show.test 读取结束
+读取结束
+读取结束
+写入事务开始日志,xid:29
+写入事务开始日志,xid:30
+写入事务开始日志,xid:31
+写入事务开始日志,xid:32
+写入事务开始日志,xid:33
+写入事务开始日志,xid:34
+写入事务开始日志,xid:35
+写入事务开始日志,xid:36
+写入事务开始日志,xid:37
+写入事务开始日志,xid:38
+写入事务开始日志,xid:39
+写入事务开始日志,xid:40
+写入事务开始日志,xid:41
+写入事务开始日志,xid:42
+写入事务开始日志,xid:43
+写入事务开始日志,xid:44
+写入事务开始日志,xid:45
+写入事务开始日志,xid:46
+写入事务开始日志,xid:47
+end检查点日志写入的dpt_,att_大小为：0 1
+[1m[32mPASS[0m
+lab0/40-error.test 读取结束
+读取结束
+读取结束
+写入事务开始日志,xid:48
+add new Page
+写入事务开始日志,xid:49
+写入事务开始日志,xid:50
+写入事务开始日志,xid:51
+写入事务开始日志,xid:52
+写入事务开始日志,xid:53
+写入事务开始日志,xid:54
+写入事务开始日志,xid:55
+写入事务开始日志,xid:56
+写入事务开始日志,xid:57
+写入事务开始日志,xid:58
+写入事务开始日志,xid:59
+end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab1/10-insert.test 读取结束
+循环 读取结束
+读取结束
+写入事务开始日志,xid:60
+add new Page
+写入事务开始日志,xid:61
+插入executor
+上表锁：10003锁类型1
+insert executor释放表锁：10003 锁类型1
+写入事务开始日志,xid:62
+查询引擎初始化
+查询引擎的事务发起者: 62sql语句id:1是否为修改sql语句：0 0
+上表锁：10003锁类型0
+record_max:4294967295 xmin: 61 xid:62 level0
+可见
+record_max:4294967295 xmin: 61 xid:62 level0
+可见
+record_max:4294967295 xmin: 61 xid:62 level0
+可见
+读取结束
+释放表锁：10003 锁类型0
+写入事务开始日志,xid:63
+插入executor
+上表锁：10003锁类型1
+insert executoradd new Page
+释放表锁：10003 锁类型1
+写入事务开始日志,xid:64
+查询引擎初始化
+查询引擎的事务发起者: 64sql语句id:1是否为修改sql语句：0 0
+上表锁：10003锁类型0
+record_max:4294967295 xmin: 61 xid:64 level0
+可见
+record_max:4294967295 xmin: 61 xid:64 level0
+可见
+record_max:4294967295 xmin: 61 xid:64 level0
+可见
+record_max:4294967295 xmin: 63 xid:64 level0
+可见
+record_max:4294967295 xmin: 63 xid:64 level0
+可见
+record_max:4294967295 xmin: 63 xid:64 level0
+可见
+读取结束
+释放表锁：10003 锁类型0
+写入事务开始日志,xid:65
+插入executor
+上表锁：10003锁类型1
+insert executoradd new Page
+释放表锁：10003 锁类型1
+写入事务开始日志,xid:66
+查询引擎初始化
+查询引擎的事务发起者: 66sql语句id:1是否为修改sql语句：0 0
+上表锁：10003锁类型0
+record_max:4294967295 xmin: 61 xid:66 level0
+可见
+record_max:4294967295 xmin: 61 xid:66 level0
+可见
+record_max:4294967295 xmin: 61 xid:66 level0
+可见
+record_max:4294967295 xmin: 63 xid:66 level0
+可见
+record_max:4294967295 xmin: 63 xid:66 level0
+可见
+record_max:4294967295 xmin: 63 xid:66 level0
+可见
+record_max:4294967295 xmin: 65 xid:66 level0
+可见
+record_max:4294967295 xmin: 65 xid:66 level0
+可见
+record_max:4294967295 xmin: 65 xid:66 level0
+可见
+record_max:4294967295 xmin: 65 xid:66 level0
+可见
+record_max:4294967295 xmin: 65 xid:66 level0
+可见
+读取结束
+释放表锁：10003 锁类型0
+写入事务开始日志,xid:67
+end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab1/20-delete.test 读取结束
+循环 读取结束2
+读取结束
+写入事务开始日志,xid:68
+add new Page
+写入事务开始日志,xid:69
+插入executor
+上表锁：10004锁类型1
+insert executor释放表锁：10004 锁类型1
+写入事务开始日志,xid:70
+查询引擎初始化
+查询引擎的事务发起者: 70sql语句id:1是否为修改sql语句：0 0
+上表锁：10004锁类型0
+record_max:4294967295 xmin: 69 xid:70 level0
+可见
+record_max:4294967295 xmin: 69 xid:70 level0
+可见
+record_max:4294967295 xmin: 69 xid:70 level0
+可见
+读取结束
+释放表锁：10004 锁类型0
+写入事务开始日志,xid:71
+查询引擎初始化
+查询引擎的事务发起者: 71sql语句id:1是否为修改sql语句：1 1
+上表锁：10004锁类型1
+删除executor
+record_max:4294967295 xmin: 69 xid:71 level0
+可见
+上行锁：0, 0 锁类型4
+record_max:4294967295 xmin: 69 xid:71 level0
+可见
+record_max:4294967295 xmin: 69 xid:71 level0
+可见
+读取结束
+释放行锁：0,0 锁类型4
+释放表锁：10004 锁类型1
+写入事务开始日志,xid:72
+查询引擎初始化
+查询引擎的事务发起者: 72sql语句id:1是否为修改sql语句：0 0
+上表锁：10004锁类型0
+record_max:71 xmin: 69 xid:72 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 69 xid:72 level0
+可见
+record_max:4294967295 xmin: 69 xid:72 level0
+可见
+读取结束
+释放表锁：10004 锁类型0
+写入事务开始日志,xid:73
+插入executor
+上表锁：10004锁类型1
+insert executoradd new Page
+释放表锁：10004 锁类型1
+写入事务开始日志,xid:74
+查询引擎初始化
+查询引擎的事务发起者: 74sql语句id:1是否为修改sql语句：0 0
+上表锁：10004锁类型0
+record_max:71 xmin: 69 xid:74 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 69 xid:74 level0
+可见
+record_max:4294967295 xmin: 69 xid:74 level0
+可见
+record_max:4294967295 xmin: 73 xid:74 level0
+可见
+record_max:4294967295 xmin: 73 xid:74 level0
+可见
+record_max:4294967295 xmin: 73 xid:74 level0
+可见
+读取结束
+释放表锁：10004 锁类型0
+写入事务开始日志,xid:75
+查询引擎初始化
+查询引擎的事务发起者: 75sql语句id:1是否为修改sql语句：1 1
+上表锁：10004锁类型1
+删除executor
+record_max:71 xmin: 69 xid:75 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 69 xid:75 level0
+可见
+record_max:4294967295 xmin: 69 xid:75 level0
+可见
+上行锁：0, 2 锁类型4
+record_max:4294967295 xmin: 73 xid:75 level0
+可见
+上行锁：0, 3 锁类型4
+record_max:4294967295 xmin: 73 xid:75 level0
+可见
+record_max:4294967295 xmin: 73 xid:75 level0
+可见
+读取结束
+释放行锁：0,3 锁类型4
+释放行锁：0,2 锁类型4
+释放表锁：10004 锁类型1
+写入事务开始日志,xid:76
+查询引擎初始化
+查询引擎的事务发起者: 76sql语句id:1是否为修改sql语句：0 0
+上表锁：10004锁类型0
+record_max:71 xmin: 69 xid:76 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 69 xid:76 level0
+可见
+record_max:75 xmin: 69 xid:76 level0
+该元组已删除1
+循环 record_max:75 xmin: 73 xid:76 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 73 xid:76 level0
+可见
+record_max:4294967295 xmin: 73 xid:76 level0
+可见
+读取结束
+释放表锁：10004 锁类型0
+写入事务开始日志,xid:77
+插入executor
+上表锁：10004锁类型1
+insert executoradd new Page
+释放表锁：10004 锁类型1
+写入事务开始日志,xid:78
+查询引擎初始化
+查询引擎的事务发起者: 78sql语句id:1是否为修改sql语句：0 0
+上表锁：10004锁类型0
+record_max:71 xmin: 69 xid:78 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 69 xid:78 level0
+可见
+record_max:75 xmin: 69 xid:78 level0
+该元组已删除1
+循环 record_max:75 xmin: 73 xid:78 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 73 xid:78 level0
+可见
+record_max:4294967295 xmin: 73 xid:78 level0
+可见
+record_max:4294967295 xmin: 77 xid:78 level0
+可见
+record_max:4294967295 xmin: 77 xid:78 level0
+可见
+record_max:4294967295 xmin: 77 xid:78 level0
+可见
+record_max:4294967295 xmin: 77 xid:78 level0
+可见
+record_max:4294967295 xmin: 77 xid:78 level0
+可见
+读取结束
+释放表锁：10004 锁类型0
+写入事务开始日志,xid:79
+查询引擎初始化
+查询引擎的事务发起者: 79sql语句id:1是否为修改sql语句：1 1
+上表锁：10004锁类型1
+删除executor
+record_max:71 xmin: 69 xid:79 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 69 xid:79 level0
+可见
+record_max:75 xmin: 69 xid:79 level0
+该元组已删除1
+循环 record_max:75 xmin: 73 xid:79 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 73 xid:79 level0
+可见
+record_max:4294967295 xmin: 73 xid:79 level0
+可见
+record_max:4294967295 xmin: 77 xid:79 level0
+可见
+record_max:4294967295 xmin: 77 xid:79 level0
+可见
+record_max:4294967295 xmin: 77 xid:79 level0
+可见
+record_max:4294967295 xmin: 77 xid:79 level0
+可见
+record_max:4294967295 xmin: 77 xid:79 level0
+可见
+读取结束
+释放表锁：10004 锁类型1
+写入事务开始日志,xid:80
+查询引擎初始化
+查询引擎的事务发起者: 80sql语句id:1是否为修改sql语句：0 0
+上表锁：10004锁类型0
+record_max:71 xmin: 69 xid:80 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 69 xid:80 level0
+可见
+record_max:75 xmin: 69 xid:80 level0
+该元组已删除1
+循环 record_max:75 xmin: 73 xid:80 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 73 xid:80 level0
+可见
+record_max:4294967295 xmin: 73 xid:80 level0
+可见
+record_max:4294967295 xmin: 77 xid:80 level0
+可见
+record_max:4294967295 xmin: 77 xid:80 level0
+可见
+record_max:4294967295 xmin: 77 xid:80 level0
+可见
+record_max:4294967295 xmin: 77 xid:80 level0
+可见
+record_max:4294967295 xmin: 77 xid:80 level0
+可见
+读取结束
+释放表锁：10004 锁类型0
+写入事务开始日志,xid:81
+查询引擎初始化
+查询引擎的事务发起者: 81sql语句id:1是否为修改sql语句：1 1
+上表锁：10004锁类型1
+删除executor
+record_max:71 xmin: 69 xid:81 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 69 xid:81 level0
+可见
+record_max:75 xmin: 69 xid:81 level0
+该元组已删除1
+循环 record_max:75 xmin: 73 xid:81 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 73 xid:81 level0
+可见
+record_max:4294967295 xmin: 73 xid:81 level0
+可见
+record_max:4294967295 xmin: 77 xid:81 level0
+可见
+record_max:4294967295 xmin: 77 xid:81 level0
+可见
+record_max:4294967295 xmin: 77 xid:81 level0
+可见
+record_max:4294967295 xmin: 77 xid:81 level0
+可见
+record_max:4294967295 xmin: 77 xid:81 level0
+可见
+上行锁：2, 1 锁类型4
+读取结束
+释放行锁：2,1 锁类型4
+释放表锁：10004 锁类型1
+写入事务开始日志,xid:82
+查询引擎初始化
+查询引擎的事务发起者: 82sql语句id:1是否为修改sql语句：0 0
+上表锁：10004锁类型0
+record_max:71 xmin: 69 xid:82 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 69 xid:82 level0
+可见
+record_max:75 xmin: 69 xid:82 level0
+该元组已删除1
+循环 record_max:75 xmin: 73 xid:82 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 73 xid:82 level0
+可见
+record_max:4294967295 xmin: 73 xid:82 level0
+可见
+record_max:4294967295 xmin: 77 xid:82 level0
+可见
+record_max:4294967295 xmin: 77 xid:82 level0
+可见
+record_max:4294967295 xmin: 77 xid:82 level0
+可见
+record_max:4294967295 xmin: 77 xid:82 level0
+可见
+record_max:81 xmin: 77 xid:82 level0
+该元组已删除1
+循环 读取结束2
+释放表锁：10004 锁类型0
+写入事务开始日志,xid:83
+查询引擎初始化
+查询引擎的事务发起者: 83sql语句id:1是否为修改sql语句：1 1
+上表锁：10004锁类型1
+删除executor
+record_max:71 xmin: 69 xid:83 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 69 xid:83 level0
+可见
+上行锁：0, 1 锁类型4
+record_max:75 xmin: 69 xid:83 level0
+该元组已删除1
+循环 record_max:75 xmin: 73 xid:83 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 73 xid:83 level0
+可见
+上行锁：0, 4 锁类型4
+record_max:4294967295 xmin: 73 xid:83 level0
+可见
+上行锁：1, 0 锁类型4
+record_max:4294967295 xmin: 77 xid:83 level0
+可见
+上行锁：1, 1 锁类型4
+record_max:4294967295 xmin: 77 xid:83 level0
+可见
+上行锁：1, 2 锁类型4
+record_max:4294967295 xmin: 77 xid:83 level0
+可见
+上行锁：1, 3 锁类型4
+record_max:4294967295 xmin: 77 xid:83 level0
+可见
+上行锁：2, 0 锁类型4
+record_max:81 xmin: 77 xid:83 level0
+该元组已删除1
+循环 读取结束2
+释放行锁：0,4 锁类型4
+释放行锁：1,0 锁类型4
+释放行锁：0,1 锁类型4
+释放行锁：1,2 锁类型4
+释放行锁：2,0 锁类型4
+释放行锁：1,3 锁类型4
+释放行锁：1,1 锁类型4
+释放表锁：10004 锁类型1
+写入事务开始日志,xid:84
+插入executor
+上表锁：10004锁类型1
+insert executor释放表锁：10004 锁类型1
+写入事务开始日志,xid:85
+查询引擎初始化
+查询引擎的事务发起者: 85sql语句id:1是否为修改sql语句：0 0
+上表锁：10004锁类型0
+record_max:71 xmin: 69 xid:85 level0
+该元组已删除1
+循环 record_max:83 xmin: 69 xid:85 level0
+该元组已删除1
+循环 record_max:75 xmin: 69 xid:85 level0
+该元组已删除1
+循环 record_max:75 xmin: 73 xid:85 level0
+该元组已删除1
+循环 record_max:83 xmin: 73 xid:85 level0
+该元组已删除1
+循环 record_max:83 xmin: 73 xid:85 level0
+该元组已删除1
+循环 record_max:83 xmin: 77 xid:85 level0
+该元组已删除1
+循环 record_max:83 xmin: 77 xid:85 level0
+该元组已删除1
+循环 record_max:83 xmin: 77 xid:85 level0
+该元组已删除1
+循环 record_max:83 xmin: 77 xid:85 level0
+该元组已删除1
+循环 record_max:81 xmin: 77 xid:85 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 84 xid:85 level0
+可见
+record_max:4294967295 xmin: 84 xid:85 level0
+可见
+读取结束
+释放表锁：10004 锁类型0
+写入事务开始日志,xid:86
+查询引擎初始化
+查询引擎的事务发起者: 86sql语句id:1是否为修改sql语句：1 1
+上表锁：10004锁类型1
+删除executor
+record_max:71 xmin: 69 xid:86 level0
+该元组已删除1
+循环 record_max:83 xmin: 69 xid:86 level0
+该元组已删除1
+循环 record_max:75 xmin: 69 xid:86 level0
+该元组已删除1
+循环 record_max:75 xmin: 73 xid:86 level0
+该元组已删除1
+循环 record_max:83 xmin: 73 xid:86 level0
+该元组已删除1
+循环 record_max:83 xmin: 73 xid:86 level0
+该元组已删除1
+循环 record_max:83 xmin: 77 xid:86 level0
+该元组已删除1
+循环 record_max:83 xmin: 77 xid:86 level0
+该元组已删除1
+循环 record_max:83 xmin: 77 xid:86 level0
+该元组已删除1
+循环 record_max:83 xmin: 77 xid:86 level0
+该元组已删除1
+循环 record_max:81 xmin: 77 xid:86 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 84 xid:86 level0
+可见
+上行锁：2, 2 锁类型4
+record_max:4294967295 xmin: 84 xid:86 level0
+可见
+上行锁：2, 3 锁类型4
+读取结束
+释放行锁：2,3 锁类型4
+释放行锁：2,2 锁类型4
+释放表锁：10004 锁类型1
+写入事务开始日志,xid:87
+查询引擎初始化
+查询引擎的事务发起者: 87sql语句id:1是否为修改sql语句：0 0
+上表锁：10004锁类型0
+record_max:71 xmin: 69 xid:87 level0
+该元组已删除1
+循环 record_max:83 xmin: 69 xid:87 level0
+该元组已删除1
+循环 record_max:75 xmin: 69 xid:87 level0
+该元组已删除1
+循环 record_max:75 xmin: 73 xid:87 level0
+该元组已删除1
+循环 record_max:83 xmin: 73 xid:87 level0
+该元组已删除1
+循环 record_max:83 xmin: 73 xid:87 level0
+该元组已删除1
+循环 record_max:83 xmin: 77 xid:87 level0
+该元组已删除1
+循环 record_max:83 xmin: 77 xid:87 level0
+该元组已删除1
+循环 record_max:83 xmin: 77 xid:87 level0
+该元组已删除1
+循环 record_max:83 xmin: 77 xid:87 level0
+该元组已删除1
+循环 record_max:81 xmin: 77 xid:87 level0
+该元组已删除1
+循环 record_max:86 xmin: 84 xid:87 level0
+该元组已删除1
+循环 record_max:86 xmin: 84 xid:87 level0
+该元组已删除1
+循环 读取结束2
+释放表锁：10004 锁类型0
+写入事务开始日志,xid:88
+end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab1/30-update.test 读取结束
+循环 读取结束2
+读取结束
+写入事务开始日志,xid:89
+add new Page
+写入事务开始日志,xid:90
+插入executor
+上表锁：10005锁类型1
+insert executor释放表锁：10005 锁类型1
+写入事务开始日志,xid:91
+查询引擎初始化
+查询引擎的事务发起者: 91sql语句id:1是否为修改sql语句：0 0
+上表锁：10005锁类型0
+record_max:4294967295 xmin: 90 xid:91 level0
+可见
+record_max:4294967295 xmin: 90 xid:91 level0
+可见
+record_max:4294967295 xmin: 90 xid:91 level0
+可见
+读取结束
+释放表锁：10005 锁类型0
+写入事务开始日志,xid:92
+查询引擎初始化
+查询引擎的事务发起者: 92sql语句id:1是否为修改sql语句：1 1
+上表锁：10005锁类型1
+修改引擎的事务发起者: 92sql语句id:1
+update
+record_max:4294967295 xmin: 90 xid:92 level0
+可见
+record_max:4294967295 xmin: 90 xid:92 level0
+可见
+record_max:4294967295 xmin: 90 xid:92 level0
+可见
+上行锁：0, 2 锁类型4
+record_max:4294967295 xmin: 92 xid:92 level0
+可见
+循环 当前xid,cid:92 1
+该记录xid,cid:92 1
+万圣节问题读取结束2
+释放行锁：0,2 锁类型4
+释放表锁：10005 锁类型1
+写入事务开始日志,xid:93
+查询引擎初始化
+查询引擎的事务发起者: 93sql语句id:1是否为修改sql语句：0 0
+上表锁：10005锁类型0
+record_max:4294967295 xmin: 90 xid:93 level0
+可见
+record_max:4294967295 xmin: 90 xid:93 level0
+可见
+record_max:92 xmin: 90 xid:93 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 92 xid:93 level0
+可见
+读取结束
+释放表锁：10005 锁类型0
+写入事务开始日志,xid:94
+插入executor
+上表锁：10005锁类型1
+insert executoradd new Page
+释放表锁：10005 锁类型1
+写入事务开始日志,xid:95
+查询引擎初始化
+查询引擎的事务发起者: 95sql语句id:1是否为修改sql语句：0 0
+上表锁：10005锁类型0
+record_max:4294967295 xmin: 90 xid:95 level0
+可见
+record_max:4294967295 xmin: 90 xid:95 level0
+可见
+record_max:92 xmin: 90 xid:95 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 92 xid:95 level0
+可见
+record_max:4294967295 xmin: 94 xid:95 level0
+可见
+record_max:4294967295 xmin: 94 xid:95 level0
+可见
+record_max:4294967295 xmin: 94 xid:95 level0
+可见
+读取结束
+释放表锁：10005 锁类型0
+写入事务开始日志,xid:96
+查询引擎初始化
+查询引擎的事务发起者: 96sql语句id:1是否为修改sql语句：1 1
+上表锁：10005锁类型1
+修改引擎的事务发起者: 96sql语句id:1
+update
+record_max:4294967295 xmin: 90 xid:96 level0
+可见
+record_max:4294967295 xmin: 90 xid:96 level0
+可见
+record_max:92 xmin: 90 xid:96 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 92 xid:96 level0
+可见
+上行锁：0, 3 锁类型4
+record_max:4294967295 xmin: 94 xid:96 level0
+可见
+上行锁：0, 4 锁类型4
+record_max:4294967295 xmin: 94 xid:96 level0
+可见
+上行锁：1, 0 锁类型4
+add new Page
+record_max:4294967295 xmin: 94 xid:96 level0
+可见
+record_max:4294967295 xmin: 96 xid:96 level0
+可见
+循环 当前xid,cid:96 1
+该记录xid,cid:96 1
+万圣节问题record_max:4294967295 xmin: 96 xid:96 level0
+可见
+循环 当前xid,cid:96 1
+该记录xid,cid:96 1
+万圣节问题record_max:4294967295 xmin: 96 xid:96 level0
+可见
+循环 当前xid,cid:96 1
+该记录xid,cid:96 1
+万圣节问题读取结束2
+释放行锁：1,0 锁类型4
+释放行锁：0,4 锁类型4
+释放行锁：0,3 锁类型4
+释放表锁：10005 锁类型1
+写入事务开始日志,xid:97
+查询引擎初始化
+查询引擎的事务发起者: 97sql语句id:1是否为修改sql语句：0 0
+上表锁：10005锁类型0
+record_max:4294967295 xmin: 90 xid:97 level0
+可见
+record_max:4294967295 xmin: 90 xid:97 level0
+可见
+record_max:92 xmin: 90 xid:97 level0
+该元组已删除1
+循环 record_max:96 xmin: 92 xid:97 level0
+该元组已删除1
+循环 record_max:96 xmin: 94 xid:97 level0
+该元组已删除1
+循环 record_max:96 xmin: 94 xid:97 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 94 xid:97 level0
+可见
+record_max:4294967295 xmin: 96 xid:97 level0
+可见
+record_max:4294967295 xmin: 96 xid:97 level0
+可见
+record_max:4294967295 xmin: 96 xid:97 level0
+可见
+读取结束
+释放表锁：10005 锁类型0
+写入事务开始日志,xid:98
+查询引擎初始化
+查询引擎的事务发起者: 98sql语句id:1是否为修改sql语句：1 1
+上表锁：10005锁类型1
+删除executor
+record_max:4294967295 xmin: 90 xid:98 level0
+可见
+record_max:4294967295 xmin: 90 xid:98 level0
+可见
+record_max:92 xmin: 90 xid:98 level0
+该元组已删除1
+循环 record_max:96 xmin: 92 xid:98 level0
+该元组已删除1
+循环 record_max:96 xmin: 94 xid:98 level0
+该元组已删除1
+循环 record_max:96 xmin: 94 xid:98 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 94 xid:98 level0
+可见
+上行锁：1, 1 锁类型4
+record_max:4294967295 xmin: 96 xid:98 level0
+可见
+record_max:4294967295 xmin: 96 xid:98 level0
+可见
+record_max:4294967295 xmin: 96 xid:98 level0
+可见
+上行锁：2, 0 锁类型4
+读取结束
+释放行锁：1,1 锁类型4
+释放行锁：2,0 锁类型4
+释放表锁：10005 锁类型1
+写入事务开始日志,xid:99
+查询引擎初始化
+查询引擎的事务发起者: 99sql语句id:1是否为修改sql语句：0 0
+上表锁：10005锁类型0
+record_max:4294967295 xmin: 90 xid:99 level0
+可见
+record_max:4294967295 xmin: 90 xid:99 level0
+可见
+record_max:92 xmin: 90 xid:99 level0
+该元组已删除1
+循环 record_max:96 xmin: 92 xid:99 level0
+该元组已删除1
+循环 record_max:96 xmin: 94 xid:99 level0
+该元组已删除1
+循环 record_max:96 xmin: 94 xid:99 level0
+该元组已删除1
+循环 record_max:98 xmin: 94 xid:99 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 96 xid:99 level0
+可见
+record_max:4294967295 xmin: 96 xid:99 level0
+可见
+record_max:98 xmin: 96 xid:99 level0
+该元组已删除1
+循环 读取结束2
+释放表锁：10005 锁类型0
+写入事务开始日志,xid:100
+插入executor
+上表锁：10005锁类型1
+insert executoradd new Page
+释放表锁：10005 锁类型1
+写入事务开始日志,xid:101
+查询引擎初始化
+查询引擎的事务发起者: 101sql语句id:1是否为修改sql语句：0 0
+上表锁：10005锁类型0
+record_max:4294967295 xmin: 90 xid:101 level0
+可见
+record_max:4294967295 xmin: 90 xid:101 level0
+可见
+record_max:92 xmin: 90 xid:101 level0
+该元组已删除1
+循环 record_max:96 xmin: 92 xid:101 level0
+该元组已删除1
+循环 record_max:96 xmin: 94 xid:101 level0
+该元组已删除1
+循环 record_max:96 xmin: 94 xid:101 level0
+该元组已删除1
+循环 record_max:98 xmin: 94 xid:101 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 96 xid:101 level0
+可见
+record_max:4294967295 xmin: 96 xid:101 level0
+可见
+record_max:98 xmin: 96 xid:101 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 100 xid:101 level0
+可见
+record_max:4294967295 xmin: 100 xid:101 level0
+可见
+record_max:4294967295 xmin: 100 xid:101 level0
+可见
+record_max:4294967295 xmin: 100 xid:101 level0
+可见
+record_max:4294967295 xmin: 100 xid:101 level0
+可见
+读取结束
+释放表锁：10005 锁类型0
+写入事务开始日志,xid:102
+查询引擎初始化
+查询引擎的事务发起者: 102sql语句id:1是否为修改sql语句：1 1
+上表锁：10005锁类型1
+修改引擎的事务发起者: 102sql语句id:1
+update
+record_max:4294967295 xmin: 90 xid:102 level0
+可见
+record_max:4294967295 xmin: 90 xid:102 level0
+可见
+record_max:92 xmin: 90 xid:102 level0
+该元组已删除1
+循环 record_max:96 xmin: 92 xid:102 level0
+该元组已删除1
+循环 record_max:96 xmin: 94 xid:102 level0
+该元组已删除1
+循环 record_max:96 xmin: 94 xid:102 level0
+该元组已删除1
+循环 record_max:98 xmin: 94 xid:102 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 96 xid:102 level0
+可见
+record_max:4294967295 xmin: 96 xid:102 level0
+可见
+record_max:98 xmin: 96 xid:102 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 100 xid:102 level0
+可见
+record_max:4294967295 xmin: 100 xid:102 level0
+可见
+record_max:4294967295 xmin: 100 xid:102 level0
+可见
+record_max:4294967295 xmin: 100 xid:102 level0
+可见
+record_max:4294967295 xmin: 100 xid:102 level0
+可见
+读取结束
+释放表锁：10005 锁类型1
+写入事务开始日志,xid:103
+查询引擎初始化
+查询引擎的事务发起者: 103sql语句id:1是否为修改sql语句：0 0
+上表锁：10005锁类型0
+record_max:4294967295 xmin: 90 xid:103 level0
+可见
+record_max:4294967295 xmin: 90 xid:103 level0
+可见
+record_max:92 xmin: 90 xid:103 level0
+该元组已删除1
+循环 record_max:96 xmin: 92 xid:103 level0
+该元组已删除1
+循环 record_max:96 xmin: 94 xid:103 level0
+该元组已删除1
+循环 record_max:96 xmin: 94 xid:103 level0
+该元组已删除1
+循环 record_max:98 xmin: 94 xid:103 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 96 xid:103 level0
+可见
+record_max:4294967295 xmin: 96 xid:103 level0
+可见
+record_max:98 xmin: 96 xid:103 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 100 xid:103 level0
+可见
+record_max:4294967295 xmin: 100 xid:103 level0
+可见
+record_max:4294967295 xmin: 100 xid:103 level0
+可见
+record_max:4294967295 xmin: 100 xid:103 level0
+可见
+record_max:4294967295 xmin: 100 xid:103 level0
+可见
+读取结束
+释放表锁：10005 锁类型0
+写入事务开始日志,xid:104
+查询引擎初始化
+查询引擎的事务发起者: 104sql语句id:1是否为修改sql语句：1 1
+上表锁：10005锁类型1
+修改引擎的事务发起者: 104sql语句id:1
+update
+record_max:4294967295 xmin: 90 xid:104 level0
+可见
+上行锁：0, 0 锁类型4
+record_max:4294967295 xmin: 90 xid:104 level0
+可见
+上行锁：0, 1 锁类型4
+record_max:92 xmin: 90 xid:104 level0
+该元组已删除1
+循环 record_max:96 xmin: 92 xid:104 level0
+该元组已删除1
+循环 record_max:96 xmin: 94 xid:104 level0
+该元组已删除1
+循环 record_max:96 xmin: 94 xid:104 level0
+该元组已删除1
+循环 record_max:98 xmin: 94 xid:104 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 96 xid:104 level0
+可见
+上行锁：1, 2 锁类型4
+add new Page
+record_max:4294967295 xmin: 96 xid:104 level0
+可见
+record_max:98 xmin: 96 xid:104 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 100 xid:104 level0
+可见
+record_max:4294967295 xmin: 100 xid:104 level0
+可见
+record_max:4294967295 xmin: 100 xid:104 level0
+可见
+record_max:4294967295 xmin: 100 xid:104 level0
+可见
+record_max:4294967295 xmin: 100 xid:104 level0
+可见
+record_max:4294967295 xmin: 104 xid:104 level0
+可见
+循环 当前xid,cid:104 1
+该记录xid,cid:104 1
+万圣节问题record_max:4294967295 xmin: 104 xid:104 level0
+可见
+循环 当前xid,cid:104 1
+该记录xid,cid:104 1
+万圣节问题record_max:4294967295 xmin: 104 xid:104 level0
+可见
+循环 当前xid,cid:104 1
+该记录xid,cid:104 1
+万圣节问题读取结束2
+释放行锁：0,0 锁类型4
+释放行锁：0,1 锁类型4
+释放行锁：1,2 锁类型4
+释放表锁：10005 锁类型1
+写入事务开始日志,xid:105
+查询引擎初始化
+查询引擎的事务发起者: 105sql语句id:1是否为修改sql语句：0 0
+上表锁：10005锁类型0
+record_max:104 xmin: 90 xid:105 level0
+该元组已删除1
+循环 record_max:104 xmin: 90 xid:105 level0
+该元组已删除1
+循环 record_max:92 xmin: 90 xid:105 level0
+该元组已删除1
+循环 record_max:96 xmin: 92 xid:105 level0
+该元组已删除1
+循环 record_max:96 xmin: 94 xid:105 level0
+该元组已删除1
+循环 record_max:96 xmin: 94 xid:105 level0
+该元组已删除1
+循环 record_max:98 xmin: 94 xid:105 level0
+该元组已删除1
+循环 record_max:104 xmin: 96 xid:105 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 96 xid:105 level0
+可见
+record_max:98 xmin: 96 xid:105 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 100 xid:105 level0
+可见
+record_max:4294967295 xmin: 100 xid:105 level0
+可见
+record_max:4294967295 xmin: 100 xid:105 level0
+可见
+record_max:4294967295 xmin: 100 xid:105 level0
+可见
+record_max:4294967295 xmin: 100 xid:105 level0
+可见
+record_max:4294967295 xmin: 104 xid:105 level0
+可见
+record_max:4294967295 xmin: 104 xid:105 level0
+可见
+record_max:4294967295 xmin: 104 xid:105 level0
+可见
+读取结束
+释放表锁：10005 锁类型0
+写入事务开始日志,xid:106
+end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab1/40-database.test 读取结束
+循环 读取结束2
+读取结束
+写入事务开始日志,xid:107
+写入事务开始日志,xid:108
+写入事务开始日志,xid:109
+写入事务开始日志,xid:110
+循环 读取结束2
+读取结束
+循环 读取结束2
+读取结束
+循环 读取结束2
+读取结束
+读取结束
+读取结束
+循环 读取结束2
+写入事务开始日志,xid:111
+循环 读取结束2
+写入事务开始日志,xid:112
+add new Page
+读取结束
+写入事务开始日志,xid:113
+读取结束
+写入事务开始日志,xid:114
+读取结束
+读取结束
+读取结束
+写入事务开始日志,xid:115
+读取结束
+end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab1/50-buffer_pool.test 循环 循环 读取结束2
+循环 读取结束2
+读取结束
+写入事务开始日志,xid:116
+写入事务开始日志,xid:117
+插入executor
+上表锁：10009锁类型1
+insert executor释放表锁：10009 锁类型1
+写入事务开始日志,xid:118
+写入事务开始日志,xid:119
+add new Page
+写入事务开始日志,xid:120
+插入executor
+上表锁：10010锁类型1
+insert executor释放表锁：10010 锁类型1
+写入事务开始日志,xid:121
+写入事务开始日志,xid:122
+插入executor
+上表锁：10011锁类型1
+insert executor释放表锁：10011 锁类型1
+写入事务开始日志,xid:123
+add new Page
+写入事务开始日志,xid:124
+插入executor
+上表锁：10012锁类型1
+insert executor释放表锁：10012 锁类型1
+写入事务开始日志,xid:125
+写入事务开始日志,xid:126
+插入executor
+上表锁：10013锁类型1
+insert executor释放表锁：10013 锁类型1
+写入事务开始日志,xid:127
+写入事务开始日志,xid:128
+add new Page
+写入事务开始日志,xid:129
+插入executor
+上表锁：10014锁类型1
+insert executor释放表锁：10014 锁类型1
+写入事务开始日志,xid:130
+写入事务开始日志,xid:131
+写入事务开始日志,xid:132
+插入executor
+上表锁：10015锁类型1
+insert executoradd new Page
+释放表锁：10015 锁类型1
+写入事务开始日志,xid:133
+写入事务开始日志,xid:134
+查询引擎初始化
+查询引擎的事务发起者: 134sql语句id:1是否为修改sql语句：0 0
+上表锁：10014锁类型0
+record_max:4294967295 xmin: 129 xid:134 level0
+可见
+record_max:4294967295 xmin: 129 xid:134 level0
+可见
+record_max:4294967295 xmin: 129 xid:134 level0
+可见
+record_max:4294967295 xmin: 129 xid:134 level0
+可见
+record_max:4294967295 xmin: 129 xid:134 level0
+可见
+读取结束
+释放表锁：10014 锁类型0
+写入事务开始日志,xid:135
+查询引擎初始化
+查询引擎的事务发起者: 135sql语句id:1是否为修改sql语句：0 0
+上表锁：10015锁类型0
+record_max:4294967295 xmin: 132 xid:135 level0
+可见
+record_max:4294967295 xmin: 132 xid:135 level0
+可见
+record_max:4294967295 xmin: 132 xid:135 level0
+可见
+record_max:4294967295 xmin: 132 xid:135 level0
+可见
+record_max:4294967295 xmin: 132 xid:135 level0
+可见
+record_max:4294967295 xmin: 132 xid:135 level0
+可见
+record_max:4294967295 xmin: 132 xid:135 level0
+可见
+record_max:4294967295 xmin: 132 xid:135 level0
+可见
+record_max:4294967295 xmin: 132 xid:135 level0
+可见
+record_max:4294967295 xmin: 132 xid:135 level0
+可见
+读取结束
+释放表锁：10015 锁类型0
+写入事务开始日志,xid:136
+查询引擎初始化
+查询引擎的事务发起者: 136sql语句id:1是否为修改sql语句：0 0
+上表锁：10015锁类型0
+record_max:4294967295 xmin: 132 xid:136 level0
+可见
+record_max:4294967295 xmin: 132 xid:136 level0
+可见
+record_max:4294967295 xmin: 132 xid:136 level0
+可见
+record_max:4294967295 xmin: 132 xid:136 level0
+可见
+record_max:4294967295 xmin: 132 xid:136 level0
+可见
+record_max:4294967295 xmin: 132 xid:136 level0
+可见
+record_max:4294967295 xmin: 132 xid:136 level0
+可见
+record_max:4294967295 xmin: 132 xid:136 level0
+可见
+record_max:4294967295 xmin: 132 xid:136 level0
+可见
+record_max:4294967295 xmin: 132 xid:136 level0
+可见
+读取结束
+释放表锁：10015 锁类型0
+写入事务开始日志,xid:137
+写入事务开始日志,xid:138
+查询引擎初始化
+查询引擎的事务发起者: 138sql语句id:1是否为修改sql语句：0 0
+上表锁：10011锁类型0
+record_max:4294967295 xmin: 122 xid:138 level0
+可见
+record_max:4294967295 xmin: 122 xid:138 level0
+可见
+record_max:4294967295 xmin: 122 xid:138 level0
+可见
+record_max:4294967295 xmin: 122 xid:138 level0
+可见
+record_max:4294967295 xmin: 122 xid:138 level0
+可见
+读取结束
+释放表锁：10011 锁类型0
+写入事务开始日志,xid:139
+写入事务开始日志,xid:140
+写入事务开始日志,xid:141
+循环 写入事务开始日志,xid:142
+循环 循环 写入事务开始日志,xid:143
+循环 循环 循环 写入事务开始日志,xid:144
+循环 循环 循环 循环 写入事务开始日志,xid:145
+循环 循环 循环 循环 循环 写入事务开始日志,xid:146
+循环 循环 循环 循环 循环 循环 end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab2/10-rollback.test 循环 循环 读取结束2
+循环 循环 循环 循环 循环 循环 循环 读取结束2
+读取结束
+写入事务开始日志,xid:147
+add new Page
+写入事务开始日志,xid:148
+插入executor
+上表锁：10016锁类型1
+insert executor释放表锁：10016 锁类型1
+写入事务开始日志,xid:149
+查询引擎初始化
+查询引擎的事务发起者: 149sql语句id:1是否为修改sql语句：0 0
+上表锁：10016锁类型0
+record_max:4294967295 xmin: 148 xid:149 level0
+可见
+record_max:4294967295 xmin: 148 xid:149 level0
+可见
+读取结束
+释放表锁：10016 锁类型0
+写入事务开始日志,xid:150
+插入executor
+上表锁：10016锁类型1
+insert executor查询引擎初始化
+查询引擎的事务发起者: 150sql语句id:2是否为修改sql语句：0 0
+record_max:4294967295 xmin: 148 xid:150 level0
+可见
+record_max:4294967295 xmin: 148 xid:150 level0
+可见
+record_max:4294967295 xmin: 150 xid:150 level0
+可见
+读取结束
+撤销操作删除了该行:执行者为:150
+释放表锁：10016 锁类型1
+写入事务开始日志,xid:151
+查询引擎初始化
+查询引擎的事务发起者: 151sql语句id:1是否为修改sql语句：0 0
+上表锁：10016锁类型0
+record_max:4294967295 xmin: 148 xid:151 level0
+可见
+record_max:4294967295 xmin: 148 xid:151 level0
+可见
+record_max:150 xmin: 150 xid:151 level0
+该元组已删除1
+循环 读取结束2
+释放表锁：10016 锁类型0
+写入事务开始日志,xid:152
+查询引擎初始化
+查询引擎的事务发起者: 152sql语句id:1是否为修改sql语句：1 1
+上表锁：10016锁类型1
+删除executor
+record_max:4294967295 xmin: 148 xid:152 level0
+可见
+上行锁：0, 0 锁类型4
+record_max:4294967295 xmin: 148 xid:152 level0
+可见
+record_max:150 xmin: 150 xid:152 level0
+该元组已删除1
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 152sql语句id:2是否为修改sql语句：0 0
+record_max:152 xmin: 148 xid:152 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 148 xid:152 level0
+可见
+record_max:150 xmin: 150 xid:152 level0
+该元组已删除1
+循环 读取结束2
+释放行锁：0,0 锁类型4
+释放表锁：10016 锁类型1
+写入事务开始日志,xid:153
+查询引擎初始化
+查询引擎的事务发起者: 153sql语句id:1是否为修改sql语句：0 0
+上表锁：10016锁类型0
+record_max:4294967295 xmin: 148 xid:153 level0
+可见
+record_max:4294967295 xmin: 148 xid:153 level0
+可见
+record_max:150 xmin: 150 xid:153 level0
+该元组已删除1
+循环 读取结束2
+释放表锁：10016 锁类型0
+写入事务开始日志,xid:154
+查询引擎初始化
+查询引擎的事务发起者: 154sql语句id:1是否为修改sql语句：1 1
+上表锁：10016锁类型1
+修改引擎的事务发起者: 154sql语句id:1
+update
+record_max:4294967295 xmin: 148 xid:154 level0
+可见
+record_max:4294967295 xmin: 148 xid:154 level0
+可见
+上行锁：0, 1 锁类型4
+record_max:150 xmin: 150 xid:154 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 154 xid:154 level0
+可见
+循环 当前xid,cid:154 1
+该记录xid,cid:154 1
+万圣节问题读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 154sql语句id:2是否为修改sql语句：0 0
+record_max:4294967295 xmin: 148 xid:154 level0
+可见
+record_max:154 xmin: 148 xid:154 level0
+该元组已删除1
+循环 record_max:150 xmin: 150 xid:154 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 154 xid:154 level0
+可见
+读取结束
+撤销操作删除了该行:执行者为:154
+释放行锁：0,1 锁类型4
+释放表锁：10016 锁类型1
+写入事务开始日志,xid:155
+查询引擎初始化
+查询引擎的事务发起者: 155sql语句id:1是否为修改sql语句：0 0
+上表锁：10016锁类型0
+record_max:4294967295 xmin: 148 xid:155 level0
+可见
+record_max:4294967295 xmin: 148 xid:155 level0
+可见
+record_max:150 xmin: 150 xid:155 level0
+该元组已删除1
+循环 record_max:154 xmin: 154 xid:155 level0
+该元组已删除1
+循环 读取结束2
+释放表锁：10016 锁类型0
+写入事务开始日志,xid:156
+插入executor
+上表锁：10016锁类型1
+insert executoradd new Page
+add new Page
+查询引擎初始化
+查询引擎的事务发起者: 156sql语句id:2是否为修改sql语句：0 0
+record_max:4294967295 xmin: 148 xid:156 level0
+可见
+record_max:4294967295 xmin: 148 xid:156 level0
+可见
+record_max:150 xmin: 150 xid:156 level0
+该元组已删除1
+循环 record_max:154 xmin: 154 xid:156 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 156 xid:156 level0
+可见
+record_max:4294967295 xmin: 156 xid:156 level0
+可见
+record_max:4294967295 xmin: 156 xid:156 level0
+可见
+record_max:4294967295 xmin: 156 xid:156 level0
+可见
+record_max:4294967295 xmin: 156 xid:156 level0
+可见
+record_max:4294967295 xmin: 156 xid:156 level0
+可见
+record_max:4294967295 xmin: 156 xid:156 level0
+可见
+record_max:4294967295 xmin: 156 xid:156 level0
+可见
+读取结束
+撤销操作删除了该行:执行者为:156
+撤销操作删除了该行:执行者为:156
+撤销操作删除了该行:执行者为:156
+撤销操作删除了该行:执行者为:156
+撤销操作删除了该行:执行者为:156
+撤销操作删除了该行:执行者为:156
+撤销操作删除了该行:执行者为:156
+撤销操作删除了该行:执行者为:156
+释放表锁：10016 锁类型1
+写入事务开始日志,xid:157
+查询引擎初始化
+查询引擎的事务发起者: 157sql语句id:1是否为修改sql语句：0 0
+上表锁：10016锁类型0
+record_max:4294967295 xmin: 148 xid:157 level0
+可见
+record_max:4294967295 xmin: 148 xid:157 level0
+可见
+record_max:150 xmin: 150 xid:157 level0
+该元组已删除1
+循环 record_max:154 xmin: 154 xid:157 level0
+该元组已删除1
+循环 record_max:156 xmin: 156 xid:157 level0
+该元组已删除1
+循环 record_max:156 xmin: 156 xid:157 level0
+该元组已删除1
+循环 record_max:156 xmin: 156 xid:157 level0
+该元组已删除1
+循环 record_max:156 xmin: 156 xid:157 level0
+该元组已删除1
+循环 record_max:156 xmin: 156 xid:157 level0
+该元组已删除1
+循环 record_max:156 xmin: 156 xid:157 level0
+该元组已删除1
+循环 record_max:156 xmin: 156 xid:157 level0
+该元组已删除1
+循环 record_max:156 xmin: 156 xid:157 level0
+该元组已删除1
+循环 读取结束2
+释放表锁：10016 锁类型0
+写入事务开始日志,xid:158
+循环 end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab2/20-recover.test 循环 循环 读取结束2
+循环 循环 读取结束2
+读取结束
+写入事务开始日志,xid:159
+add new Page
+写入事务开始日志,xid:160
+插入executor
+上表锁：10017锁类型1
+insert executor释放表锁：10017 锁类型1
+写入事务开始日志,xid:161
+查询引擎初始化
+查询引擎的事务发起者: 161sql语句id:1是否为修改sql语句：0 0
+上表锁：10017锁类型0
+record_max:4294967295 xmin: 160 xid:161 level0
+可见
+record_max:4294967295 xmin: 160 xid:161 level0
+可见
+读取结束
+释放表锁：10017 锁类型0
+end检查点日志写入的dpt_,att_大小为：0 0
+循环 循环 读取结束2
+循环 读取结束
+读取结束
+写入事务开始日志,xid:162
+查询引擎初始化
+查询引擎的事务发起者: 162sql语句id:1是否为修改sql语句：0 0
+上表锁：10017锁类型0
+record_max:4294967295 xmin: 160 xid:162 level0
+可见
+record_max:4294967295 xmin: 160 xid:162 level0
+可见
+读取结束
+释放表锁：10017 锁类型0
+写入事务开始日志,xid:163
+插入executor
+上表锁：10017锁类型1
+insert executor释放表锁：10017 锁类型1
+写入事务开始日志,xid:164
+查询引擎初始化
+查询引擎的事务发起者: 164sql语句id:1是否为修改sql语句：0 0
+上表锁：10017锁类型0
+record_max:4294967295 xmin: 160 xid:164 level0
+可见
+record_max:4294967295 xmin: 160 xid:164 level0
+可见
+record_max:4294967295 xmin: 163 xid:164 level0
+可见
+读取结束
+释放表锁：10017 锁类型0
+循环 循环 读取结束2
+循环 读取结束
+读取结束
+analyze
+写入事务开始日志,xid:162
+查询引擎初始化
+查询引擎的事务发起者: 162sql语句id:1是否为修改sql语句：0 0
+上表锁：10017锁类型0
+record_max:4294967295 xmin: 160 xid:162 level0
+可见
+record_max:4294967295 xmin: 160 xid:162 level0
+可见
+record_max:4294967295 xmin: 163 xid:162 level0
+可见
+读取结束
+end检查点日志写入的dpt_,att_大小为：0 0
+释放表锁：10017 锁类型0
+写入事务开始日志,xid:163
+查询引擎初始化
+查询引擎的事务发起者: 163sql语句id:1是否为修改sql语句：1 1
+上表锁：10017锁类型1
+删除executor
+record_max:4294967295 xmin: 160 xid:163 level0
+可见
+上行锁：0, 0 锁类型4
+record_max:4294967295 xmin: 160 xid:163 level0
+可见
+record_max:4294967295 xmin: 163 xid:163 level0
+可见
+循环 当前xid,cid:163 1
+该记录xid,cid:163 1
+万圣节问题读取结束2
+释放行锁：0,0 锁类型4
+释放表锁：10017 锁类型1
+写入事务开始日志,xid:164
+查询引擎初始化
+查询引擎的事务发起者: 164sql语句id:1是否为修改sql语句：0 0
+上表锁：10017锁类型0
+record_max:163 xmin: 160 xid:164 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 160 xid:164 level0
+可见
+record_max:4294967295 xmin: 163 xid:164 level0
+可见
+读取结束
+释放表锁：10017 锁类型0
+循环 循环 读取结束2
+循环 读取结束
+读取结束
+analyze
+写入事务开始日志,xid:162
+查询引擎初始化
+查询引擎的事务发起者: 162sql语句id:1是否为修改sql语句：0 0
+上表锁：10017锁类型0
+record_max:163 xmin: 160 xid:162 level0
+读已提交，该元组已删除
+循环 record_max:4294967295 xmin: 160 xid:162 level0
+可见
+record_max:4294967295 xmin: 163 xid:162 level0
+可见
+读取结束
+end检查点日志写入的dpt_,att_大小为：0 0
+释放表锁：10017 锁类型0
+写入事务开始日志,xid:163
+查询引擎初始化
+查询引擎的事务发起者: 163sql语句id:1是否为修改sql语句：1 1
+上表锁：10017锁类型1
+修改引擎的事务发起者: 163sql语句id:1
+update
+record_max:163 xmin: 160 xid:163 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 160 xid:163 level0
+可见
+上行锁：0, 1 锁类型4
+record_max:4294967295 xmin: 163 xid:163 level0
+可见
+循环 当前xid,cid:163 1
+该记录xid,cid:163 1
+万圣节问题record_max:4294967295 xmin: 163 xid:163 level0
+可见
+循环 当前xid,cid:163 1
+该记录xid,cid:163 1
+万圣节问题读取结束2
+释放行锁：0,1 锁类型4
+释放表锁：10017 锁类型1
+写入事务开始日志,xid:164
+查询引擎初始化
+查询引擎的事务发起者: 164sql语句id:1是否为修改sql语句：0 0
+上表锁：10017锁类型0
+record_max:163 xmin: 160 xid:164 level0
+该元组已删除1
+循环 record_max:163 xmin: 160 xid:164 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 163 xid:164 level0
+可见
+record_max:4294967295 xmin: 163 xid:164 level0
+可见
+读取结束
+释放表锁：10017 锁类型0
+循环 循环 读取结束2
+循环 读取结束
+读取结束
+analyze
+写入事务开始日志,xid:162
+查询引擎初始化
+查询引擎的事务发起者: 162sql语句id:1是否为修改sql语句：0 0
+上表锁：10017锁类型0
+record_max:163 xmin: 160 xid:162 level0
+读已提交，该元组已删除
+循环 record_max:163 xmin: 160 xid:162 level0
+读已提交，该元组已删除
+循环 record_max:4294967295 xmin: 163 xid:162 level0
+可见
+record_max:4294967295 xmin: 163 xid:162 level0
+可见
+读取结束
+end检查点日志写入的dpt_,att_大小为：0 0
+释放表锁：10017 锁类型0
+写入事务开始日志,xid:163
+插入executor
+上表锁：10017锁类型1
+insert executoradd new Page
+add new Page
+释放表锁：10017 锁类型1
+写入事务开始日志,xid:164
+查询引擎初始化
+查询引擎的事务发起者: 164sql语句id:1是否为修改sql语句：0 0
+上表锁：10017锁类型0
+record_max:163 xmin: 160 xid:164 level0
+该元组已删除1
+循环 record_max:163 xmin: 160 xid:164 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 163 xid:164 level0
+可见
+record_max:4294967295 xmin: 163 xid:164 level0
+可见
+record_max:4294967295 xmin: 163 xid:164 level0
+可见
+record_max:4294967295 xmin: 163 xid:164 level0
+可见
+record_max:4294967295 xmin: 163 xid:164 level0
+可见
+record_max:4294967295 xmin: 163 xid:164 level0
+可见
+record_max:4294967295 xmin: 163 xid:164 level0
+可见
+record_max:4294967295 xmin: 163 xid:164 level0
+可见
+record_max:4294967295 xmin: 163 xid:164 level0
+可见
+读取结束
+释放表锁：10017 锁类型0
+循环 循环 读取结束2
+循环 读取结束
+读取结束
+analyze
+写入事务开始日志,xid:162
+查询引擎初始化
+查询引擎的事务发起者: 162sql语句id:1是否为修改sql语句：0 0
+上表锁：10017锁类型0
+record_max:163 xmin: 160 xid:162 level0
+读已提交，该元组已删除
+循环 record_max:163 xmin: 160 xid:162 level0
+读已提交，该元组已删除
+循环 record_max:4294967295 xmin: 163 xid:162 level0
+可见
+record_max:4294967295 xmin: 163 xid:162 level0
+可见
+record_max:4294967295 xmin: 163 xid:162 level0
+可见
+record_max:4294967295 xmin: 163 xid:162 level0
+可见
+record_max:4294967295 xmin: 163 xid:162 level0
+可见
+record_max:4294967295 xmin: 163 xid:162 level0
+可见
+record_max:4294967295 xmin: 163 xid:162 level0
+可见
+record_max:4294967295 xmin: 163 xid:162 level0
+可见
+record_max:4294967295 xmin: 163 xid:162 level0
+可见
+读取结束
+end检查点日志写入的dpt_,att_大小为：0 0
+释放表锁：10017 锁类型0
+写入事务开始日志,xid:163
+循环 end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab2/30-aries.test 循环 循环 读取结束2
+循环 循环 读取结束2
+读取结束
+写入事务开始日志,xid:164
+add new Page
+end检查点日志写入的dpt_,att_大小为：0 0
+循环 循环 读取结束2
+循环 读取结束
+读取结束
+写入事务开始日志,xid:165
+插入executor
+上表锁：10018锁类型1
+insert executor插入executor
+insert executoradd new Page
+end检查点日志写入的dpt_,att_大小为：2 1
+写入事务开始日志,xid:166
+插入executor
+insert executoradd new Page
+写入事务开始日志,xid:167
+插入executor
+上表锁：10018锁类型1
+insert executoradd new Page
+释放表锁：10018 锁类型1
+查询引擎初始化
+查询引擎的事务发起者: 166sql语句id:1是否为修改sql语句：1 1
+上表锁：10018锁类型1
+删除executor
+record_max:4294967295 xmin: 165 xid:166 level0
+可见
+record_max:4294967295 xmin: 165 xid:166 level0
+可见
+上行锁：1, 0 锁类型4
+record_max:4294967295 xmin: 165 xid:166 level0
+可见
+record_max:4294967295 xmin: 167 xid:166 level0
+读已提交，可以读取到当前事务之后开始的新事务，但该新事务未提交
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 167sql语句id:2是否为修改sql语句：1 1
+删除executor
+record_max:4294967295 xmin: 165 xid:167 level0
+可见
+上行锁：0, 0 锁类型4
+record_max:166 xmin: 165 xid:167 level0
+可见
+record_max:4294967295 xmin: 165 xid:167 level0
+可见
+record_max:4294967295 xmin: 167 xid:167 level0
+可见
+读取结束
+释放行锁：0,0 锁类型4
+释放表锁：10018 锁类型1
+插入executor
+insert executoradd new Page
+查询引擎初始化
+查询引擎的事务发起者: 166sql语句id:3是否为修改sql语句：0 0
+record_max:167 xmin: 165 xid:166 level0
+读已提交，该元组已删除
+循环 record_max:166 xmin: 165 xid:166 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 165 xid:166 level0
+可见
+record_max:4294967295 xmin: 167 xid:166 level0
+可见
+record_max:4294967295 xmin: 166 xid:166 level0
+可见
+读取结束
+循环 循环 读取结束2
+循环 读取结束
+读取结束
+analyze
+写入事务开始日志,xid:165
+查询引擎初始化
+查询引擎的事务发起者: 165sql语句id:1是否为修改sql语句：0 0
+上表锁：10018锁类型0
+record_max:167 xmin: 165 xid:165 level0
+读已提交，该元组已删除
+循环 当前xid,cid:165 1
+该记录xid,cid:165 1
+万圣节问题record_max:4294967295 xmin: 165 xid:165 level0
+可见
+record_max:4294967295 xmin: 165 xid:165 level0
+可见
+record_max:4294967295 xmin: 167 xid:165 level0
+可见
+读取结束
+end检查点日志写入的dpt_,att_大小为：2 1
+释放表锁：10018 锁类型0
+写入事务开始日志,xid:166
+循环 end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab3/10-halloween.test 循环 循环 读取结束2
+循环 循环 读取结束2
+读取结束
+写入事务开始日志,xid:167
+add new Page
+写入事务开始日志,xid:168
+插入executor
+上表锁：10019锁类型1
+insert executor释放表锁：10019 锁类型1
+写入事务开始日志,xid:169
+查询引擎初始化
+查询引擎的事务发起者: 169sql语句id:1是否为修改sql语句：1 1
+上表锁：10019锁类型1
+修改引擎的事务发起者: 169sql语句id:1
+update
+record_max:4294967295 xmin: 168 xid:169 level0
+可见
+上行锁：0, 0 锁类型4
+record_max:4294967295 xmin: 168 xid:169 level0
+可见
+上行锁：0, 1 锁类型4
+record_max:4294967295 xmin: 168 xid:169 level0
+可见
+record_max:4294967295 xmin: 168 xid:169 level0
+可见
+record_max:4294967295 xmin: 169 xid:169 level0
+可见
+循环 当前xid,cid:169 1
+该记录xid,cid:169 1
+万圣节问题record_max:4294967295 xmin: 169 xid:169 level0
+可见
+循环 当前xid,cid:169 1
+该记录xid,cid:169 1
+万圣节问题读取结束2
+释放行锁：0,1 锁类型4
+释放行锁：0,0 锁类型4
+释放表锁：10019 锁类型1
+写入事务开始日志,xid:170
+查询引擎初始化
+查询引擎的事务发起者: 170sql语句id:1是否为修改sql语句：0 0
+上表锁：10019锁类型0
+record_max:169 xmin: 168 xid:170 level0
+该元组已删除1
+循环 record_max:169 xmin: 168 xid:170 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 168 xid:170 level0
+可见
+record_max:4294967295 xmin: 168 xid:170 level0
+可见
+record_max:4294967295 xmin: 169 xid:170 level0
+可见
+record_max:4294967295 xmin: 169 xid:170 level0
+可见
+读取结束
+释放表锁：10019 锁类型0
+写入事务开始日志,xid:171
+查询引擎初始化
+查询引擎的事务发起者: 171sql语句id:1是否为修改sql语句：1 1
+上表锁：10019锁类型1
+修改引擎的事务发起者: 171sql语句id:1
+update
+record_max:169 xmin: 168 xid:171 level0
+该元组已删除1
+循环 record_max:169 xmin: 168 xid:171 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 168 xid:171 level0
+可见
+record_max:4294967295 xmin: 168 xid:171 level0
+可见
+上行锁：0, 3 锁类型4
+add new Page
+record_max:4294967295 xmin: 169 xid:171 level0
+可见
+record_max:4294967295 xmin: 169 xid:171 level0
+可见
+record_max:4294967295 xmin: 171 xid:171 level0
+可见
+循环 当前xid,cid:171 1
+该记录xid,cid:171 1
+万圣节问题读取结束2
+释放行锁：0,3 锁类型4
+释放表锁：10019 锁类型1
+写入事务开始日志,xid:172
+查询引擎初始化
+查询引擎的事务发起者: 172sql语句id:1是否为修改sql语句：0 0
+上表锁：10019锁类型0
+record_max:169 xmin: 168 xid:172 level0
+该元组已删除1
+循环 record_max:169 xmin: 168 xid:172 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 168 xid:172 level0
+可见
+record_max:171 xmin: 168 xid:172 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 169 xid:172 level0
+可见
+record_max:4294967295 xmin: 169 xid:172 level0
+可见
+record_max:4294967295 xmin: 171 xid:172 level0
+可见
+读取结束
+释放表锁：10019 锁类型0
+写入事务开始日志,xid:173
+循环 end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab3/20-mvcc_insert.test 循环 循环 读取结束2
+循环 循环 读取结束2
+读取结束
+写入事务开始日志,xid:174
+add new Page
+写入事务开始日志,xid:175
+写入事务开始日志,xid:176
+写入事务开始日志,xid:177
+插入executor
+上表锁：10020锁类型1
+insert executor查询引擎初始化
+查询引擎的事务发起者: 177sql语句id:2是否为修改sql语句：0 0
+record_max:4294967295 xmin: 177 xid:177 level1
+可见
+读取结束
+写入事务开始日志,xid:178
+查询引擎初始化
+查询引擎的事务发起者: 178sql语句id:1是否为修改sql语句：0 0
+上表锁：10020锁类型0
+record_max:4294967295 xmin: 177 xid:178 level1
+虽然为老事务但未提交
+循环 读取结束2
+释放表锁：10020 锁类型1
+查询引擎初始化
+查询引擎的事务发起者: 178sql语句id:2是否为修改sql语句：0 0
+record_max:4294967295 xmin: 177 xid:178 level1
+虽然为老事务但未提交
+循环 读取结束2
+释放表锁：10020 锁类型0
+写入事务开始日志,xid:179
+查询引擎初始化
+查询引擎的事务发起者: 179sql语句id:1是否为修改sql语句：0 0
+上表锁：10020锁类型0
+record_max:4294967295 xmin: 177 xid:179 level0
+可见
+读取结束
+释放表锁：10020 锁类型0
+写入事务开始日志,xid:180
+循环 end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab3/21-mvcc_delete.test 循环 循环 读取结束2
+循环 循环 读取结束2
+读取结束
+写入事务开始日志,xid:181
+add new Page
+写入事务开始日志,xid:182
+插入executor
+上表锁：10021锁类型1
+insert executor释放表锁：10021 锁类型1
+写入事务开始日志,xid:183
+写入事务开始日志,xid:184
+写入事务开始日志,xid:185
+查询引擎初始化
+查询引擎的事务发起者: 185sql语句id:1是否为修改sql语句：1 1
+上表锁：10021锁类型1
+删除executor
+record_max:4294967295 xmin: 182 xid:185 level1
+可见
+上行锁：0, 0 锁类型4
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 185sql语句id:2是否为修改sql语句：0 0
+record_max:185 xmin: 182 xid:185 level1
+该元组已删除1
+循环 读取结束2
+写入事务开始日志,xid:186
+写入事务开始日志,xid:187
+查询引擎初始化
+查询引擎的事务发起者: 187sql语句id:1是否为修改sql语句：0 0
+上表锁：10021锁类型0
+record_max:185 xmin: 182 xid:187 level1
+可见
+读取结束
+释放行锁：0,0 锁类型4
+释放表锁：10021 锁类型1
+查询引擎初始化
+查询引擎的事务发起者: 187sql语句id:2是否为修改sql语句：0 0
+record_max:185 xmin: 182 xid:187 level1
+可见
+读取结束
+释放表锁：10021 锁类型0
+写入事务开始日志,xid:188
+查询引擎初始化
+查询引擎的事务发起者: 188sql语句id:1是否为修改sql语句：0 0
+上表锁：10021锁类型0
+record_max:185 xmin: 182 xid:188 level0
+该元组已删除1
+循环 读取结束2
+释放表锁：10021 锁类型0
+写入事务开始日志,xid:189
+循环 end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab3/22-mvcc_update.test 循环 循环 读取结束2
+循环 循环 读取结束2
+读取结束
+写入事务开始日志,xid:190
+add new Page
+写入事务开始日志,xid:191
+插入executor
+上表锁：10022锁类型1
+insert executor释放表锁：10022 锁类型1
+写入事务开始日志,xid:192
+写入事务开始日志,xid:193
+写入事务开始日志,xid:194
+查询引擎初始化
+查询引擎的事务发起者: 194sql语句id:1是否为修改sql语句：1 1
+上表锁：10022锁类型1
+修改引擎的事务发起者: 194sql语句id:1
+update
+record_max:4294967295 xmin: 191 xid:194 level1
+可见
+上行锁：0, 0 锁类型4
+record_max:4294967295 xmin: 194 xid:194 level1
+可见
+循环 当前xid,cid:194 1
+该记录xid,cid:194 1
+万圣节问题读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 194sql语句id:2是否为修改sql语句：0 0
+record_max:194 xmin: 191 xid:194 level1
+该元组已删除1
+循环 record_max:4294967295 xmin: 194 xid:194 level1
+可见
+读取结束
+写入事务开始日志,xid:195
+查询引擎初始化
+查询引擎的事务发起者: 195sql语句id:1是否为修改sql语句：0 0
+上表锁：10022锁类型0
+record_max:194 xmin: 191 xid:195 level1
+可见
+record_max:4294967295 xmin: 194 xid:195 level1
+虽然为老事务但未提交
+循环 读取结束2
+释放行锁：0,0 锁类型4
+释放表锁：10022 锁类型1
+查询引擎初始化
+查询引擎的事务发起者: 195sql语句id:2是否为修改sql语句：0 0
+record_max:194 xmin: 191 xid:195 level1
+可见
+record_max:4294967295 xmin: 194 xid:195 level1
+虽然为老事务但未提交
+循环 读取结束2
+释放表锁：10022 锁类型0
+写入事务开始日志,xid:196
+查询引擎初始化
+查询引擎的事务发起者: 196sql语句id:1是否为修改sql语句：0 0
+上表锁：10022锁类型0
+record_max:194 xmin: 191 xid:196 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 194 xid:196 level0
+可见
+读取结束
+释放表锁：10022 锁类型0
+写入事务开始日志,xid:197
+循环 end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab3/23-write_skew.test 循环 循环 读取结束2
+循环 循环 读取结束2
+读取结束
+写入事务开始日志,xid:198
+add new Page
+写入事务开始日志,xid:199
+插入executor
+上表锁：10023锁类型1
+insert executor释放表锁：10023 锁类型1
+写入事务开始日志,xid:200
+写入事务开始日志,xid:201
+写入事务开始日志,xid:202
+查询引擎初始化
+查询引擎的事务发起者: 202sql语句id:1是否为修改sql语句：1 1
+上表锁：10023锁类型1
+修改引擎的事务发起者: 202sql语句id:1
+update
+record_max:4294967295 xmin: 199 xid:202 level1
+可见
+上行锁：0, 0 锁类型4
+record_max:4294967295 xmin: 199 xid:202 level1
+可见
+record_max:4294967295 xmin: 202 xid:202 level1
+可见
+循环 当前xid,cid:202 1
+该记录xid,cid:202 1
+万圣节问题读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 202sql语句id:2是否为修改sql语句：0 0
+record_max:202 xmin: 199 xid:202 level1
+该元组已删除1
+循环 record_max:4294967295 xmin: 199 xid:202 level1
+可见
+record_max:4294967295 xmin: 202 xid:202 level1
+可见
+读取结束
+写入事务开始日志,xid:203
+查询引擎初始化
+查询引擎的事务发起者: 203sql语句id:1是否为修改sql语句：1 1
+上表锁：10023锁类型1
+修改引擎的事务发起者: 203sql语句id:1
+update
+record_max:202 xmin: 199 xid:203 level1
+可见
+record_max:4294967295 xmin: 199 xid:203 level1
+可见
+上行锁：0, 1 锁类型4
+record_max:4294967295 xmin: 202 xid:203 level1
+虽然为老事务但未提交
+循环 record_max:4294967295 xmin: 203 xid:203 level1
+可见
+循环 当前xid,cid:203 1
+该记录xid,cid:203 1
+万圣节问题读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 203sql语句id:2是否为修改sql语句：0 0
+record_max:202 xmin: 199 xid:203 level1
+可见
+record_max:203 xmin: 199 xid:203 level1
+该元组已删除1
+循环 record_max:4294967295 xmin: 202 xid:203 level1
+虽然为老事务但未提交
+循环 record_max:4294967295 xmin: 203 xid:203 level1
+可见
+读取结束
+释放行锁：0,0 锁类型4
+释放表锁：10023 锁类型1
+释放行锁：0,1 锁类型4
+释放表锁：10023 锁类型1
+写入事务开始日志,xid:204
+查询引擎初始化
+查询引擎的事务发起者: 204sql语句id:1是否为修改sql语句：0 0
+上表锁：10023锁类型0
+record_max:202 xmin: 199 xid:204 level0
+该元组已删除1
+循环 record_max:203 xmin: 199 xid:204 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 202 xid:204 level0
+可见
+record_max:4294967295 xmin: 203 xid:204 level0
+可见
+读取结束
+释放表锁：10023 锁类型0
+写入事务开始日志,xid:205
+循环 end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab3/30-repeatable_read.test 循环 循环 读取结束2
+循环 循环 读取结束2
+读取结束
+写入事务开始日志,xid:206
+add new Page
+写入事务开始日志,xid:207
+插入executor
+上表锁：10024锁类型1
+insert executor释放表锁：10024 锁类型1
+写入事务开始日志,xid:208
+写入事务开始日志,xid:209
+写入事务开始日志,xid:210
+写入事务开始日志,xid:211
+插入executor
+上表锁：10024锁类型1
+insert executor查询引擎初始化
+查询引擎的事务发起者: 210sql语句id:2是否为修改sql语句：0 0
+record_max:4294967295 xmin: 207 xid:210 level1
+可见
+record_max:4294967295 xmin: 210 xid:210 level1
+可见
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 211sql语句id:1是否为修改sql语句：0 0
+上表锁：10024锁类型0
+record_max:4294967295 xmin: 207 xid:211 level1
+可见
+record_max:4294967295 xmin: 210 xid:211 level1
+虽然为老事务但未提交
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 211sql语句id:2是否为修改sql语句：1 1
+修改引擎的事务发起者: 211sql语句id:2
+update
+record_max:4294967295 xmin: 207 xid:211 level1
+可见
+上行锁：0, 0 锁类型4
+record_max:4294967295 xmin: 210 xid:211 level1
+虽然为老事务但未提交
+循环 record_max:4294967295 xmin: 211 xid:211 level1
+可见
+循环 当前xid,cid:211 2
+该记录xid,cid:211 2
+万圣节问题读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 210sql语句id:3是否为修改sql语句：0 0
+record_max:211 xmin: 207 xid:210 level1
+可见
+record_max:4294967295 xmin: 210 xid:210 level1
+可见
+record_max:4294967295 xmin: 211 xid:210 level1
+不为读未提交或读已提交，读取不到当前事务之后开始的新事务
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 211sql语句id:3是否为修改sql语句：0 0
+record_max:211 xmin: 207 xid:211 level1
+该元组已删除1
+循环 record_max:4294967295 xmin: 210 xid:211 level1
+虽然为老事务但未提交
+循环 record_max:4294967295 xmin: 211 xid:211 level1
+可见
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 210sql语句id:4是否为修改sql语句：1 1
+修改引擎的事务发起者: 210sql语句id:4
+update
+record_max:211 xmin: 207 xid:210 level1
+可见
+释放行锁：0,0 锁类型4
+释放表锁：10024 锁类型1
+查询引擎初始化
+查询引擎的事务发起者: 210sql语句id:5是否为修改sql语句：0 0
+record_max:211 xmin: 207 xid:210 level1
+可见
+record_max:4294967295 xmin: 210 xid:210 level1
+可见
+record_max:4294967295 xmin: 211 xid:210 level1
+不为读未提交或读已提交，读取不到当前事务之后开始的新事务
+循环 读取结束2
+写入事务开始日志,xid:212
+查询引擎初始化
+查询引擎的事务发起者: 212sql语句id:1是否为修改sql语句：0 0
+上表锁：10024锁类型0
+record_max:211 xmin: 207 xid:212 level1
+该元组已删除1
+循环 record_max:4294967295 xmin: 210 xid:212 level1
+虽然为老事务但未提交
+循环 record_max:4294967295 xmin: 211 xid:212 level1
+可见
+读取结束
+释放表锁：10024 锁类型0
+查询引擎初始化
+查询引擎的事务发起者: 210sql语句id:6是否为修改sql语句：1 1
+修改引擎的事务发起者: 210sql语句id:6
+update
+record_max:211 xmin: 207 xid:210 level1
+可见
+上行锁：0, 0 锁类型4
+修改了不存在的元组
+撤销操作删除了该行:执行者为:210
+撤销操作删除了该行:执行者为:210
+释放行锁：0,0 锁类型4
+释放表锁：10024 锁类型1
+写入事务开始日志,xid:213
+查询引擎初始化
+查询引擎的事务发起者: 213sql语句id:1是否为修改sql语句：0 0
+上表锁：10024锁类型0
+record_max:211 xmin: 207 xid:213 level1
+该元组已删除1
+循环 record_max:210 xmin: 210 xid:213 level1
+该元组已删除1
+循环 record_max:4294967295 xmin: 211 xid:213 level1
+可见
+读取结束
+释放表锁：10024 锁类型0
+写入事务开始日志,xid:214
+查询引擎初始化
+查询引擎的事务发起者: 214sql语句id:1是否为修改sql语句：0 0
+上表锁：10024锁类型0
+record_max:211 xmin: 207 xid:214 level1
+该元组已删除1
+循环 record_max:210 xmin: 210 xid:214 level1
+该元组已删除1
+循环 record_max:4294967295 xmin: 211 xid:214 level1
+可见
+读取结束
+释放表锁：10024 锁类型0
+写入事务开始日志,xid:215
+循环 end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab3/40-read_committed.test 循环 循环 读取结束2
+循环 循环 读取结束2
+读取结束
+写入事务开始日志,xid:216
+add new Page
+写入事务开始日志,xid:217
+插入executor
+上表锁：10025锁类型1
+insert executor释放表锁：10025 锁类型1
+写入事务开始日志,xid:218
+写入事务开始日志,xid:219
+写入事务开始日志,xid:220
+写入事务开始日志,xid:221
+插入executor
+上表锁：10025锁类型1
+insert executor查询引擎初始化
+查询引擎的事务发起者: 220sql语句id:2是否为修改sql语句：0 0
+record_max:4294967295 xmin: 217 xid:220 level0
+可见
+record_max:4294967295 xmin: 220 xid:220 level0
+可见
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 221sql语句id:1是否为修改sql语句：0 0
+上表锁：10025锁类型0
+record_max:4294967295 xmin: 217 xid:221 level0
+可见
+record_max:4294967295 xmin: 220 xid:221 level0
+虽然为老事务但未提交
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 221sql语句id:2是否为修改sql语句：1 1
+修改引擎的事务发起者: 221sql语句id:2
+update
+record_max:4294967295 xmin: 217 xid:221 level0
+可见
+上行锁：0, 0 锁类型4
+record_max:4294967295 xmin: 220 xid:221 level0
+虽然为老事务但未提交
+循环 record_max:4294967295 xmin: 221 xid:221 level0
+可见
+循环 当前xid,cid:221 2
+该记录xid,cid:221 2
+万圣节问题读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 220sql语句id:3是否为修改sql语句：0 0
+record_max:221 xmin: 217 xid:220 level0
+可见
+record_max:4294967295 xmin: 220 xid:220 level0
+可见
+record_max:4294967295 xmin: 221 xid:220 level0
+读已提交，可以读取到当前事务之后开始的新事务，但该新事务未提交
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 221sql语句id:3是否为修改sql语句：0 0
+record_max:221 xmin: 217 xid:221 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 220 xid:221 level0
+虽然为老事务但未提交
+循环 record_max:4294967295 xmin: 221 xid:221 level0
+可见
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 220sql语句id:4是否为修改sql语句：1 1
+修改引擎的事务发起者: 220sql语句id:4
+update
+record_max:221 xmin: 217 xid:220 level0
+可见
+释放行锁：0,0 锁类型4
+释放表锁：10025 锁类型1
+查询引擎初始化
+查询引擎的事务发起者: 220sql语句id:5是否为修改sql语句：0 0
+record_max:221 xmin: 217 xid:220 level0
+读已提交，该元组已删除
+循环 record_max:4294967295 xmin: 220 xid:220 level0
+可见
+record_max:4294967295 xmin: 221 xid:220 level0
+可见
+读取结束
+写入事务开始日志,xid:222
+查询引擎初始化
+查询引擎的事务发起者: 222sql语句id:1是否为修改sql语句：0 0
+上表锁：10025锁类型0
+record_max:221 xmin: 217 xid:222 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 220 xid:222 level0
+虽然为老事务但未提交
+循环 record_max:4294967295 xmin: 221 xid:222 level0
+可见
+读取结束
+释放表锁：10025 锁类型0
+查询引擎初始化
+查询引擎的事务发起者: 220sql语句id:6是否为修改sql语句：1 1
+修改引擎的事务发起者: 220sql语句id:6
+update
+record_max:221 xmin: 217 xid:220 level0
+读已提交，该元组已删除
+循环 record_max:4294967295 xmin: 220 xid:220 level0
+可见
+上行锁：0, 1 锁类型4
+record_max:4294967295 xmin: 221 xid:220 level0
+可见
+上行锁：0, 2 锁类型4
+record_max:4294967295 xmin: 220 xid:220 level0
+可见
+循环 当前xid,cid:220 6
+该记录xid,cid:220 6
+万圣节问题record_max:4294967295 xmin: 220 xid:220 level0
+可见
+循环 当前xid,cid:220 6
+该记录xid,cid:220 6
+万圣节问题读取结束2
+撤销操作删除了该行:执行者为:220
+撤销操作删除了该行:执行者为:220
+撤销操作删除了该行:执行者为:220
+撤销操作删除了该行:执行者为:220
+释放行锁：0,2 锁类型4
+释放行锁：0,1 锁类型4
+释放表锁：10025 锁类型1
+写入事务开始日志,xid:223
+查询引擎初始化
+查询引擎的事务发起者: 223sql语句id:1是否为修改sql语句：0 0
+上表锁：10025锁类型0
+record_max:221 xmin: 217 xid:223 level0
+该元组已删除1
+循环 record_max:220 xmin: 220 xid:223 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 221 xid:223 level0
+可见
+record_max:220 xmin: 220 xid:223 level0
+该元组已删除1
+循环 record_max:220 xmin: 220 xid:223 level0
+该元组已删除1
+循环 读取结束2
+释放表锁：10025 锁类型0
+写入事务开始日志,xid:224
+查询引擎初始化
+查询引擎的事务发起者: 224sql语句id:1是否为修改sql语句：0 0
+上表锁：10025锁类型0
+record_max:221 xmin: 217 xid:224 level0
+该元组已删除1
+循环 record_max:220 xmin: 220 xid:224 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 221 xid:224 level0
+可见
+record_max:220 xmin: 220 xid:224 level0
+该元组已删除1
+循环 record_max:220 xmin: 220 xid:224 level0
+该元组已删除1
+循环 读取结束2
+释放表锁：10025 锁类型0
+写入事务开始日志,xid:225
+循环 end检查点日志写入的dpt_,att_大小为：0 0
+[1m[32mPASS[0m
+lab3/50-lock.test 循环 循环 读取结束2
+循环 循环 读取结束2
+读取结束
+写入事务开始日志,xid:226
+add new Page
+写入事务开始日志,xid:227
+插入executor
+上表锁：10026锁类型1
+insert executor释放表锁：10026 锁类型1
+写入事务开始日志,xid:228
+查询引擎初始化
+查询引擎的事务发起者: 228sql语句id:1是否为修改sql语句：1 1
+上表锁：10026锁类型1
+删除executor
+record_max:4294967295 xmin: 227 xid:228 level0
+可见
+上行锁：0, 0 锁类型4
+record_max:4294967295 xmin: 227 xid:228 level0
+可见
+record_max:4294967295 xmin: 227 xid:228 level0
+可见
+读取结束
+写入事务开始日志,xid:229
+查询引擎初始化
+查询引擎的事务发起者: 229sql语句id:1是否为修改sql语句：1 1
+上表锁：10026锁类型1
+修改引擎的事务发起者: 229sql语句id:1
+update
+record_max:228 xmin: 227 xid:229 level0
+可见
+释放表锁：10026 锁类型1
+释放行锁：0,0 锁类型4
+释放表锁：10026 锁类型1
+写入事务开始日志,xid:230
+查询引擎初始化
+查询引擎的事务发起者: 230sql语句id:1是否为修改sql语句：1 1
+上表锁：10026锁类型1
+修改引擎的事务发起者: 230sql语句id:1
+update
+record_max:4294967295 xmin: 227 xid:230 level0
+可见
+上行锁：0, 0 锁类型4
+record_max:4294967295 xmin: 227 xid:230 level0
+可见
+record_max:4294967295 xmin: 227 xid:230 level0
+可见
+record_max:4294967295 xmin: 230 xid:230 level0
+可见
+循环 当前xid,cid:230 1
+该记录xid,cid:230 1
+万圣节问题读取结束2
+写入事务开始日志,xid:231
+查询引擎初始化
+查询引擎的事务发起者: 231sql语句id:1是否为修改sql语句：1 1
+上表锁：10026锁类型1
+修改引擎的事务发起者: 231sql语句id:1
+update
+record_max:230 xmin: 227 xid:231 level0
+可见
+释放表锁：10026 锁类型1
+写入事务开始日志,xid:232
+撤销操作删除了该行:执行者为:230
+撤销操作删除了该行:执行者为:230
+释放行锁：0,0 锁类型4
+释放表锁：10026 锁类型1
+查询引擎初始化
+查询引擎的事务发起者: 232sql语句id:1是否为修改sql语句：1 1
+上表锁：10026锁类型1
+修改引擎的事务发起者: 232sql语句id:1
+update
+record_max:4294967295 xmin: 227 xid:232 level0
+可见
+上行锁：0, 0 锁类型4
+record_max:4294967295 xmin: 227 xid:232 level0
+可见
+record_max:4294967295 xmin: 227 xid:232 level0
+可见
+record_max:230 xmin: 230 xid:232 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 232 xid:232 level0
+可见
+循环 当前xid,cid:232 1
+该记录xid,cid:232 1
+万圣节问题读取结束2
+释放行锁：0,0 锁类型4
+释放表锁：10026 锁类型1
+写入事务开始日志,xid:233
+查询引擎初始化
+查询引擎的事务发起者: 233sql语句id:1是否为修改sql语句：0 0
+上表锁：10026锁类型0
+record_max:232 xmin: 227 xid:233 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 227 xid:233 level0
+可见
+record_max:4294967295 xmin: 227 xid:233 level0
+可见
+record_max:230 xmin: 230 xid:233 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 232 xid:233 level0
+可见
+读取结束
+释放表锁：10026 锁类型0
+写入事务开始日志,xid:234
+写入事务开始日志,xid:235
+查询引擎初始化
+查询引擎的事务发起者: 234sql语句id:1是否为修改sql语句：0 0
+上表锁：10026锁类型0
+record_max:232 xmin: 227 xid:234 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 227 xid:234 level0
+可见
+record_max:4294967295 xmin: 227 xid:234 level0
+可见
+record_max:230 xmin: 230 xid:234 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 232 xid:234 level0
+可见
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 235sql语句id:1是否为修改sql语句：0 0
+上表锁：10026锁类型0
+record_max:232 xmin: 227 xid:235 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 227 xid:235 level0
+可见
+record_max:4294967295 xmin: 227 xid:235 level0
+可见
+record_max:230 xmin: 230 xid:235 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 232 xid:235 level0
+可见
+读取结束
+插入executor
+insert executor撤销操作删除了该行:执行者为:235
+释放表锁：10026 锁类型1
+写入事务开始日志,xid:236
+插入executor
+insert executoradd new Page
+查询引擎初始化
+查询引擎的事务发起者: 236sql语句id:1是否为修改sql语句：0 0
+上表锁：10026锁类型0
+record_max:232 xmin: 227 xid:236 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 227 xid:236 level0
+可见
+record_max:4294967295 xmin: 227 xid:236 level0
+可见
+record_max:230 xmin: 230 xid:236 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 232 xid:236 level0
+可见
+record_max:235 xmin: 235 xid:236 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 234 xid:236 level0
+虽然为老事务但未提交
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 236sql语句id:2是否为修改sql语句：1 1
+删除executor
+record_max:232 xmin: 227 xid:236 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 227 xid:236 level0
+可见
+上行锁：0, 1 锁类型4
+record_max:4294967295 xmin: 227 xid:236 level0
+可见
+record_max:230 xmin: 230 xid:236 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 232 xid:236 level0
+可见
+record_max:235 xmin: 235 xid:236 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 234 xid:236 level0
+虽然为老事务但未提交
+循环 读取结束2
+释放行锁：0,1 锁类型4
+释放表锁：10026 锁类型1
+写入事务开始日志,xid:237
+撤销操作删除了该行:执行者为:234
+撤销操作删除了该行:执行者为:234
+释放表锁：10026 锁类型1
+写入事务开始日志,xid:238
+上表锁：10026锁类型2
+查询引擎初始化
+查询引擎的事务发起者: 237sql语句id:1是否为修改sql语句：0 0
+上表锁：10026锁类型0
+record_max:232 xmin: 227 xid:237 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 227 xid:237 level0
+可见
+record_max:4294967295 xmin: 227 xid:237 level0
+可见
+record_max:230 xmin: 230 xid:237 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 232 xid:237 level0
+可见
+record_max:235 xmin: 235 xid:237 level0
+该元组已删除1
+循环 record_max:234 xmin: 234 xid:237 level0
+该元组已删除1
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 237sql语句id:2是否为修改sql语句：1 1
+释放表锁：10026 锁类型2
+写入事务开始日志,xid:239
+插入executor
+insert executor查询引擎初始化
+查询引擎的事务发起者: 239sql语句id:1是否为修改sql语句：0 0
+上表锁：10026锁类型0
+record_max:232 xmin: 227 xid:239 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 227 xid:239 level0
+可见
+record_max:4294967295 xmin: 227 xid:239 level0
+可见
+record_max:230 xmin: 230 xid:239 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 232 xid:239 level0
+可见
+record_max:235 xmin: 235 xid:239 level0
+该元组已删除1
+循环 record_max:234 xmin: 234 xid:239 level0
+该元组已删除1
+循环 record_max:4294967295 xmin: 238 xid:239 level0
+虽然为老事务但未提交
+循环 读取结束2
+查询引擎初始化
+查询引擎的事务发起者: 239sql语句id:2是否为修改sql语句：1 1
+end检查点日志写入的dpt_,att_大小为：0 2
+lab3/60-mv2pl.test 循环 循环 读取结束2
+循环 读取结束
+读取结束
+写入事务开始日志,xid:240
+add new Page
+写入事务开始日志,xid:241
+插入executor
+上表锁：10027锁类型1
+insert executor释放表锁：10027 锁类型1
+写入事务开始日志,xid:242
+写入事务开始日志,xid:243
+写入事务开始日志,xid:244
+写入事务开始日志,xid:245
+查询引擎初始化
+查询引擎的事务发起者: 245sql语句id:1是否为修改sql语句：0 0
+上表锁：10027锁类型0
+record_max:4294967295 xmin: 241 xid:245 level2
+可见
+record_max:4294967295 xmin: 241 xid:245 level2
+可见
+读取结束
+写入事务开始日志,xid:246
+查询引擎初始化
+查询引擎的事务发起者: 245sql语句id:2是否为修改sql语句：0 0
+record_max:4294967295 xmin: 241 xid:245 level2
+可见
+record_max:4294967295 xmin: 241 xid:245 level2
+可见
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 246sql语句id:1是否为修改sql语句：0 0
+上表锁：10027锁类型0
+record_max:4294967295 xmin: 241 xid:246 level2
+可见
+LowRowsExecutor
+上行锁：0, 0 锁类型4
+record_max:4294967295 xmin: 241 xid:246 level2
+可见
+读取结束
+释放表锁：10027 锁类型0
+查询引擎初始化
+查询引擎的事务发起者: 246sql语句id:2是否为修改sql语句：1 1
+修改引擎的事务发起者: 246sql语句id:2
+update
+record_max:4294967295 xmin: 241 xid:246 level2
+可见
+end检查点日志写入的dpt_,att_大小为：0 1
+lab3/70-write_skew_serializable.test 循环 循环 读取结束2
+循环 读取结束
+读取结束
+写入事务开始日志,xid:247
+add new Page
+写入事务开始日志,xid:248
+插入executor
+上表锁：10028锁类型1
+insert executor释放表锁：10028 锁类型1
+写入事务开始日志,xid:249
+写入事务开始日志,xid:250
+写入事务开始日志,xid:251
+查询引擎初始化
+查询引擎的事务发起者: 251sql语句id:1是否为修改sql语句：0 0
+上表锁：10028锁类型0
+record_max:4294967295 xmin: 248 xid:251 level2
+可见
+LowRowsExecutor
+上行锁：0, 0 锁类型2
+record_max:4294967295 xmin: 248 xid:251 level2
+可见
+LowRowsExecutor
+上行锁：0, 1 锁类型2
+读取结束
+查询引擎初始化
+查询引擎的事务发起者: 251sql语句id:2是否为修改sql语句：0 0
+record_max:4294967295 xmin: 248 xid:251 level2
+可见
+LowRowsExecutor
+end检查点日志写入的dpt_,att_大小为：0 1
