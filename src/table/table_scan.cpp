@@ -47,7 +47,7 @@ bool TableScan::MvccShowOrNot(Record* record, xid_t xid, IsolationLevel isolatio
   // 删除操作已提交
   std::cout << "record_max:" << record_xmax << " xmin: " << record_xmin << " xid:" 
   << xid << " level" << static_cast<int>(isolation_level) << std::endl;
-  if (record_xmax <= xid && (active_xids.find(record_xmax) == active_xids.end() || record_xmax == xid)) {
+  if ((record_xmax < xid && active_xids.find(record_xmax) == active_xids.end()) || record_xmax == xid) {
     std::cout << "该元组已删除1" << std::endl;
     return false;
   }
@@ -61,16 +61,16 @@ bool TableScan::MvccShowOrNot(Record* record, xid_t xid, IsolationLevel isolatio
   //   return false;
   // }
   // 如果是当前事务之后的新事务，隔离级别不是读已提交则不可见
-    if (record_xmin > xid && isolation_level != IsolationLevel::READ_COMMITTED) {
-    std::cout << "不为读未提交或读已提交，读取不到当前事务之后开始的新事务" << std::endl;
-    return false;
-  }
+  //   if (record_xmin > xid && isolation_level != IsolationLevel::READ_COMMITTED) {
+  //   std::cout << "不为读未提交或读已提交，读取不到当前事务之后开始的新事务" << std::endl;
+  //   return false;
+  // }
   // 如果是当前事务之后的新事务，隔离级别为读已提交，但未提交，则不可见
-  if (record_xmin > xid && isolation_level == IsolationLevel::READ_COMMITTED 
-      && active_xids.find(record_xmin) != active_xids.end()) {
-        std::cout << "读已提交，可以读取到当前事务之后开始的新事务，但该新事务未提交" << std::endl;
-    return false;
-  }
+  // if (record_xmin > xid && isolation_level == IsolationLevel::READ_COMMITTED 
+  //     && active_xids.find(record_xmin) != active_xids.end()) {
+  //       std::cout << "读已提交，可以读取到当前事务之后开始的新事务，但该新事务未提交" << std::endl;
+  //   return false;
+  // }
   // 虽然为老事务但未提交
   if (record_xmin < xid && active_xids.find(record_xmin) != active_xids.end()) {
     std::cout << "虽然为老事务但未提交" << std::endl;
