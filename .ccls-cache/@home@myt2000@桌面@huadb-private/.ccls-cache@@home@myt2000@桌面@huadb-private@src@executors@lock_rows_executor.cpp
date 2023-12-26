@@ -13,7 +13,7 @@ std::shared_ptr<Record> LockRowsExecutor::Next() {
   if (record == nullptr) {
     return nullptr;
   }
-  // std::cout << "LowRowsExecutor" << std::endl;
+  std::cout << "LowRowsExecutor" << std::endl;
   // 根据 plan_ 的 lock type 获取正确的锁，加锁失败时抛出异常
   // LAB 3 BEGIN
   bool lock_result = false;

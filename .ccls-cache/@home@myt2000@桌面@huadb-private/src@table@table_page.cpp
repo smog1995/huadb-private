@@ -90,6 +90,7 @@ std::unique_ptr<Record> TablePage::GetRecord(slotid_t slot_id, const ColumnList 
   std::unique_ptr<Record> rec_ptr;
   rec_ptr = std::make_unique<Record>(record);
   rec_ptr->DeserializeHeaderFrom(page_data_ + slot.offset_);
+  // std::cout << rec_ptr->GetXmin() <<std::endl;
   return rec_ptr;
 }
 

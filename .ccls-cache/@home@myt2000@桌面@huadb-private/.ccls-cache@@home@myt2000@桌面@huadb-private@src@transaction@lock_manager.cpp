@@ -22,15 +22,15 @@ bool LockManager::LockTable(xid_t xid, LockType lock_type, oid_t oid) {
    */
   for (auto ele = lock_request_queue->request_queue_.begin(); ele != lock_request_queue->request_queue_.end(); ele++) {
     if ((*ele)->xid_ != xid && !Compatible((*ele)->lock_type_, lock_type)) {
-      // std::cout << "上锁不兼容" << static_cast<int>((*ele)->lock_type_) << " :" << static_cast<int>(lock_type)<< std::endl;
-      // std::cout << xid << "该锁xid" << (*ele)->xid_ << std::endl;
+      std::cout << "上锁不兼容" << static_cast<int>((*ele)->lock_type_) << " :" << static_cast<int>(lock_type)<< std::endl;
+      std::cout << xid << "该锁xid" << (*ele)->xid_ << std::endl;
       return false;
     }
   }
   for (auto ele = lock_request_queue->request_queue_.begin(); ele != lock_request_queue->request_queue_.end(); ele++) {
     if ((*ele)->xid_ == xid) {
       if ((*ele)->lock_type_ == lock_type) {
-        // std::cout << "(原地升级锁,但是升级类型相同，无需升级)上表锁：" << oid << "锁类型" << static_cast<int>(lock_type) << std::endl;
+        std::cout << "(原地升级锁,但是升级类型相同，无需升级)上表锁：" << oid << "锁类型" << static_cast<int>(lock_type) << std::endl;
         return true;
       }
       LockType upgrade_lock = Upgrade((*ele)->lock_type_, lock_type);
@@ -39,14 +39,14 @@ bool LockManager::LockTable(xid_t xid, LockType lock_type, oid_t oid) {
         break;
       } else { // 否则直接原地升级
         (*ele)->lock_type_ = upgrade_lock;
-        // std::cout << "(原地升级锁)上表锁：" << oid << "锁类型" << static_cast<int>(lock_type) << std::endl;
+        std::cout << "(原地升级锁)上表锁：" << oid << "锁类型" << static_cast<int>(lock_type) << std::endl;
         return true;
       }
     }
   }
   auto lock_request = new LockRequest(xid, lock_type, oid);
   lock_request_queue->request_queue_.push_back(std::unique_ptr<LockRequest>(lock_request));
-  // std::cout << "上表锁：" << oid << "锁类型" << static_cast<int>(lock_type) << std::endl;
+  std::cout << "上表锁：" << oid << "锁类型" << static_cast<int>(lock_type) << std::endl;
   return true;
 }
 
@@ -75,14 +75,14 @@ bool LockManager::LockRow(xid_t xid, LockType lock_type, oid_t oid, Rid rid) {
         break;
       } else { // 否则直接原地升级
         (*ele)->lock_type_ = upgrade_lock_;
-        // std::cout << "(原地升级）上行锁：" << rid.page_id_ << ", " << rid.slot_id_ << " 锁类型" << static_cast<int>(lock_type) << std::endl;
+        std::cout << "(原地升级）上行锁：" << rid.page_id_ << ", " << rid.slot_id_ << " 锁类型" << static_cast<int>(lock_type) << std::endl;
         return true;
       }
     }
   }
   auto lock_request = new LockRequest(xid, lock_type, oid);
   lock_request_queue->request_queue_.push_back(std::unique_ptr<LockRequest>(lock_request));
-  // std::cout << "上行锁：" << rid.page_id_ << ", " << rid.slot_id_ << " 锁类型" << static_cast<int>(lock_type) << std::endl;
+  std::cout << "上行锁：" << rid.page_id_ << ", " << rid.slot_id_ << " 锁类型" << static_cast<int>(lock_type) << std::endl;
   return true;
 }
 
@@ -93,7 +93,7 @@ void LockManager::ReleaseLocks(xid_t xid) {
   for (auto &[rid, lock_request_queue] : row_lock_map_) {
     for (auto ele = lock_request_queue->request_queue_.begin(); ele != lock_request_queue->request_queue_.end();) {
       if ((*ele)->xid_ == xid) {
-        // std::cout << "释放行锁：" << rid.page_id_ << "," << rid.slot_id_<< " 锁类型" << static_cast<int>((*ele)->lock_type_) << std::endl;
+        std::cout << "释放行锁：" << rid.page_id_ << "," << rid.slot_id_<< " 锁类型" << static_cast<int>((*ele)->lock_type_) << std::endl;
         ele = lock_request_queue->request_queue_.erase(ele++);
       } else {
         ele++;
@@ -104,7 +104,7 @@ void LockManager::ReleaseLocks(xid_t xid) {
   for (auto &[oid, lock_request_queue] : table_lock_map_) {
     for (auto ele = lock_request_queue->request_queue_.begin(); ele != lock_request_queue->request_queue_.end();) {
       if ((*ele)->xid_ == xid) {
-        // std::cout << "释放表锁：" << oid << " 锁类型" << static_cast<int>((*ele)->lock_type_) << std::endl;
+        std::cout << "释放表锁：" << oid << " 锁类型" << static_cast<int>((*ele)->lock_type_) << std::endl;
         ele = lock_request_queue->request_queue_.erase(ele++);
       } else {
         ele++;
