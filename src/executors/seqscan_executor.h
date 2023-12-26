@@ -1,5 +1,7 @@
 #pragma once
 
+#include <unordered_set>
+#include "common/typedefs.h"
 #include "executors/executor.h"
 #include "operators/seqscan_operator.h"
 

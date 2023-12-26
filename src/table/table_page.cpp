@@ -42,7 +42,8 @@ slotid_t TablePage::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_
   // 将 page 标记为 dirty
   // LAB 1 BEGIN
   *upper_ -= record->GetSize();
-  db_size_t record_size = record->SerializeTo(page_data_ + *upper_);  //  写入record
+  db_size_t record_size = record->GetSize();
+  record->SerializeTo(page_data_ + *upper_);  //  写入record
   char* recordheader_data = new char[RECORD_HEADER_SIZE];
   record->SetXmin(xid);
   record->SetCid(cid);
@@ -64,11 +65,9 @@ slotid_t TablePage::InsertRecord(std::shared_ptr<Record> record, xid_t xid, cid_
 void TablePage::DeleteRecord(slotid_t slot_id, xid_t xid) {
   // 更改实验1的实现，改为通过 xid 标记删除
   // LAB 3 BEGIN
-
   // 将 slot_id 对应的 record 标记为删除
   // 将 page 标记为 dirty
   // LAB 1 BEGIN
-  
   Slot slot = slots_[slot_id];
   // std::cout << slot.offset_ << " " << slot.size_ <<std::endl;
   bool deleted = true;
@@ -91,18 +90,14 @@ std::unique_ptr<Record> TablePage::GetRecord(slotid_t slot_id, const ColumnList 
   std::unique_ptr<Record> rec_ptr;
   rec_ptr = std::make_unique<Record>(record);
   rec_ptr->DeserializeHeaderFrom(page_data_ + slot.offset_);
-  // std::cout << rec_ptr->GetXmin() <<std::endl;
   return rec_ptr;
 }
 
 void TablePage::UndoDeleteRecord(slotid_t slot_id) {
   // 修改 undo delete 的逻辑
   // LAB 3 BEGIN
-  
   // 清除记录的删除标记
   // LAB 2 BEGIN
-  
-  
   Slot slot = slots_[slot_id];
   size_t offset = slot.offset_;
   // recordHeader成员顺序：deleted_,xmin_,xmax_,cid_ ,需修改deleted_为false和xmax_改为最大事务大小
@@ -122,7 +117,7 @@ void TablePage::RedoInsertRecord(slotid_t slot_id, char *raw_record, db_size_t p
   // LAB 2 BEGIN
   memcpy(page_data_ + page_offset, raw_record, record_size); 
   // 需要满足幂等性，只有此刻表确实没成功插入时，upper需要移动（其他情况则是upper不位于此处）
-  if (*upper_ == page_offset + record_size) { 
+  if (*upper_ == page_offset + record_size) {
     *upper_ -= record_size;
     *lower_ += 4; 
   }

@@ -31,7 +31,6 @@ void LogManager::SetDirty(oid_t oid, pageid_t page_id, lsn_t lsn) {
 
 lsn_t LogManager::AppendInsertLog(xid_t xid, oid_t oid, pageid_t page_id, slotid_t slot_id, db_size_t offset,
                                   db_size_t size, char *new_record) {
-  // std::cout << "写入事务插入日志, xid:" << xid << std::endl;
   if (att_.find(xid) == att_.end()) {
     throw DbException(std::to_string(xid) + " does not exist in att (in AppendInsertLog)");
   }
@@ -92,7 +91,7 @@ lsn_t LogManager::AppendNewPageLog(xid_t xid, oid_t oid, pageid_t prev_page_id, 
 }
 
 lsn_t LogManager::AppendBeginLog(xid_t xid) {
-  // std::cout << "写入事务开始日志,xid:" << xid << std::endl; 
+  std::cout << "写入事务开始日志,xid:" << xid << std::endl; 
   if (att_.find(xid) != att_.end()) {
     throw DbException(std::to_string(xid) + " already exists in att");
   }
@@ -182,14 +181,25 @@ void LogManager::Rollback(xid_t xid) {
       in.close();
     }
   }
+  size_t last_record_size = 0;
+  if (lsn <= flushed_lsn) {
+    last_record_size = flushed_lsn - lsn;
+  }
   while (!rollback_finish) {
     // std::cout << flushed_lsn<<std::endl;
     if (prev_lsn <= flushed_lsn) { // 不在日志缓冲区中
       // std::cout << "日志不在内存" << std::endl;
-      size_t record_size = lsn - prev_lsn;
+      size_t record_size;
+      if (last_record_size != 0 || prev_lsn == lsn) {
+        record_size = flushed_lsn - lsn;
+      } else {
+        record_size = lsn - prev_lsn;
+      }
+      // std::cout << "日志大小：" << record_size << std::endl;
       char* log = new char[record_size];
       disk_.ReadLog(lsn, record_size, log);
       log_record = LogRecord::DeserializeFrom(log);
+      lsn = prev_lsn;
       prev_lsn = log_record->GetPrevLSN(); 
       delete[] log;
       if (log_record->GetType() == LogType::INSERT || log_record->GetType() == LogType::DELETE 
@@ -197,24 +207,27 @@ void LogManager::Rollback(xid_t xid) {
         log_record->Undo(*buffer_pool_, *catalog_, *this, lsn, prev_lsn);
       } else if (log_record->GetType() == LogType::BEGIN) {
         rollback_finish = true;
+        // std::cout << "回滚结束" << std::endl;
       }
+      
     } else {
       // std::cout << "日志在内存中" << std::endl;
       auto iterator = log_buffer_.cbegin();
-      lsn = prev_lsn;
       for (; iterator != log_buffer_.cend(); iterator++) {
         log_record = *iterator;
         if (log_record->GetLSN() == lsn) {
           prev_lsn = log_record->GetPrevLSN();
           // std::cout << " prevlsn:" << prev_lsn <<std::endl;
           // std::cout << "日志类型为：" << (int)log_record->GetType() << std::endl;
-          if (log_record->GetType() == LogType::INSERT || log_record->GetType() == LogType::DELETE) {
+          if (log_record->GetType() == LogType::INSERT || log_record->GetType() == LogType::DELETE
+           || log_record->GetType() == LogType::NEW_PAGE) {
             log_record->Undo(*buffer_pool_, *catalog_, *this, lsn, prev_lsn);
             // std::cout <<"undo" <<std::endl;
           } else if (log_record->GetType() == LogType::BEGIN) {
             rollback_finish = true;
             // std::cout << "回滚结束" << std::endl;
           }
+          lsn = prev_lsn;
           break;
         }
       }
@@ -273,7 +286,7 @@ void LogManager::Flush(lsn_t lsn) {
 void LogManager::Analyze() {
   // 恢复 Master Record 等元信息
   // 恢复故障时正在使用的数据库
-  // std::cout << "analyze" <<std::endl;
+  std::cout << "analyze" <<std::endl;
   std::ifstream in(NEXT_LSN_NAME);
   lsn_t next_lsn;
   in >> next_lsn;
@@ -373,7 +386,7 @@ void LogManager::Redo() {
       case LogType::ROLLBACK:
         // std::cout << "事务xid：" << log_record->GetXid() << " " 
         // << " " << att_.count(log_record->GetXid()) << std::endl;
-        // Rollback(log_record->GetXid());
+        Rollback(log_record->GetXid());
         att_.erase(log_record->GetXid());
         break;
       case LogType::BEGIN_CHECKPOINT:
@@ -386,7 +399,6 @@ void LogManager::Redo() {
     }    
     log_data_offset += log_record->GetSize();
     log_buffer_.push_back(std::move(log_record));
-    
   }
   // std::cout << "redo完后此时attsize为" << att_.size() << std::endl;
   delete[] log_data;
