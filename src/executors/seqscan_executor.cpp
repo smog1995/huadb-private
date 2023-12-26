@@ -41,10 +41,10 @@ std::shared_ptr<Record> SeqScanExecutor::Next() {
   // LAB 3 BEGIN
   // std::cout << "next" << std::endl;
   auto record = scan_->GetNextRecord(context_.GetXid(), context_.GetIsolationLevel(), context_.GetCid(), active_xids);
-  while (record != nullptr && record->GetXmax() > context_.GetXid() && record->GetXmax() != NULL_XID 
-      && active_xids.find(record->GetXmax()) == active_xids.end() && plan_->HasLock()) {
-        record = scan_->GetNextRecord(context_.GetXid(), context_.GetIsolationLevel(), context_.GetCid(), active_xids);
-      }
+  // while (record != nullptr && record->GetXmax() > context_.GetXid() && record->GetXmax() != NULL_XID 
+  //     && active_xids.find(record->GetXmax()) == active_xids.end() && plan_->HasLock()) {
+  //       record = scan_->GetNextRecord(context_.GetXid(), context_.GetIsolationLevel(), context_.GetCid(), active_xids);
+  //     }
 }
 
 }  // namespace huadb
